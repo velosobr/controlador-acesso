@@ -29,7 +29,7 @@ Um sistema é responsável por controlar o acesso de pessoas às salas e laborat
 ##### e deve ser armazenado um registro da data e hora da tentativa de acesso negada. Deve ser registrado: data e hora da tentativa de acesso, matrícula do funcionário, número da sala e o motivo de negação de acesso.
 
 #### Também deve ser possível pesquisar pelos registros de acesso negados ou permitidos. 
-##### O sistema deve permitir emitir um relatório de acessos às salas, onde seja possível pesquisar/filtrar por: motivo de negação/permissão, pela matrícula da pessoa ou pelo número da sala.
+##### O sistema deve permitir emitir um relatório de acessos às salas, onde seja possível pesquisar pela matrícula da pessoa ou pelo número da sala.
 
 ### Considere algumas regras:
 1. Não podem existir duas pessoas cadastradas com o mesmo número de matrícula. Ao se
