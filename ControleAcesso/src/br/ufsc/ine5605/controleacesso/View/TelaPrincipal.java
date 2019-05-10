@@ -5,10 +5,21 @@
  */
 package br.ufsc.ine5605.controleacesso.View;
 
+import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
+
 /**
  *
  * @author Linnety3
  */
 public class TelaPrincipal {
+
+    private CtrlPrincipal cPrincipal;
+
+    public TelaPrincipal(CtrlPrincipal cPrincipal) {
+        this.cPrincipal = cPrincipal;
+    }
+    
+    
+    
     
 }

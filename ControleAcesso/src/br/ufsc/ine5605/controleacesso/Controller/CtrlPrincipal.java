@@ -5,13 +5,21 @@
  */
 package br.ufsc.ine5605.controleacesso.Controller;
 
+import br.ufsc.ine5605.controleacesso.View.TelaPrincipal;
+
 /**
  *
  * @author Linnety3
  */
 public class CtrlPrincipal {
 
-    public void inicio() {
+    private TelaPrincipal telaInicial;
+
+    public CtrlPrincipal() {
+        telaInicial = new TelaPrincipal(this);
+    }
+    
+    public void abreTelaInicial() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -19,7 +19,7 @@ public class ControleAcesso {
     public static void main(String[] args) {
         CtrlPrincipal controle = new CtrlPrincipal();
         
-        controle.inicio();        
+        controle.abreTelaInicial();        
     }
 
 }
