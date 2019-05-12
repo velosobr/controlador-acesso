@@ -9,6 +9,6 @@ package br.ufsc.ine5605.controleacesso.Model;
  *
  * @author Linnety3
  */
-public class Aluno {
+public class Aluno extends Pessoa{
     
 }
