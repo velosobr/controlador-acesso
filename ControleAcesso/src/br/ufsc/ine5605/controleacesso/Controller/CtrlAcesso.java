@@ -12,5 +12,7 @@ import br.ufsc.ine5605.controleacesso.interfaces.ICtrlAcesso;
  * @author Linnety3
  */
 public class CtrlAcesso implements ICtrlAcesso {
-    
+
+    CtrlAcesso(CtrlPrincipal aThis) {
+    }
 }

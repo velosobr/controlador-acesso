@@ -10,19 +10,27 @@ import br.ufsc.ine5605.controleacesso.View.TelaPrincipal;
 
 /**
  *
- * @author Linnety3
+ * @author Lino Veloso
  */
 public class CtrlPrincipal {
 
-    private TelaPrincipal telaInicial;
-    private TelaAdm telaAdm;
+    private final TelaPrincipal telaInicial;
+    private final TelaAdm telaAdm;
+    private final CtrlAcesso ctrlAcesso;
+    private final CtrlPessoa ctrlPessoa;
+    private final CtrlSala ctrlSala;
 
     public CtrlPrincipal() {
         telaInicial = new TelaPrincipal(this);
+        telaAdm = new TelaAdm(this);
+        ctrlAcesso = new CtrlAcesso(this);
+        ctrlPessoa = new CtrlPessoa(this);
+        ctrlSala = new CtrlSala(this);
+
     }
 
     public void abreTelaInicial() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        telaInicial.inicio();
     }
 
     public boolean verificaSeEhAdm(int matricula) {
@@ -40,6 +48,26 @@ public class CtrlPrincipal {
 
     public void acessaCtrlPessoa() {
 
+    }
+
+    public TelaPrincipal getTelaInicial() {
+        return telaInicial;
+    }
+
+    public TelaAdm getTelaAdm() {
+        return telaAdm;
+    }
+
+    public CtrlAcesso getCtrlAcesso() {
+        return ctrlAcesso;
+    }
+
+    public CtrlPessoa getCtrlPessoa() {
+        return ctrlPessoa;
+    }
+
+    public CtrlSala getCtrlSala() {
+        return ctrlSala;
     }
 
 }

@@ -12,5 +12,11 @@ import br.ufsc.ine5605.controleacesso.interfaces.ICtrlPessoa;
  * @author Linnety3
  */
 public class CtrlPessoa implements ICtrlPessoa{
+
+    CtrlPessoa(CtrlPrincipal aThis) {
+    }
+
+    
+
     
 }

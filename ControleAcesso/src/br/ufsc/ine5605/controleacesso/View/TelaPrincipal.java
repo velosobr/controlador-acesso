@@ -6,6 +6,7 @@
 package br.ufsc.ine5605.controleacesso.View;
 
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
+import java.util.Scanner;
 
 /**
  *
@@ -13,13 +14,21 @@ import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
  */
 public class TelaPrincipal {
 
-    private CtrlPrincipal cPrincipal;
+    private final CtrlPrincipal ctrlPrincipal;
 
-    public TelaPrincipal(CtrlPrincipal cPrincipal) {
-        this.cPrincipal = cPrincipal;
+    private final Scanner teclado;
+
+    public TelaPrincipal(CtrlPrincipal ctrlprincipal) {
+        this.ctrlPrincipal = ctrlprincipal;
+        this.teclado = new Scanner(System.in);
     }
-    
-    
-    
-    
+
+    public CtrlPrincipal getCtrlPrincipal() {
+        return ctrlPrincipal;
+    }
+
+    public void inicio() {
+        System.out.println("Olá o programa está funcionando");
+    }
+
 }

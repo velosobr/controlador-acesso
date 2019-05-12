@@ -12,5 +12,9 @@ import br.ufsc.ine5605.controleacesso.interfaces.ICtrlSala;
  * @author Linnety3
  */
 public class CtrlSala implements ICtrlSala {
-    
+
+    public CtrlSala(CtrlPrincipal ctrlPrincipal) {
+        
+    }
+
 }

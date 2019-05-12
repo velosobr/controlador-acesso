@@ -5,10 +5,16 @@
  */
 package br.ufsc.ine5605.controleacesso.View;
 
+import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
+
 /**
  *
  * @author Linnety3
  */
 public class TelaAdm {
-    
+
+    public TelaAdm(CtrlPrincipal aThis) {
+        
+    }
+
 }
