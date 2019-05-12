@@ -5,10 +5,12 @@
  */
 package br.ufsc.ine5605.controleacesso.Controller;
 
+import br.ufsc.ine5605.controleacesso.interfaces.ICtrlAcesso;
+
 /**
  *
  * @author Linnety3
  */
-public class CtrlAcesso {
+public class CtrlAcesso implements ICtrlAcesso {
     
 }
