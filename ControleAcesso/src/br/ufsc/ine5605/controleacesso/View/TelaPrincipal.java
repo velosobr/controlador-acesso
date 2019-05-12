@@ -29,6 +29,7 @@ public class TelaPrincipal {
 
     public void inicio() {
         System.out.println("Olá o programa está funcionando");
+        System.out.println("Teste de commit para ver quantos commits cada contribuidor tem");
     }
 
 }

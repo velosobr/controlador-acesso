@@ -16,11 +16,14 @@ import java.util.ArrayList;
 public interface ICtrlPessoa {
     
      /**
-     * É utilizado pela TelaPessoa para incluir um novo
-     * É utilizado pela TelaFuncionario para incluir um novo funcionário na lista de funcionários e gerar matrícula sequencial
-     * para cada nova inclusão
-     * @param conteudo - Conteúdo do tipo DadosFuncionario recebido na entrada do método cadastroFuncionario da TelaFuncionario
-     * @return novo - Novo funcionário quando o conteudo não recebido não é vazio
+     * É utilizado pela TelaPessoa para incluir um novo Aluno na lista de pessoas.
+     * @param curso - Qual curso o aluno está cursando na universidade.
+     * @param matricula - Qual matricula o aluno possui.
+     * @param telefone - Qual telefone do aluno.
+     * @param nome - Nome do aluno a ser cadastrado.
+     * @param email - email do aluno.
+     * @param listaSalas - Lista de salas (salas cadastradas na tela de salas) o aluno tem acesso,.
+     * @return novo - Novo Aluno quando o conteudo não é vazio.
      */    
     public Pessoa incluirAluno (String curso, int matricula, int telefone, String nome, String email, ArrayList<Sala> listaSalas);
     
