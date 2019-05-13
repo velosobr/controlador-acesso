@@ -35,7 +35,7 @@ public interface ICtrlSala {
      * @param codigoSala - código da sala.
      * @return - deve retornar um objeto do tipo sala.
      */
-    public Sala findSalabyCodigoSala(String codigoSala);
+    public Sala findSalaByCodigoSala(String codigoSala);
     
     /**
      * Método responsável por cadastrar acesso das pessoas a sala.
@@ -44,17 +44,17 @@ public interface ICtrlSala {
     public void cadastraAcessoPessoa(int matricula);
     
     /**
-     * 
-     * @param matricula 
+     * Deleta da pessoa o acesso à sala
+     * @param matricula Atributo responsável por encontrar a pessoa.
      */
-    public void deletaAcessoPessoa(int matricula);
+    public void deletaAcessoSalaPessoa(int matricula);
     
     /**
-     * 
-     * @param codigo
-     * @return 
+     * Lista as pessoas que possuem acesso à sala.
+     * @param codigoSala código da sala para encontrar as pessoas cadastradas nela
+     * @return - retorna os nomes das pessoas cadastradas.
      */
-    public String listaPessoasCadastradas(String codigo);
+    public String listaPessoasCadastradas(String codigoSala);
     
     
     
