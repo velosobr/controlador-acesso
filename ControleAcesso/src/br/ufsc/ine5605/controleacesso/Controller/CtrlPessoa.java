@@ -5,8 +5,11 @@
  */
 package br.ufsc.ine5605.controleacesso.Controller;
 
+import br.ufsc.ine5605.controleacesso.Model.Aluno;
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
+import br.ufsc.ine5605.controleacesso.Model.Servidor;
+import br.ufsc.ine5605.controleacesso.View.TelaPessoa;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlPessoa;
 import java.util.ArrayList;
 
@@ -14,15 +17,39 @@ import java.util.ArrayList;
  *
  * @author Linnety3
  */
-public class CtrlPessoa implements ICtrlPessoa{
-    private ArrayList <Pessoa> pessoas;
-    CtrlPessoa(CtrlPrincipal aThis) {
+public class CtrlPessoa implements ICtrlPessoa {
+
+    private CtrlPrincipal ctrlPrincipal;
+    private TelaPessoa telaPessoa;
+    private ArrayList<Pessoa> pessoas;
+
+    public CtrlPessoa(CtrlPrincipal ctrlPrincipal) {
+        this.ctrlPrincipal = ctrlPrincipal;
         this.pessoas = new ArrayList<>();
+        this.telaPessoa = new TelaPessoa(this);
+    }
+
+    
+
+    //######################ISERIR EXCEPTION########################
+    @Override
+    public void incluiAluno(int matricula, String nome, int telefone, String email, String curso) {
+        Pessoa alunoParaVerificar = findPessoaByMatricula(matricula);
+        Pessoa alunoParaIncluir = null;
+        if(alunoParaVerificar==null){
+            alunoParaIncluir = new Aluno(matricula, nome, telefone, email, curso );
+        }
+        pessoas.add(alunoParaIncluir);
     }
 
     @Override
-    
-         //######################ISERIR EXCEPTION########################
+    public void incluiServidor(boolean administrador, String cargo, int matricula, int telefone, String nome, String email, ArrayList<Sala> listaSalas) {
+        Pessoa servidorParaVerificar = findPessoaByMatricula(matricula);
+        Pessoa servidorParaIncluir = null;
+        if(servidorParaIncluir==null){
+            servidorParaIncluir = new Servidor(matricula, nome, telefone, email, cargo, administrador);
+        }
+    }
 
     public void delPessoa(int matricula) {
         Pessoa pessoaParaDeletar = findPessoaByMatricula(matricula);
@@ -33,9 +60,9 @@ public class CtrlPessoa implements ICtrlPessoa{
     public void cadastraSala(int matricula, String codigoSala) {
         boolean existeSala = false;
         Pessoa pessoaCadastro = findPessoaByMatricula(matricula);
-        if(pessoaCadastro!=null){
-            
-        }     
+        if (pessoaCadastro != null) {
+
+        }
     }
 
     @Override
@@ -48,23 +75,15 @@ public class CtrlPessoa implements ICtrlPessoa{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void incluirAluno(String curso, int matricula, int telefone, String nome, String email, ArrayList<Sala> listaSalas) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void incluirServidor(boolean administrador, String cargo, int matricula, int telefone, String nome, String email, ArrayList<Sala> listaSalas) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public Pessoa findPessoaByMatricula(int matricula){
-        for(Pessoa pessoa: pessoas){
-            if(pessoa.getMatricula()== matricula){
+    public Pessoa findPessoaByMatricula(int matricula) {
+        for (Pessoa pessoa : pessoas) {
+            if (pessoa.getMatricula() == matricula) {
                 return pessoa;
-            
-            }   
-       }
-       return null; 
+
+            }
+        }
+        return null;
     }
+    
+    
 }

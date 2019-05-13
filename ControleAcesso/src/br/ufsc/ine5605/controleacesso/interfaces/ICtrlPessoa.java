@@ -24,10 +24,9 @@ public interface ICtrlPessoa {
      * @param telefone - Qual telefone do aluno.
      * @param nome - Nome do aluno a ser cadastrado.
      * @param email - email do aluno.
-     * @param listaSalas - Lista de salas (salas cadastradas na tela de salas) o
-     * aluno tem acesso,.
+     
      */
-    public void incluirAluno(String curso, int matricula, int telefone, String nome, String email, ArrayList<Sala> listaSalas);
+    public void incluiAluno(int matricula, String nome, int telefone, String email, String curso);
 
     /**
      * É utilizado pela TelaPessoa para incluir um novo Servidor na lista de
@@ -43,7 +42,7 @@ public interface ICtrlPessoa {
      * @param listaSalas - Lista de salas (salas cadastradas na tela de salas) o
      * aluno tem acesso,.
      */
-    public void incluirServidor(boolean administrador, String cargo, int matricula, int telefone, String nome, String email, ArrayList<Sala> listaSalas);
+    public void incluiServidor(boolean administrador, String cargo, int matricula, int telefone, String nome, String email, ArrayList<Sala> listaSalas);
 
     /**
      * É utilizado pela TelaPessoa para deletar uma pessoa na lista de pessoas.
