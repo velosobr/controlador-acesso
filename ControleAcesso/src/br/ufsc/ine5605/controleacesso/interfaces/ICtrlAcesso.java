@@ -14,15 +14,23 @@ import br.ufsc.ine5605.controleacesso.Model.Acesso;
 public interface ICtrlAcesso {
 
     /**
-     * Um dos principais métodos do sistema, onde ele vai verificar se o 
-     * @param matricula - matricula do aluno a ser liberado
-     * @param codigoSala - codigo da sala que vai receber o acesso do aluno
-     * @return deve
+     * Um dos principais métodos do sistema, onde ele vai verificar se o usuário tem acesso liberado a sala ou não.
+     * @param matricula - matricula do aluno a ser verificado.
+     * @param codigoSala - codigo da sala que vai verificar o acesso do aluno.
+     * @return deve retornar um boolean.
      */
     public boolean ehLiberadoAcesso(int matricula, String codigoSala);
 
+    /**
+     * 
+     */
     public void listaAcesso();
 
+    /**
+     * método para gerar um log pela matricula
+     * @param matricula
+     * @return 
+     */
     public String geraLogByMatricula(int matricula);
 
     public String geraLogByCodigoSala(String codigoSala);
