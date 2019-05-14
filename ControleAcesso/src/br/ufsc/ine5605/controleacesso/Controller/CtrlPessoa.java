@@ -15,22 +15,31 @@ import java.util.ArrayList;
  * @author Linnety3
  */
 public class CtrlPessoa implements ICtrlPessoa{
-
+    private ArrayList <Pessoa> pessoas;
     CtrlPessoa(CtrlPrincipal aThis) {
+        this.pessoas = new ArrayList<>();
     }
 
     @Override
+    
+         //######################ISERIR EXCEPTION########################
+
     public void delPessoa(int matricula) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Pessoa pessoaParaDeletar = findPessoaByMatricula(matricula);
+        pessoas.remove(pessoaParaDeletar);
     }
 
     @Override
-    public void cadastraSala(String codigoSala) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void cadastraSala(int matricula, String codigoSala) {
+        boolean existeSala = false;
+        Pessoa pessoaCadastro = findPessoaByMatricula(matricula);
+        if(pessoaCadastro!=null){
+            
+        }     
     }
 
     @Override
-    public void deletaSala(String codigoSala) {
+    public void delSala(String codigoSala) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -49,10 +58,13 @@ public class CtrlPessoa implements ICtrlPessoa{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
-    
-
-    
-
-    
+    public Pessoa findPessoaByMatricula(int matricula){
+        for(Pessoa pessoa: pessoas){
+            if(pessoa.getMatricula()== matricula){
+                return pessoa;
+            
+            }   
+       }
+       return null; 
+    }
 }
