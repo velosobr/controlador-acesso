@@ -5,6 +5,7 @@
  */
 package br.ufsc.ine5605.controleacesso.Controller;
 
+import br.ufsc.ine5605.controleacesso.Model.Sala;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlSala;
 
 /**
@@ -15,6 +16,36 @@ public class CtrlSala implements ICtrlSala {
 
     public CtrlSala(CtrlPrincipal ctrlPrincipal) {
         
+    }
+
+    @Override
+    public void addSala(String codigoSala, int numero, char bloco, String centro, String campus) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delSala(String codigoSala) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Sala findSalabyCodigoSala(String codigoSala) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void cadastraAcessoPessoa(int matricula) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void deletaAcessoPessoa(int matricula) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String listaPessoasCadastradas(String codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
