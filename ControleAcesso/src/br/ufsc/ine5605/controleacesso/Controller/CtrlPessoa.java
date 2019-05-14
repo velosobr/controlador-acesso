@@ -57,23 +57,43 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
 
     @Override
-    public void cadastraSala(int matricula, String codigoSala) {
-        boolean existeSala = false;
+    public void cadastraSalaNaPessoa(int matricula, String codigoSala) {
+        Sala salaParaCadastrar  = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
         Pessoa pessoaCadastro = findPessoaByMatricula(matricula);
-        if (pessoaCadastro != null) {
-
+        
+        if (pessoaCadastro != null && salaParaCadastrar !=null) {
+            pessoaCadastro.addSala(salaParaCadastrar);
+            salaParaCadastrar.addPessoa(pessoaCadastro);
         }
     }
 
     @Override
-    public void delSala(String codigoSala) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delSalaNaPessoa(int matricula, String codigoSala) {
+        Sala salaParaCadastrar  = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
+        Pessoa pessoaCadastro = findPessoaByMatricula(matricula);
+        
+        if (pessoaCadastro != null && salaParaCadastrar !=null) {
+            pessoaCadastro.delSala(salaParaCadastrar);
+            salaParaCadastrar.delPessoa(pessoaCadastro);
+        }
     }
 
+    /**
+     *
+     * @param matricula
+     * @return
+     */
     @Override
-    public ArrayList<Sala> listaSalasCadastradas(int matricula) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public String listaSalasCadastradas(int matricula) {
+        Pessoa pessoaCadastrada = findPessoaByMatricula( matricula);
+        String lista = "";
+        ArrayList<Sala> salasCadastradas = pessoaCadastrada.getSalasCadastradas();
+            for(Sala salaCadastrada: salasCadastradas){
+                lista += salaCadastrada.getCodigoSala() +" ";
+        
+            }
+        return lista;
+    }    
 
     public Pessoa findPessoaByMatricula(int matricula) {
         for (Pessoa pessoa : pessoas) {

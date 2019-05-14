@@ -58,14 +58,14 @@ public interface ICtrlPessoa {
      * @param codigoSala - código na listaSalas da pessoa a sala encontrada com
      * esse codigo sala.
      */
-    public void cadastraSala(int matricula, String codigoSala);
+    public void cadastraSalaNaPessoa(int matricula, String codigoSala);
 
     /**
      *
      * @param codigoSala - é utilizado para encontrara a sala na lista de salas
      * do aluno e deleta a sala da lista.
      */
-    public void delSala(String codigoSala);
+    public void delSalaNaPessoa(int matricula, String codigoSala);
 
     /**
      * @param matricula - matricula da pessoa que você quer encontrar a lista de
@@ -73,6 +73,6 @@ public interface ICtrlPessoa {
      * @return - deve retonar um arrayList com as salas que a pessoa possui em
      * seu cadastro.
      */
-    public ArrayList<Sala> listaSalasCadastradas(int matricula);
+    public String listaSalasCadastradas(int matricula) ;
 
 }

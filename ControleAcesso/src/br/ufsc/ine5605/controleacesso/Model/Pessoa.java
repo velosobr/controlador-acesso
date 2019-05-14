@@ -88,4 +88,10 @@ public abstract class Pessoa {
     public void delSala(Sala sala){
         salasCadastradas.remove(sala);
     }
+
+    public ArrayList<Sala> getSalasCadastradas() {
+        return salasCadastradas;
+    }
+    
+    
 }
