@@ -38,18 +38,6 @@ public class CtrlPrincipal {
 
     }
 
-    public void acessaCtrlSala() {
-
-    }
-
-    public void acessaCtrlAcesso() {
-
-    }
-
-    public void acessaCtrlPessoa() {
-
-    }
-
     public TelaPrincipal getTelaInicial() {
         return telaInicial;
     }

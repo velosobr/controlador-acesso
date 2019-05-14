@@ -29,7 +29,7 @@ public class CtrlSala implements ICtrlSala {
     }
 
     @Override
-    public Sala findSalabyCodigoSala(String codigoSala) {
+    public Sala findSalaByCodigoSala(String codigoSala) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -39,13 +39,15 @@ public class CtrlSala implements ICtrlSala {
     }
 
     @Override
-    public void deletaAcessoPessoa(int matricula) {
+    public void deletaAcessoSalaPessoa(int matricula) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String listaPessoasCadastradas(String codigo) {
+    public String listaPessoasCadastradas(String codigoSala) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+
 
 }
