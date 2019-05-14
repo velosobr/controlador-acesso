@@ -4,20 +4,21 @@
  * and open the template in the editor.
  */
 package br.ufsc.ine5605.controleacesso.Model;
+
 import java.util.ArrayList;
 
 /**
  *
  * @author Linnety3
  */
-public class Servidor extends Pessoa{
+public class Servidor extends Pessoa {
+
     private String cargo;
-    private boolean administrador;
-    
-    public Servidor(int matricula, String nome, int telefone, String email, String cargo, boolean administrador){
-        super(matricula, nome, telefone, email);
+
+    public Servidor(int matricula, String nome, int telefone, String email, String cargo, boolean administrador) {
+        super(matricula, nome, telefone, email, administrador);
         this.cargo = cargo;
-        this.administrador = administrador;
+
     }
 
     /**
@@ -34,18 +35,4 @@ public class Servidor extends Pessoa{
         this.cargo = cargo;
     }
 
-    /**
-     * @return the administrador
-     */
-    public boolean isAdministrador() {
-        return administrador;
-    }
-
-    /**
-     * @param administrador the administrador to set
-     */
-    public void setAdministrador(boolean administrador) {
-        this.administrador = administrador;
-    }
-    
 }

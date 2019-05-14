@@ -4,26 +4,30 @@
  * and open the template in the editor.
  */
 package br.ufsc.ine5605.controleacesso.Model;
+
 import java.util.ArrayList;
+
 /**
  *
  * @author Linnety3
  */
 public abstract class Pessoa {
-   private ArrayList <Sala> salasCadastradas;
-   private int matricula;
-   private String nome;
-   private int telefone;
-   private String email;
-   
-   
-    public Pessoa(int matricula, String nome, int telefone, String email){
+
+    private ArrayList<Sala> salasCadastradas;
+    private int matricula;
+    private String nome;
+    private int telefone;
+    private String email;
+    private boolean administrador;
+
+    public Pessoa(int matricula, String nome, int telefone, String email, boolean administrador) {
         this.salasCadastradas = new ArrayList<>();
         this.matricula = matricula;
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
-}
+        this.administrador = administrador;
+    }
 
     /**
      * @return the matricula
@@ -80,18 +84,31 @@ public abstract class Pessoa {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    public void addSala(Sala sala){
+
+    public void addSala(Sala sala) {
         salasCadastradas.add(sala);
     }
-    
-    public void delSala(Sala sala){
+
+    public void delSala(Sala sala) {
         salasCadastradas.remove(sala);
     }
 
     public ArrayList<Sala> getSalasCadastradas() {
         return salasCadastradas;
     }
-    
-    
+
+    /**
+     * @return the administrador
+     */
+    public boolean isAdministrador() {
+        return administrador;
+    }
+
+    /**
+     * @param administrador the administrador to set
+     */
+    public void setAdministrador(boolean administrador) {
+        this.administrador = administrador;
+    }
+
 }

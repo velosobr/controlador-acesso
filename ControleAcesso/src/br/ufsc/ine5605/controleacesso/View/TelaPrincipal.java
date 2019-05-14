@@ -6,6 +6,8 @@
 package br.ufsc.ine5605.controleacesso.View;
 
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
+import br.ufsc.ine5605.controleacesso.Model.Pessoa;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -28,8 +30,25 @@ public class TelaPrincipal {
     }
 
     public void inicio() {
-        System.out.println("Olá o programa está funcionando");
-        System.out.println("Teste de commit para ver quantos commits cada contribuidor tem");
+
+        validacaoInicial();
+
+    }
+
+    private void validacaoInicial() {
+        System.out.println("--- Bem vindo ao sistema! ---");
+
+        System.out.println("Matricula: ");
+        int matricula = teclado.nextInt();
+
+        System.out.println("Codigo Sala: ");
+        String codigoSala = teclado.nextLine();
+
+        verificaSeEhAdm(matricula, codigoSala);
+    }
+
+    private boolean verificaSeEhAdm(int matricula, String codigoSala) {
+        Pessoa pessoaIn = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
     }
 
 }
