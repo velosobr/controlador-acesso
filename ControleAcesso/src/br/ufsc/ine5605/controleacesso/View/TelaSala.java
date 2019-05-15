@@ -14,7 +14,6 @@ import br.ufsc.ine5605.controleacesso.Controller.CtrlSala;
 public class TelaSala {
 
     public TelaSala(CtrlSala aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
