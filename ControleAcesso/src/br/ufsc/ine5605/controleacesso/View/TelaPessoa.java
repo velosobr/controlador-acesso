@@ -9,7 +9,7 @@ import br.ufsc.ine5605.controleacesso.Controller.CtrlPessoa;
 
 /**
  *
- * @author Linnety3
+ * @author Lino Veloso
  */
 public class TelaPessoa {
 

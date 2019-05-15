@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Linnety3
+ * @author Lino Veloso
  */
 public interface ICtrlPessoa {
 

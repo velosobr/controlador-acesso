@@ -11,7 +11,7 @@ import br.ufsc.ine5605.controleacesso.Model.Sala;
 
 /**
  *
- * @author Linnety3
+ * @author Lino Veloso
  */
 public interface ICtrlAcesso {
 

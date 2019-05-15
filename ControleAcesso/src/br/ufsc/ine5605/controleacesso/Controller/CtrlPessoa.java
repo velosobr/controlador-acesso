@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Linnety3
+ * @author Caio Noguerol
  */
 public class CtrlPessoa implements ICtrlPessoa {
 
