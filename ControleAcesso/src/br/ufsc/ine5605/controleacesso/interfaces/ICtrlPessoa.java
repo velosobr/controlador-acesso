@@ -42,7 +42,7 @@ public interface ICtrlPessoa {
      * @param listaSalas - Lista de salas (salas cadastradas na tela de salas) o
      * aluno tem acesso,.
      */
-    public void incluiServidor(boolean administrador, String cargo, int matricula, int telefone, String nome, String email, ArrayList<Sala> listaSalas);
+    public void incluiServidor(int matricula, String nome, int telefone, String email, String cargo, boolean administrador);
 
     /**
      * É utilizado pela TelaPessoa para deletar uma pessoa na lista de pessoas.

@@ -43,7 +43,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
 
     @Override
-    public void incluiServidor(boolean administrador, String cargo, int matricula, int telefone, String nome, String email, ArrayList<Sala> listaSalas) {
+    public void incluiServidor(int matricula, String nome, int telefone, String email, String cargo, boolean administrador) {
         Pessoa servidorParaVerificar = findPessoaByMatricula(matricula);
         Pessoa servidorParaIncluir = null;
         if(servidorParaVerificar==null){
