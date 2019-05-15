@@ -18,15 +18,13 @@ public abstract class Pessoa {
     private String nome;
     private int telefone;
     private String email;
-    private boolean administrador;
 
-    public Pessoa(int matricula, String nome, int telefone, String email, boolean administrador) {
+    public Pessoa(int matricula, String nome, int telefone, String email) {
         this.salasCadastradas = new ArrayList<>();
         this.matricula = matricula;
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
-        this.administrador = administrador;
     }
 
     /**
@@ -95,20 +93,6 @@ public abstract class Pessoa {
 
     public ArrayList<Sala> getSalasCadastradas() {
         return salasCadastradas;
-    }
-
-    /**
-     * @return the administrador
-     */
-    public boolean isAdministrador() {
-        return administrador;
-    }
-
-    /**
-     * @param administrador the administrador to set
-     */
-    public void setAdministrador(boolean administrador) {
-        this.administrador = administrador;
     }
 
 }

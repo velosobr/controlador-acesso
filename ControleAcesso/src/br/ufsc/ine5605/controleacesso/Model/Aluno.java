@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 public class Aluno extends Pessoa{
     private String curso;
-    public Aluno(int matricula, String nome, int telefone, String email, String curso, boolean administrador) {
-        super(matricula, nome, telefone, email, administrador);
+    public Aluno(int matricula, String nome, int telefone, String email, String curso) {
+        super(matricula, nome, telefone, email);
         this.curso = curso;
     }
 

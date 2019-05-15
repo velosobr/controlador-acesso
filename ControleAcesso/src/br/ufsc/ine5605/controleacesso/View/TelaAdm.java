@@ -17,7 +17,27 @@ public class TelaAdm {
 
     public TelaAdm(CtrlPrincipal ctrlPrincipal) {
         this.ctrlPrincipal = ctrlPrincipal;
-               
+
+    }
+
+    public void inicio() {
+
+        System.out.println("--- TELA ADM - GERENCIAL ---");
+        System.out.println("");
+        System.out.println("");
+
+        int opcao = 0;
+        try {
+              System.out.println("--- Digite uma opção abaixo e tecle enter. ---");
+              
+              switch(opcao){
+                  case(1):
+                      
+              }
+        } catch (Exception e) {
+        }
+       
+                
     }
 
 }

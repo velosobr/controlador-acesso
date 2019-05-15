@@ -33,11 +33,11 @@ public class CtrlPessoa implements ICtrlPessoa {
 
     //######################ISERIR EXCEPTION########################
     @Override
-    public void incluiAluno(int matricula, String nome, int telefone, String email, String curso, boolean administrador) {
+    public void incluiAluno(int matricula, String nome, int telefone, String email, String curso) {
         Pessoa alunoParaVerificar = findPessoaByMatricula(matricula);
         Pessoa alunoParaIncluir = null;
         if(alunoParaVerificar==null){
-            alunoParaIncluir = new Aluno(matricula, nome, telefone, email, curso, administrador );
+            alunoParaIncluir = new Aluno(matricula, nome, telefone, email, curso);
         }
         pessoas.add(alunoParaIncluir);
     }

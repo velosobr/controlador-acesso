@@ -14,11 +14,12 @@ import java.util.ArrayList;
 public class Servidor extends Pessoa {
 
     private String cargo;
+    private boolean administrador;
 
     public Servidor(int matricula, String nome, int telefone, String email, String cargo, boolean administrador) {
-        super(matricula, nome, telefone, email, administrador);
+        super(matricula, nome, telefone, email);
         this.cargo = cargo;
-
+        this.administrador = administrador;
     }
 
     /**
@@ -33,6 +34,20 @@ public class Servidor extends Pessoa {
      */
     public void setCargo(String cargo) {
         this.cargo = cargo;
+    }
+
+    /**
+     * @return the administrador
+     */
+    public boolean isAdministrador() {
+        return administrador;
+    }
+
+    /**
+     * @param administrador the administrador to set
+     */
+    public void setAdministrador(boolean administrador) {
+        this.administrador = administrador;
     }
 
 }

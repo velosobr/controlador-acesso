@@ -7,7 +7,9 @@ package br.ufsc.ine5605.controleacesso.View;
 
 import br.ufsc.ine5605.controleacesso.ControleAcesso;
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
+import br.ufsc.ine5605.controleacesso.Model.Aluno;
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
+import br.ufsc.ine5605.controleacesso.Model.Servidor;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -53,14 +55,26 @@ public class TelaPrincipal {
                     System.out.println("Digite o codigo da sala");
                     String codSala = recebeValorString();
 
-                    validacaoPorta(matricula, codSala);
+                    try {
+                        if (validacaoPorta(matricula, codSala)) {
+                        System.out.println("Porta aberta com sucesso");
+                    } else {
+                        System.out.println("Você não possui acesso a esta porta, procure um administrador de sistema");
+                    }
+                    } catch (Exception e) {
+                    }
+                    
                     break;
 
                 case (2):
                     System.out.println("Digite a sua matricula");
                     int matriculaadm = recebeValorInteiro();
 
-                    validacaoTelaAdm(matriculaadm);
+                    if (validacaoTelaAdm(matriculaadm)) {
+                        ctrlPrincipal.getTelaAdm().inicio();
+                    }else{
+                        System.out.println("Usuário não possui acesso a tela Adm");
+                    }
 
                     break;
                 case (9):
@@ -78,7 +92,18 @@ public class TelaPrincipal {
     }
 
     private boolean validacaoTelaAdm(int matricula) {
-        boolean ehAdm = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula).isAdministrador();
+        boolean ehAdm = false;
+        try {
+            if (ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula) instanceof Servidor) {
+                Servidor servidor = (Servidor) ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
+                ehAdm = servidor.isAdministrador();
+            } else {
+                throw new IllegalArgumentException("A matriculada digitada não pertence a um servidor, somente servidores podem acessar a tela gerencial");
+
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Exceção: " + e.getMessage());
+        }
 
         return ehAdm;
     }
