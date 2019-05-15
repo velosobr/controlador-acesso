@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Linnety3
+ * @author Lino Veloso
  */
 public class TelaPrincipal {
 
@@ -57,23 +57,27 @@ public class TelaPrincipal {
 
                     try {
                         if (validacaoPorta(matricula, codSala)) {
-                        System.out.println("Porta aberta com sucesso");
-                    } else {
-                        System.out.println("Você não possui acesso a esta porta, procure um administrador de sistema");
-                    }
+                            System.out.println("Porta aberta com sucesso");
+                        } else {
+                            System.out.println("Você não possui acesso a esta porta, procure um administrador de sistema");
+                        }
                     } catch (Exception e) {
                     }
-                    
+
                     break;
 
                 case (2):
                     System.out.println("Digite a sua matricula");
                     int matriculaadm = recebeValorInteiro();
 
-                    if (validacaoTelaAdm(matriculaadm)) {
-                        ctrlPrincipal.getTelaAdm().inicio();
-                    }else{
-                        System.out.println("Usuário não possui acesso a tela Adm");
+                    try {
+                        if (validacaoTelaAdm(matriculaadm)) {
+                            ctrlPrincipal.getTelaAdm().inicio();
+                        } else {
+                            throw new IllegalArgumentException("Usuário não possui acesso a tela Adm");
+                        }
+
+                    } catch (Exception e) {
                     }
 
                     break;

@@ -9,7 +9,7 @@ import br.ufsc.ine5605.controleacesso.Controller.CtrlSala;
 
 /**
  *
- * @author Linnety3
+ * @author Lino Veloso
  */
 public class TelaSala {
 
