@@ -5,6 +5,7 @@
  */
 package br.ufsc.ine5605.controleacesso.Controller;
 
+import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
 import br.ufsc.ine5605.controleacesso.View.TelaSala;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlSala;
@@ -54,17 +55,33 @@ public class CtrlSala implements ICtrlSala {
 
     @Override
     public void cadastraPessoaNaSala(int matricula, String codigoSala) {
-        
+        Pessoa pessoaParaCadastrar = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
+        Sala salaParaCadastrar = findSalaByCodigoSala(codigoSala);
+        ArrayList <Pessoa> pessoasCadastradas = salaParaCadastrar.getPessoasCadastradas();
+        if(pessoaParaCadastrar != null && salaParaCadastrar != null){
+            pessoaParaCadastrar.addSala(salaParaCadastrar);
+            salaParaCadastrar.addPessoa(pessoaParaCadastrar);
+        }
     }
 
     @Override
     public void deletaPessoaNaSala(int matricula, String codigoSala) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Pessoa pessoaParaCadastrar = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
+        Sala salaParaCadastrar = findSalaByCodigoSala(codigoSala);
+        if(pessoaParaCadastrar != null && salaParaCadastrar != null){
+            pessoaParaCadastrar.delSala(salaParaCadastrar);
+            salaParaCadastrar.delPessoa(pessoaParaCadastrar);
+        }
     }
-
     @Override
     public String listaPessoasCadastradas(String codigoSala) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Sala salaCadastrada = findSalaByCodigoSala(codigoSala);
+        ArrayList <Pessoa> pessoasCadastradas = salaCadastrada.getPessoasCadastradas();
+        String listaPessoasCadastradasNaSala = "";
+        for(Pessoa pessoa:pessoasCadastradas ){
+            listaPessoasCadastradasNaSala += pessoa.getMatricula() + " ";
+        }
+        return listaPessoasCadastradasNaSala;
     }
 
 
