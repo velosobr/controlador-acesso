@@ -13,8 +13,11 @@ import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
  */
 public class TelaAdm {
 
-    public TelaAdm(CtrlPrincipal aThis) {
-        
+    private final CtrlPrincipal ctrlPrincipal;
+
+    public TelaAdm(CtrlPrincipal ctrlPrincipal) {
+        this.ctrlPrincipal = ctrlPrincipal;
+               
     }
 
 }

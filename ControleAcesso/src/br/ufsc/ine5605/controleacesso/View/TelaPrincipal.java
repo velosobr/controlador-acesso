@@ -5,6 +5,7 @@
  */
 package br.ufsc.ine5605.controleacesso.View;
 
+import br.ufsc.ine5605.controleacesso.ControleAcesso;
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import java.util.InputMismatchException;
@@ -31,24 +32,75 @@ public class TelaPrincipal {
 
     public void inicio() {
 
-        validacaoInicial();
-
-    }
-
-    private void validacaoInicial() {
         System.out.println("--- Bem vindo ao sistema! ---");
 
-        System.out.println("Matricula: ");
-        int matricula = teclado.nextInt();
+        int opcao = 0;
+        try {
+            System.out.println("--- Digite uma opção abaixo e tecle enter. ---");
+            System.out.println("1 - Acessar a porta");
+            System.out.println("2 - Acessar a tela gerencial");
+            System.out.println("9 - Sair");
 
-        System.out.println("Codigo Sala: ");
-        String codigoSala = teclado.nextLine();
+            try {
+                opcao = teclado.nextInt();
+            } catch (InputMismatchException e) {
+                throw new IllegalArgumentException("Opção inválida! Escolha uma opção dentre as opções na lista.");
+            }
+            switch (opcao) {
+                case (1):
+                    System.out.println("Digite a sua matricula");
+                    int matricula = recebeValorInteiro();
+                    System.out.println("Digite o codigo da sala");
+                    String codSala = recebeValorString();
 
-        verificaSeEhAdm(matricula, codigoSala);
+                    validacaoPorta(matricula, codSala);
+                    break;
+
+                case (2):
+                    System.out.println("Digite a sua matricula");
+                    int matriculaadm = recebeValorInteiro();
+
+                    validacaoTelaAdm(matriculaadm);
+
+                    break;
+                case (9):
+                    System.exit(0);
+
+                default:
+                    throw new IllegalArgumentException("Opção inválida! Escolha uma opção dentre as opções da lista.");
+
+            }
+        } catch (IllegalArgumentException e) {
+            e.getMessage();
+            String[] args = null;
+            ControleAcesso.main(args);
+        }
     }
 
-    private boolean verificaSeEhAdm(int matricula, String codigoSala) {
-        Pessoa pessoaIn = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
+    private boolean validacaoTelaAdm(int matricula) {
+        boolean ehAdm = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula).isAdministrador();
+
+        return ehAdm;
+    }
+
+    private boolean validacaoPorta(int matricula, String codSala) {
+        return true;
+    }
+
+    private int recebeValorInteiro() {
+        int valor = 0;
+
+        try {
+            valor = teclado.nextInt();
+            teclado.nextLine();
+        } catch (Exception e) {
+            System.out.println("Valor invalido! Digite um numero inteiro");
+        }
+        return valor;
+    }
+
+    private String recebeValorString() {
+        return teclado.nextLine();
     }
 
 }

@@ -26,7 +26,7 @@ public interface ICtrlPessoa {
      * @param email - email do aluno.
      
      */
-    public void incluiAluno(int matricula, String nome, int telefone, String email, String curso);
+    public void incluiAluno(int matricula, String nome, int telefone, String email, String curso, boolean administradorb);
 
     /**
      * É utilizado pela TelaPessoa para incluir um novo Servidor na lista de
