@@ -41,13 +41,13 @@ public interface ICtrlSala {
      * Método responsável por cadastrar acesso das pessoas a sala.
      * @param matricula matricula da pessoa que quer ter acesso a sala.
      */
-    public void cadastraAcessoPessoa(int matricula);
+    public void cadastraPessoaNaSala(int matricula, String codigoSala);
     
     /**
      * Deleta da pessoa o acesso à sala
      * @param matricula Atributo responsável por encontrar a pessoa.
      */
-    public void deletaAcessoSalaPessoa(int matricula);
+    public void deletaPessoaNaSala(int matricula, String codigoSala);
     
     /**
      * Lista as pessoas que possuem acesso à sala.

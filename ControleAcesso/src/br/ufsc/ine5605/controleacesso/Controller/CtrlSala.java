@@ -53,12 +53,12 @@ public class CtrlSala implements ICtrlSala {
     }
 
     @Override
-    public void cadastraAcessoPessoa(int matricula) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void cadastraPessoaNaSala(int matricula, String codigoSala) {
+        
     }
 
     @Override
-    public void deletaAcessoSalaPessoa(int matricula) {
+    public void deletaPessoaNaSala(int matricula, String codigoSala) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
