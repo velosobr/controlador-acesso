@@ -18,8 +18,8 @@ public class Acesso {
     private String situacao;
     
     public Acesso(Pessoa pessoa, Sala sala, Date data, String situacao){
-        this.pessoa = pessoa;
-        this.sala = sala;
+        setPessoa(pessoa);
+        setSala(sala);
         this.data = data;
         this.situacao = situacao;
     }
@@ -35,7 +35,9 @@ public class Acesso {
      * @param pessoa the pessoa to set
      */
     public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
+        if(pessoa!=null){
+            this.pessoa = pessoa;
+        }
     }
 
     /**
@@ -49,7 +51,9 @@ public class Acesso {
      * @param sala the sala to set
      */
     public void setSala(Sala sala) {
-        this.sala = sala;
+        if(sala!=null){
+            this.sala = sala;
+        }
     }
 
     /**

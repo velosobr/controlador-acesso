@@ -18,7 +18,7 @@ public class Servidor extends Pessoa {
 
     public Servidor(int matricula, String nome, int telefone, String email, String cargo, boolean administrador) {
         super(matricula, nome, telefone, email);
-        this.cargo = cargo;
+        setCargo(cargo);
         this.administrador = administrador;
     }
 
@@ -33,7 +33,9 @@ public class Servidor extends Pessoa {
      * @param cargo the cargo to set
      */
     public void setCargo(String cargo) {
-        this.cargo = cargo;
+        if(cargo!=null){
+            this.cargo = cargo;
+        }
     }
 
     /**

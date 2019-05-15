@@ -14,7 +14,7 @@ public class Aluno extends Pessoa{
     private String curso;
     public Aluno(int matricula, String nome, int telefone, String email, String curso) {
         super(matricula, nome, telefone, email);
-        this.curso = curso;
+        setCurso(curso);
     }
 
     /**
@@ -28,7 +28,10 @@ public class Aluno extends Pessoa{
      * @param curso the curso to set
      */
     public void setCurso(String curso) {
-        this.curso = curso;
+        
+        if(curso!=null){
+            this.curso = curso;
+        }
     }
     
     

@@ -19,11 +19,11 @@ public class Sala {
     
     public Sala(String codigoSala, int numero, char bloco, String centro, String campus){
         this.pessoasCadastradas = new ArrayList<>();
-        this.codigoSala = codigoSala;
+        setCodigoSala(codigoSala);
         this.numero = numero;
         this.bloco = bloco;
-        this.centro = centro;
-        this.campus = campus;
+        setCentro(centro);
+        setCampus(campus);
     }
 
     /**
@@ -37,7 +37,9 @@ public class Sala {
      * @param codigoSala the codigoSala to set
      */
     public void setCodigoSala(String codigoSala) {
-        this.codigoSala = codigoSala;
+        if(codigoSala!=null){
+            this.codigoSala = codigoSala;
+        }
     }
 
     /**
@@ -79,7 +81,9 @@ public class Sala {
      * @param centro the centro to set
      */
     public void setCentro(String centro) {
-        this.centro = centro;
+        if(centro!=null){
+            this.centro = centro;
+        }
     }
 
     /**
@@ -93,15 +97,20 @@ public class Sala {
      * @param campus the campus to set
      */
     public void setCampus(String campus) {
-        this.campus = campus;
+        if(campus!=null)
+            this.campus = campus;
     }
     
     public void addPessoa(Pessoa pessoa){
-        getPessoasCadastradas().add(pessoa);
+        if(pessoa!=null){
+            getPessoasCadastradas().add(pessoa);
+        }
     }
     
     public void delPessoa(Pessoa pessoa){
-        getPessoasCadastradas().remove(pessoa);
+        if(pessoa!=null){
+            getPessoasCadastradas().remove(pessoa);
+        }
     }
 
     /**

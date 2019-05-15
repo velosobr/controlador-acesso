@@ -22,9 +22,9 @@ public abstract class Pessoa {
     public Pessoa(int matricula, String nome, int telefone, String email) {
         this.salasCadastradas = new ArrayList<>();
         this.matricula = matricula;
-        this.nome = nome;
+        setNome(nome);
         this.telefone = telefone;
-        this.email = email;
+        setEmail(email);
     }
 
     /**
@@ -38,7 +38,7 @@ public abstract class Pessoa {
      * @param matricula the matricula to set
      */
     public void setMatricula(int matricula) {
-        this.matricula = matricula;
+        this.matricula = matricula;               
     }
 
     /**
@@ -52,7 +52,9 @@ public abstract class Pessoa {
      * @param nome the nome to set
      */
     public void setNome(String nome) {
-        this.nome = nome;
+        if(nome!=null){
+            this.nome = nome;
+        }
     }
 
     /**
@@ -80,15 +82,21 @@ public abstract class Pessoa {
      * @param email the email to set
      */
     public void setEmail(String email) {
-        this.email = email;
+        if(email!=null){
+            this.email = email;
+        }
     }
 
     public void addSala(Sala sala) {
-        salasCadastradas.add(sala);
+        if(sala!=null){
+            salasCadastradas.add(sala);
+        }
     }
 
     public void delSala(Sala sala) {
-        salasCadastradas.remove(sala);
+        if(sala!=null){
+            salasCadastradas.remove(sala);
+        }
     }
 
     public ArrayList<Sala> getSalasCadastradas() {
