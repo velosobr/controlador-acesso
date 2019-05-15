@@ -6,6 +6,8 @@
 package br.ufsc.ine5605.controleacesso.interfaces;
 
 import br.ufsc.ine5605.controleacesso.Model.Acesso;
+import br.ufsc.ine5605.controleacesso.Model.Pessoa;
+import br.ufsc.ine5605.controleacesso.Model.Sala;
 
 /**
  *
@@ -20,12 +22,14 @@ public interface ICtrlAcesso {
      * @return deve retornar um boolean.
      */
     public boolean ehLiberadoAcesso(int matricula, String codigoSala);
-
-    /**
-     * 
-     */
-    public void listaAcesso();
-
+    
+    
+    
+    
+    
+    public void addAcesso(Pessoa pessoa, Sala sala);
+  
+   
     /**
      * método para gerar um log pela matricula
      * @param matricula

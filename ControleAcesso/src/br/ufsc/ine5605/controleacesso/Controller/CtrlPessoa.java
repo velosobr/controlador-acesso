@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class CtrlPessoa implements ICtrlPessoa {
 
-    private CtrlPrincipal ctrlPrincipal;
+    private final CtrlPrincipal ctrlPrincipal;
     private TelaPessoa telaPessoa;
     private ArrayList<Pessoa> pessoas;
 

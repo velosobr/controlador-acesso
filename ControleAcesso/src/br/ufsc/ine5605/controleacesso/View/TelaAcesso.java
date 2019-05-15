@@ -5,10 +5,16 @@
  */
 package br.ufsc.ine5605.controleacesso.View;
 
+import br.ufsc.ine5605.controleacesso.Controller.CtrlAcesso;
+
 /**
  *
  * @author Linnety3
  */
 public class TelaAcesso {
+
+    public TelaAcesso(CtrlAcesso aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

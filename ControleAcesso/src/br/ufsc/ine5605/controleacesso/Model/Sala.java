@@ -97,10 +97,19 @@ public class Sala {
     }
     
     public void addPessoa(Pessoa pessoa){
-        pessoasCadastradas.add(pessoa);
+        getPessoasCadastradas().add(pessoa);
     }
     
     public void delPessoa(Pessoa pessoa){
-        pessoasCadastradas.remove(pessoa);
+        getPessoasCadastradas().remove(pessoa);
     }
+
+    /**
+     * @return the pessoasCadastradas
+     */
+    public ArrayList <Pessoa> getPessoasCadastradas() {
+        return pessoasCadastradas;
+    }
+    
+    
 }
