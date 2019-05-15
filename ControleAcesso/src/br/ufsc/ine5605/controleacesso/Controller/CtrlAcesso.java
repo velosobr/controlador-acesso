@@ -58,22 +58,49 @@ public class CtrlAcesso implements ICtrlAcesso {
 
     @Override
     public String geraLogByMatricula(int matricula) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String logAcessos = null;
+        for(Acesso acesso: acessos){
+            if(acesso.getPessoa().getMatricula() == matricula){
+                logAcessos += " @"+acesso.getData()+" "+acesso.getPessoa().getMatricula()+" "+acesso.getSala().getCodigoSala()+" "+acesso.getSituacao();
+            }
+        
+        }
+        return logAcessos;
     }
-
+    
     @Override
     public String geraLogByCodigoSala(String codigoSala) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String logAcessos = null;
+        for(Acesso acesso: acessos){
+            if(acesso.getSala().getCodigoSala().equals(codigoSala)){
+                logAcessos += " @"+acesso.getData()+" "+acesso.getPessoa().getMatricula()+" "+acesso.getSala().getCodigoSala()+" "+acesso.getSituacao();
+            }
+        }
+        return logAcessos;
     }
 
     @Override
     public Acesso findAcessoByMatricula(int matricula) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int matriculaNoAcesso;
+        for(Acesso acesso: acessos){
+            matriculaNoAcesso = acesso.getPessoa().getMatricula();
+            if(matriculaNoAcesso == matricula){
+                return acesso;
+            }
+        }
+        return null;
     }
 
     @Override
     public Acesso findAcessoByCodigoSala(String codigoSala) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String codigoSalaNoAcesso = null;
+        for(Acesso acesso: acessos){
+            codigoSalaNoAcesso = acesso.getSala().getCodigoSala();
+            if(codigoSalaNoAcesso.equals(codigoSala)){
+                return acesso;
+            }
+        }
+        return null;
     }
 
     
