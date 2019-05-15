@@ -5,47 +5,83 @@
  */
 package br.ufsc.ine5605.controleacesso.Controller;
 
+import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
+import br.ufsc.ine5605.controleacesso.View.TelaSala;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlSala;
+import java.util.ArrayList;
 
 /**
  *
  * @author Linnety3
  */
 public class CtrlSala implements ICtrlSala {
-
+    
+    private final CtrlPrincipal ctrlPrincipal;
+    private TelaSala telaSala;
+    private ArrayList <Sala> salas;
+    
     public CtrlSala(CtrlPrincipal ctrlPrincipal) {
-        
+        this.ctrlPrincipal = ctrlPrincipal;
+        this.telaSala = new TelaSala(this);
+        this.salas = new ArrayList<>();
     }
 
     @Override
     public void addSala(String codigoSala, int numero, char bloco, String centro, String campus) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Sala salaParaVerificar = findSalaByCodigoSala(codigoSala);
+        Sala salaParaIncluir = null;
+        if(salaParaVerificar == null){
+            salaParaIncluir = new Sala(codigoSala, numero, bloco, centro, campus);
+            salas.add(salaParaIncluir);
+        }
     }
 
     @Override
     public void delSala(String codigoSala) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Sala salaParaDeletar = findSalaByCodigoSala(codigoSala);
+        salas.remove(salaParaDeletar);
     }
 
     @Override
     public Sala findSalaByCodigoSala(String codigoSala) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(Sala sala:salas){
+            if(sala.getCodigoSala().equals(codigoSala)){
+                return sala;
+            }
+        }
+        return null;
     }
 
     @Override
-    public void cadastraAcessoPessoa(int matricula) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void cadastraPessoaNaSala(int matricula, String codigoSala) {
+        Pessoa pessoaParaCadastrar = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
+        Sala salaParaCadastrar = findSalaByCodigoSala(codigoSala);
+        ArrayList <Pessoa> pessoasCadastradas = salaParaCadastrar.getPessoasCadastradas();
+        if(pessoaParaCadastrar != null && salaParaCadastrar != null){
+            pessoaParaCadastrar.addSala(salaParaCadastrar);
+            salaParaCadastrar.addPessoa(pessoaParaCadastrar);
+        }
     }
 
     @Override
-    public void deletaAcessoSalaPessoa(int matricula) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deletaPessoaNaSala(int matricula, String codigoSala) {
+        Pessoa pessoaParaCadastrar = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
+        Sala salaParaCadastrar = findSalaByCodigoSala(codigoSala);
+        if(pessoaParaCadastrar != null && salaParaCadastrar != null){
+            pessoaParaCadastrar.delSala(salaParaCadastrar);
+            salaParaCadastrar.delPessoa(pessoaParaCadastrar);
+        }
     }
-
     @Override
     public String listaPessoasCadastradas(String codigoSala) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Sala salaCadastrada = findSalaByCodigoSala(codigoSala);
+        ArrayList <Pessoa> pessoasCadastradas = salaCadastrada.getPessoasCadastradas();
+        String listaPessoasCadastradasNaSala = "";
+        for(Pessoa pessoa:pessoasCadastradas ){
+            listaPessoasCadastradasNaSala += pessoa.getMatricula() + " ";
+        }
+        return listaPessoasCadastradasNaSala;
     }
 
 

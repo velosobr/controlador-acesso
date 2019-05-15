@@ -46,7 +46,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     public void incluiServidor(boolean administrador, String cargo, int matricula, int telefone, String nome, String email, ArrayList<Sala> listaSalas) {
         Pessoa servidorParaVerificar = findPessoaByMatricula(matricula);
         Pessoa servidorParaIncluir = null;
-        if(servidorParaIncluir==null){
+        if(servidorParaVerificar==null){
             servidorParaIncluir = new Servidor(matricula, nome, telefone, email, cargo, administrador);
         }
     }
