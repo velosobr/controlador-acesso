@@ -11,7 +11,6 @@ import br.ufsc.ine5605.controleacesso.Model.Sala;
 import br.ufsc.ine5605.controleacesso.View.TelaAcesso;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlAcesso;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -54,8 +53,7 @@ public class CtrlAcesso implements ICtrlAcesso {
     @Override
     public void addAcesso(Pessoa pessoa, Sala sala) {
         String situacao = "";
-        Date data = null;
-        Acesso acesso = new Acesso(pessoa, sala, data, situacao);
+        Acesso acesso = new Acesso(pessoa, sala, situacao);
         acessos.add(acesso);
     }
     
