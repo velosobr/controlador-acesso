@@ -33,7 +33,7 @@ public class CtrlPrincipal {
         telaInicial.inicio();
     }
     public void abreTelaAdm() {
-        telaAdm.inicio();
+        telaInicial.inicio();
     }
 
     public boolean verificaSeEhAdm(int matricula) {

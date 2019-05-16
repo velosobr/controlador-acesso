@@ -15,5 +15,9 @@ public class TelaAcesso {
 
     public TelaAcesso(CtrlAcesso aThis) {
     }
-    
+
+    void inicio() {
+        System.out.println("---TELA GERENCIAL DE ACESSO---");
+    }
+
 }

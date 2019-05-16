@@ -15,5 +15,9 @@ public class TelaSala {
 
     public TelaSala(CtrlSala aThis) {
     }
-    
+
+    void inicio() {
+        System.out.println("---TELA DE SALAS---");
+    }
+
 }

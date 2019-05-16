@@ -16,22 +16,26 @@ import java.util.ArrayList;
  * @author Caio Noguerol
  */
 public class CtrlSala implements ICtrlSala {
-    
+
     private final CtrlPrincipal ctrlPrincipal;
     private TelaSala telaSala;
-    private ArrayList <Sala> salas;
-    
+    private ArrayList<Sala> salas;
+
     public CtrlSala(CtrlPrincipal ctrlPrincipal) {
         this.ctrlPrincipal = ctrlPrincipal;
         this.telaSala = new TelaSala(this);
         this.salas = new ArrayList<>();
     }
 
+    public TelaSala getTelaSala() {
+        return telaSala;
+    }
+
     @Override
     public void addSala(String codigoSala, int numero, char bloco, String centro, String campus) {
         Sala salaParaVerificar = findSalaByCodigoSala(codigoSala);
         Sala salaParaIncluir = null;
-        if(salaParaVerificar == null){
+        if (salaParaVerificar == null) {
             salaParaIncluir = new Sala(codigoSala, numero, bloco, centro, campus);
             salas.add(salaParaIncluir);
         }
@@ -45,8 +49,8 @@ public class CtrlSala implements ICtrlSala {
 
     @Override
     public Sala findSalaByCodigoSala(String codigoSala) {
-        for(Sala sala:salas){
-            if(sala.getCodigoSala().equals(codigoSala)){
+        for (Sala sala : salas) {
+            if (sala.getCodigoSala().equals(codigoSala)) {
                 return sala;
             }
         }
@@ -57,8 +61,8 @@ public class CtrlSala implements ICtrlSala {
     public void cadastraPessoaNaSala(int matricula, String codigoSala) {
         Pessoa pessoaParaCadastrar = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
         Sala salaParaCadastrar = findSalaByCodigoSala(codigoSala);
-        ArrayList <Pessoa> pessoasCadastradas = salaParaCadastrar.getPessoasCadastradas();
-        if(pessoaParaCadastrar != null && salaParaCadastrar != null){
+        ArrayList<Pessoa> pessoasCadastradas = salaParaCadastrar.getPessoasCadastradas();
+        if (pessoaParaCadastrar != null && salaParaCadastrar != null) {
             pessoaParaCadastrar.addSala(salaParaCadastrar);
             salaParaCadastrar.addPessoa(pessoaParaCadastrar);
         }
@@ -68,22 +72,21 @@ public class CtrlSala implements ICtrlSala {
     public void deletaPessoaNaSala(int matricula, String codigoSala) {
         Pessoa pessoaParaCadastrar = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
         Sala salaParaCadastrar = findSalaByCodigoSala(codigoSala);
-        if(pessoaParaCadastrar != null && salaParaCadastrar != null){
+        if (pessoaParaCadastrar != null && salaParaCadastrar != null) {
             pessoaParaCadastrar.delSala(salaParaCadastrar);
             salaParaCadastrar.delPessoa(pessoaParaCadastrar);
         }
     }
+
     @Override
     public String listaPessoasCadastradas(String codigoSala) {
         Sala salaCadastrada = findSalaByCodigoSala(codigoSala);
-        ArrayList <Pessoa> pessoasCadastradas = salaCadastrada.getPessoasCadastradas();
+        ArrayList<Pessoa> pessoasCadastradas = salaCadastrada.getPessoasCadastradas();
         String listaPessoasCadastradasNaSala = "";
-        for(Pessoa pessoa:pessoasCadastradas ){
+        for (Pessoa pessoa : pessoasCadastradas) {
             listaPessoasCadastradasNaSala += pessoa.getMatricula() + " ";
         }
         return listaPessoasCadastradasNaSala;
     }
-
-
 
 }
