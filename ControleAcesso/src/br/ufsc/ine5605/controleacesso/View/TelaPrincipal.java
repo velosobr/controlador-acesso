@@ -50,11 +50,9 @@ public class TelaPrincipal {
             }
             switch (opcao) {
                 case (1):
-                    int matricula = 0;
-                    do {
+                    
                         System.out.println("Digite a sua matricula");
-                        matricula = validador.recebeValorInteiro();
-                    } while (matricula == 0);
+                        int matricula = validador.recebeValorInteiro();
 
                     System.out.println("Digite o codigo da sala");
                     String codSala = validador.recebeValorString();
@@ -96,8 +94,7 @@ public class TelaPrincipal {
     }
 
     private boolean validacaoPorta(int matricula, String codSala) {
-        return false;
-        //ctrlPrincipal.getCtrlAcesso().ehLiberadoAcesso(matricula, codSala);
+        return ctrlPrincipal.getCtrlAcesso().ehLiberadoAcesso(matricula, codSala);
     }
 
     private boolean validacaoTelaAdm(int matricula) {

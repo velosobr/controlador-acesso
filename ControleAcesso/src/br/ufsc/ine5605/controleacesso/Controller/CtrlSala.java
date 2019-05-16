@@ -44,7 +44,7 @@ public class CtrlSala implements ICtrlSala {
     @Override
     public void delSala(String codigoSala) {
         Sala salaParaDeletar = findSalaByCodigoSala(codigoSala);
-        if(salaParaDeletar!=null){
+        if (salaParaDeletar != null) {
             salas.remove(salaParaDeletar);
         }
     }
@@ -85,16 +85,15 @@ public class CtrlSala implements ICtrlSala {
         Sala salaCadastrada = findSalaByCodigoSala(codigoSala);
         ArrayList<Pessoa> pessoasCadastradas = salaCadastrada.getPessoasCadastradas();
         String listaPessoasCadastradasNaSala = "";
-<<<<<<< HEAD
-        for (Pessoa pessoa : pessoasCadastradas) {
-=======
-        if(salaCadastrada!=null){
-            for(Pessoa pessoa:pessoasCadastradas ){
->>>>>>> fc63945b8bbcfc1b92ce4cb7e2c5d6800d3f1e86
-            listaPessoasCadastradasNaSala += pessoa.getMatricula() + " ";
-            }
-        }
-    return listaPessoasCadastradasNaSala;
-    }
 
+        for (Pessoa pessoa : pessoasCadastradas) {
+            if (salaCadastrada != null) {
+                for (Pessoa pessoa : pessoasCadastradas) {
+                    listaPessoasCadastradasNaSala += pessoa.getMatricula() + " ";
+                }
+            }
+            return listaPessoasCadastradasNaSala;
+        }
+
+    }
 }
