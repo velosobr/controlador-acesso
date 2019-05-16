@@ -11,7 +11,6 @@ import br.ufsc.ine5605.controleacesso.Model.Sala;
 import br.ufsc.ine5605.controleacesso.View.TelaAcesso;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlAcesso;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -40,20 +39,32 @@ public class CtrlAcesso implements ICtrlAcesso {
         Sala salaParaTestarAcesso = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
         ArrayList<Pessoa> pessoasCadastradasNaSala = salaParaTestarAcesso.getPessoasCadastradas();
         addAcesso(pessoaParaTestarAcesso, salaParaTestarAcesso);
+<<<<<<< HEAD
 
         for (Pessoa pessoaCadastrada : pessoasCadastradasNaSala) {
             if (pessoaCadastrada.equals(pessoaParaTestarAcesso)) {
                 return true;
+=======
+        if(pessoaParaTestarAcesso==null){
+            return false;//colocar enum ErroMatricula
+        }else{
+            if(salaParaTestarAcesso==null){
+                return false; //colocar enum ErroSala
             }
         }
-        return false;
+        for(Pessoa pessoaCadastrada: pessoasCadastradasNaSala ){
+            if(pessoaCadastrada.equals(pessoaParaTestarAcesso)){
+                return true; // colocar enum Permitido
+>>>>>>> fc63945b8bbcfc1b92ce4cb7e2c5d6800d3f1e86
+            }
+        }
+        return false;// colocar enum NaoPermitido
     }
 
     @Override
     public void addAcesso(Pessoa pessoa, Sala sala) {
         String situacao = "";
-        Date data = null;
-        Acesso acesso = new Acesso(pessoa, sala, data, situacao);
+        Acesso acesso = new Acesso(pessoa, sala, situacao);
         acessos.add(acesso);
     }
 

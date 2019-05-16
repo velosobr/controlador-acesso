@@ -5,11 +5,8 @@
  */
 package br.ufsc.ine5605.controleacesso.View;
 
-import br.ufsc.ine5605.controleacesso.ControleAcesso;
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
-import br.ufsc.ine5605.controleacesso.Model.Aluno;
-import br.ufsc.ine5605.controleacesso.Model.Pessoa;
-import br.ufsc.ine5605.controleacesso.Model.Servidor;
+import br.ufsc.ine5605.controleacesso.validadores.Validadores;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -20,12 +17,14 @@ import java.util.Scanner;
 public class TelaPrincipal {
 
     private final CtrlPrincipal ctrlPrincipal;
+    private final Validadores validador;
 
     private final Scanner teclado;
 
     public TelaPrincipal(CtrlPrincipal ctrlprincipal) {
         this.ctrlPrincipal = ctrlprincipal;
         this.teclado = new Scanner(System.in);
+        this.validador = new Validadores(teclado);
     }
 
     public CtrlPrincipal getCtrlPrincipal() {
@@ -51,10 +50,14 @@ public class TelaPrincipal {
             }
             switch (opcao) {
                 case (1):
-                    System.out.println("Digite a sua matricula");
-                    int matricula = recebeValorInteiro();
+                    int matricula = 0;
+                    do {
+                        System.out.println("Digite a sua matricula");
+                        matricula = validador.recebeValorInteiro();
+                    } while (matricula == 0);
+
                     System.out.println("Digite o codigo da sala");
-                    String codSala = recebeValorString();
+                    String codSala = validador.recebeValorString();
 
                     if (validacaoPorta(matricula, codSala)) {
                         System.out.println("Porta aberta com sucesso");
@@ -66,7 +69,7 @@ public class TelaPrincipal {
 
                 case (2):
                     System.out.println("Digite a sua matricula");
-                    int matriculaadm = recebeValorInteiro();
+                    int matriculaadm = validador.recebeValorInteiro();
 
                     if (validacaoTelaAdm(matriculaadm)) {
                         this.ctrlPrincipal.getTelaAdm().inicio();
@@ -107,27 +110,6 @@ public class TelaPrincipal {
 //            System.out.println("A matriculada digitada não pertence a um servidor, somente servidores podem acessar a tela gerencial");
 //        }
         return ehAdm;
-    }
-
-    private int recebeValorInteiro() {
-        int valor = 0;
-        try {
-            valor = teclado.nextInt();
-            teclado.nextLine();
-        } catch (Exception e) {
-            System.out.println("Valor invalido! Digite um numero inteiro");
-        }
-        return valor;
-    }
-
-    private String recebeValorString() {
-        String valor = null;
-        try {
-            valor = teclado.nextLine();
-        } catch (Exception e) {
-            System.out.println("Valor invalido! Digite um numero inteiro");
-        }
-        return valor;
     }
 
 }

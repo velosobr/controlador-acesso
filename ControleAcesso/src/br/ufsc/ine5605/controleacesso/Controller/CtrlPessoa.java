@@ -33,7 +33,7 @@ public class CtrlPessoa implements ICtrlPessoa {
         return telaPessoa;
     }
 
-    //######################ISERIR EXCEPTION########################
+    
     @Override
     public void incluiAluno(int matricula, String nome, int telefone, String email, String curso) {
         Pessoa alunoParaVerificar = findPessoaByMatricula(matricula);
@@ -55,7 +55,9 @@ public class CtrlPessoa implements ICtrlPessoa {
 
     public void delPessoa(int matricula) {
         Pessoa pessoaParaDeletar = findPessoaByMatricula(matricula);
-        pessoas.remove(pessoaParaDeletar);
+        if(pessoaParaDeletar!=null){
+            pessoas.remove(pessoaParaDeletar);
+        }
     }
 
     @Override
@@ -90,12 +92,24 @@ public class CtrlPessoa implements ICtrlPessoa {
         Pessoa pessoaCadastrada = findPessoaByMatricula(matricula);
         String lista = "";
         ArrayList<Sala> salasCadastradas = pessoaCadastrada.getSalasCadastradas();
+<<<<<<< HEAD
         for (Sala salaCadastrada : salasCadastradas) {
             lista += salaCadastrada.getCodigoSala() + " ";
 
         }
         return lista;
     }
+=======
+        if(pessoaCadastrada!= null){
+            for(Sala salaCadastrada: salasCadastradas){
+                lista += salaCadastrada.getCodigoSala() +" ";
+        
+            }
+        }
+    return lista;
+
+    }    
+>>>>>>> fc63945b8bbcfc1b92ce4cb7e2c5d6800d3f1e86
 
     public Pessoa findPessoaByMatricula(int matricula) {
         for (Pessoa pessoa : pessoas) {
