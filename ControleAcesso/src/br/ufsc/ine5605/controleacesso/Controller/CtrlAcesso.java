@@ -36,13 +36,19 @@ public class CtrlAcesso implements ICtrlAcesso {
         Sala salaParaTestarAcesso = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
         ArrayList <Pessoa> pessoasCadastradasNaSala = salaParaTestarAcesso.getPessoasCadastradas();
         addAcesso(pessoaParaTestarAcesso, salaParaTestarAcesso);
-
-        for(Pessoa pessoaCadastrada: pessoasCadastradasNaSala ){
-            if(pessoaCadastrada.equals(pessoaParaTestarAcesso)){
-                return true;
+        if(pessoaParaTestarAcesso==null){
+            return false;//colocar enum ErroMatricula
+        }else{
+            if(salaParaTestarAcesso==null){
+                return false; //colocar enum ErroSala
             }
         }
-        return false;
+        for(Pessoa pessoaCadastrada: pessoasCadastradasNaSala ){
+            if(pessoaCadastrada.equals(pessoaParaTestarAcesso)){
+                return true; // colocar enum Permitido
+            }
+        }
+        return false;// colocar enum NaoPermitido
     }
     
     @Override

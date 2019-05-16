@@ -31,7 +31,7 @@ public class CtrlPessoa implements ICtrlPessoa {
 
     
 
-    //######################ISERIR EXCEPTION########################
+    
     @Override
     public void incluiAluno(int matricula, String nome, int telefone, String email, String curso) {
         Pessoa alunoParaVerificar = findPessoaByMatricula(matricula);
@@ -53,7 +53,9 @@ public class CtrlPessoa implements ICtrlPessoa {
 
     public void delPessoa(int matricula) {
         Pessoa pessoaParaDeletar = findPessoaByMatricula(matricula);
-        pessoas.remove(pessoaParaDeletar);
+        if(pessoaParaDeletar!=null){
+            pessoas.remove(pessoaParaDeletar);
+        }
     }
 
     @Override
@@ -88,11 +90,14 @@ public class CtrlPessoa implements ICtrlPessoa {
         Pessoa pessoaCadastrada = findPessoaByMatricula( matricula);
         String lista = "";
         ArrayList<Sala> salasCadastradas = pessoaCadastrada.getSalasCadastradas();
+        if(pessoaCadastrada!= null){
             for(Sala salaCadastrada: salasCadastradas){
                 lista += salaCadastrada.getCodigoSala() +" ";
         
             }
-        return lista;
+        }
+    return lista;
+
     }    
 
     public Pessoa findPessoaByMatricula(int matricula) {
