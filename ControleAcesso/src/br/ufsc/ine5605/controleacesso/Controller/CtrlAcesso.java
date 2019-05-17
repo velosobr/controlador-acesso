@@ -17,34 +17,26 @@ import java.util.ArrayList;
  * @author Linnety3
  */
 public class CtrlAcesso implements ICtrlAcesso {
-
     private final CtrlPrincipal ctrlPrincipal;
     private TelaAcesso telaAcesso;
-    private ArrayList<Acesso> acessos;
-
+    private ArrayList <Acesso> acessos;
+    
+    
     public CtrlAcesso(CtrlPrincipal ctrlPrincipal) {
         this.ctrlPrincipal = ctrlPrincipal;
         this.telaAcesso = new TelaAcesso(this);
         this.acessos = new ArrayList<>();
-
+        
     }
-
-    public TelaAcesso getTelaAcesso() {
-        return telaAcesso;
-    }
+    
+    
 
     @Override
     public boolean ehLiberadoAcesso(int matricula, String codigoSala) {
         Pessoa pessoaParaTestarAcesso = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
         Sala salaParaTestarAcesso = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
-        ArrayList<Pessoa> pessoasCadastradasNaSala = salaParaTestarAcesso.getPessoasCadastradas();
+        ArrayList <Pessoa> pessoasCadastradasNaSala = salaParaTestarAcesso.getPessoasCadastradas();
         addAcesso(pessoaParaTestarAcesso, salaParaTestarAcesso);
-
-
-        for (Pessoa pessoaCadastrada : pessoasCadastradasNaSala) {
-            if (pessoaCadastrada.equals(pessoaParaTestarAcesso)) {
-                return true;
-
         if(pessoaParaTestarAcesso==null){
             return false;//colocar enum ErroMatricula
         }else{
@@ -55,37 +47,39 @@ public class CtrlAcesso implements ICtrlAcesso {
         for(Pessoa pessoaCadastrada: pessoasCadastradasNaSala ){
             if(pessoaCadastrada.equals(pessoaParaTestarAcesso)){
                 return true; // colocar enum Permitido
-
             }
         }
         return false;// colocar enum NaoPermitido
     }
-
+    
     @Override
     public void addAcesso(Pessoa pessoa, Sala sala) {
         String situacao = "";
         Acesso acesso = new Acesso(pessoa, sala, situacao);
         acessos.add(acesso);
     }
+    
+    
+    
 
     @Override
     public String geraLogByMatricula(int matricula) {
         String logAcessos = null;
-        for (Acesso acesso : acessos) {
-            if (acesso.getPessoa().getMatricula() == matricula) {
-                logAcessos += " @" + acesso.getData() + " " + acesso.getPessoa().getMatricula() + " " + acesso.getSala().getCodigoSala() + " " + acesso.getSituacao();
+        for(Acesso acesso: acessos){
+            if(acesso.getPessoa().getMatricula() == matricula){
+                logAcessos += " @"+acesso.getData()+" "+acesso.getPessoa().getMatricula()+" "+acesso.getSala().getCodigoSala()+" "+acesso.getSituacao();
             }
-
+        
         }
         return logAcessos;
     }
-
+    
     @Override
     public String geraLogByCodigoSala(String codigoSala) {
         String logAcessos = null;
-        for (Acesso acesso : acessos) {
-            if (acesso.getSala().getCodigoSala().equals(codigoSala)) {
-                logAcessos += " @" + acesso.getData() + " " + acesso.getPessoa().getMatricula() + " " + acesso.getSala().getCodigoSala() + " " + acesso.getSituacao();
+        for(Acesso acesso: acessos){
+            if(acesso.getSala().getCodigoSala().equals(codigoSala)){
+                logAcessos += " @"+acesso.getData()+" "+acesso.getPessoa().getMatricula()+" "+acesso.getSala().getCodigoSala()+" "+acesso.getSituacao();
             }
         }
         return logAcessos;
@@ -94,9 +88,9 @@ public class CtrlAcesso implements ICtrlAcesso {
     @Override
     public Acesso findAcessoByMatricula(int matricula) {
         int matriculaNoAcesso;
-        for (Acesso acesso : acessos) {
+        for(Acesso acesso: acessos){
             matriculaNoAcesso = acesso.getPessoa().getMatricula();
-            if (matriculaNoAcesso == matricula) {
+            if(matriculaNoAcesso == matricula){
                 return acesso;
             }
         }
@@ -106,13 +100,21 @@ public class CtrlAcesso implements ICtrlAcesso {
     @Override
     public Acesso findAcessoByCodigoSala(String codigoSala) {
         String codigoSalaNoAcesso = null;
-        for (Acesso acesso : acessos) {
+        for(Acesso acesso: acessos){
             codigoSalaNoAcesso = acesso.getSala().getCodigoSala();
-            if (codigoSalaNoAcesso.equals(codigoSala)) {
+            if(codigoSalaNoAcesso.equals(codigoSala)){
                 return acesso;
             }
         }
         return null;
     }
 
+    /**
+     * @return the telaAcesso
+     */
+    public TelaAcesso getTelaAcesso() {
+        return telaAcesso;
+    }
+
+    
 }
