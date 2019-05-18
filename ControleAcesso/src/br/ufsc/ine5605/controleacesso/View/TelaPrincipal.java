@@ -6,7 +6,7 @@
 package br.ufsc.ine5605.controleacesso.View;
 
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
-import br.ufsc.ine5605.controleacesso.validadores.Validadores;
+import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -17,14 +17,14 @@ import java.util.Scanner;
 public class TelaPrincipal {
 
     private final CtrlPrincipal ctrlPrincipal;
-    private final Validadores validador;
+    private final ValidaERetorna validador;
 
     private final Scanner teclado;
 
     public TelaPrincipal(CtrlPrincipal ctrlprincipal) {
         this.ctrlPrincipal = ctrlprincipal;
         this.teclado = new Scanner(System.in);
-        this.validador = new Validadores(teclado);
+        this.validador = new ValidaERetorna(teclado);
     }
 
     public CtrlPrincipal getCtrlPrincipal() {
@@ -50,9 +50,9 @@ public class TelaPrincipal {
             }
             switch (opcao) {
                 case (1):
-                    
-                        System.out.println("Digite a sua matricula");
-                        int matricula = validador.recebeValorInteiro();
+
+                    System.out.println("Digite a sua matricula");
+                    int matricula = validador.recebeValorInteiro();
 
                     System.out.println("Digite o codigo da sala");
                     String codSala = validador.recebeValorString();
@@ -66,8 +66,8 @@ public class TelaPrincipal {
                     break;
 
                 case (2):
-                    System.out.println("Digite a sua matricula");
-                    int matriculaadm = validador.recebeValorInteiro();
+
+                    int matriculaadm = validador.recebeValorInteiro("Digite a sua matricula");
 
                     if (validacaoTelaAdm(matriculaadm)) {
                         this.ctrlPrincipal.getTelaAdm().inicio();

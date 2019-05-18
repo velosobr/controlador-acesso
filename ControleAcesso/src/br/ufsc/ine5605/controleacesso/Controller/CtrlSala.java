@@ -85,14 +85,13 @@ public class CtrlSala implements ICtrlSala {
         Sala salaCadastrada = findSalaByCodigoSala(codigoSala);
         ArrayList<Pessoa> pessoasCadastradas = salaCadastrada.getPessoasCadastradas();
         String listaPessoasCadastradasNaSala = "";
-          
+
         if (salaCadastrada != null) {
             for (Pessoa pessoa : pessoasCadastradas) {
                 listaPessoasCadastradasNaSala += pessoa.getMatricula() + " ";
             }
         }
-            return listaPessoasCadastradasNaSala;
+        return listaPessoasCadastradasNaSala;
     }
 
-    
 }

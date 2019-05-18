@@ -47,7 +47,7 @@ public class TelaAdm {
                     ctrlPrincipal.getCtrlPessoa().getTelaPessoa().inicio();
                     break;
                 case (2):
-                   ctrlPrincipal.getCtrlSala().getTelaSala().inicio();
+                    ctrlPrincipal.getCtrlSala().getTelaSala().inicio();
                     break;
                 case (3):
                     ctrlPrincipal.getCtrlAcesso().getTelaAcesso().inicio();

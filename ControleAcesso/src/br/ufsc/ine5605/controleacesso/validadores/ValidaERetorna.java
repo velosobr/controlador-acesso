@@ -14,11 +14,11 @@ import java.util.Scanner;
  *
  * @author Linnety3
  */
-public class Validadores {
+public class ValidaERetorna {
 
     private final Scanner teclado;
 
-    public Validadores(Scanner teclado) {
+    public ValidaERetorna(Scanner teclado) {
         this.teclado = new Scanner(System.in);
     }
 
@@ -32,14 +32,40 @@ public class Validadores {
         return valor;
     }
 
+    public String recebeValorString(String mensagem) {
+        String valor = null;
+        do {
+            System.out.println(mensagem);
+
+            valor = recebeValorString();
+        } while (valor == null);
+
+        return valor;
+    }
+
     public int recebeValorInteiro() {
-        int valor = 0;
+        int valor = -1;
 
         try {
             valor = teclado.nextInt();
         } catch (InputMismatchException e) {
-            System.out.println("Valor invalido, você deve digitar um valor inteiro");
+            System.out.println("O valor digitado não é um inteiro válido");
+        } finally {
+            teclado.nextLine();
         }
+
+        return valor;
+    }
+
+    public int recebeValorInteiro(String mensagem) {
+        int valor = -1;
+
+        do {
+            System.out.println(mensagem);
+
+            valor = recebeValorInteiro();
+
+        } while (valor == -1);
 
         return valor;
     }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package br.ufsc.ine5605.controleacesso.Controller;
+
 import br.ufsc.ine5605.controleacesso.Model.Aluno;
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
@@ -96,7 +97,7 @@ public class CtrlPessoa implements ICtrlPessoa {
 
             }
         }
-    return lista;
+        return lista;
 
     }
 

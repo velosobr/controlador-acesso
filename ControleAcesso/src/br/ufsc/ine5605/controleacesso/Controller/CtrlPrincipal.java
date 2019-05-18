@@ -32,6 +32,7 @@ public class CtrlPrincipal {
     public void abreTelaInicial() {
         telaInicial.inicio();
     }
+
     public void abreTelaAdm() {
         telaInicial.inicio();
     }
