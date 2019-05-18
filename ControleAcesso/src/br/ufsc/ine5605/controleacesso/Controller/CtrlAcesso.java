@@ -33,11 +33,8 @@ public class CtrlAcesso implements ICtrlAcesso {
     public boolean ehLiberadoAcesso(int matricula, String codigoSala) {
         Pessoa pessoaParaTestarAcesso = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
         Sala salaParaTestarAcesso = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
-
         ArrayList<Pessoa> pessoasCadastradasNaSala = salaParaTestarAcesso.getPessoasCadastradas();
-        //LOG
-        addAcesso(pessoaParaTestarAcesso, salaParaTestarAcesso);
-
+       
         if (pessoaParaTestarAcesso == null) {
             return false;//colocar enum ErroMatricula
         } else {
@@ -47,10 +44,14 @@ public class CtrlAcesso implements ICtrlAcesso {
         }
         for (Pessoa pessoaCadastrada : pessoasCadastradasNaSala) {
             if (pessoaCadastrada.equals(pessoaParaTestarAcesso)) {
+                //LOG
+                addAcesso(pessoaParaTestarAcesso, salaParaTestarAcesso);
                 return true;
                 // colocar enum Permitido
             }
         }
+        //LOG
+        addAcesso(pessoaParaTestarAcesso, salaParaTestarAcesso);
         return false;// colocar enum NaoPermitido
     }
 
