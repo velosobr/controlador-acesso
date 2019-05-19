@@ -71,29 +71,35 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
 
     @Override
-    public boolean cadastraSalaNaPessoa(int matricula, String codigoSala) {
+    public boolean cadastraSalaNaPessoa(int matricula, String codigoSala)throws IllegalArgumentException {
         Sala salaParaCadastrar = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
         Pessoa pessoaCadastro = findPessoaByMatricula(matricula);
-
-        if (pessoaCadastro != null && salaParaCadastrar != null) {
-            pessoaCadastro.addSala(salaParaCadastrar);
-            salaParaCadastrar.addPessoa(pessoaCadastro);
-            return true;
+        if (pessoaCadastro == null){
+            throw new IllegalArgumentException("Matricula invalida");
         }
-        return false;
+        if(salaParaCadastrar == null){
+            throw new IllegalArgumentException("Codigo de sala invalido");
+        }
+        
+        pessoaCadastro.addSala(salaParaCadastrar);
+        salaParaCadastrar.addPessoa(pessoaCadastro);
+        return true;    
     }
 
     @Override
-    public boolean delSalaNaPessoa(int matricula, String codigoSala) {
+    public boolean delSalaNaPessoa(int matricula, String codigoSala)throws IllegalArgumentException {
         Sala salaParaCadastrar = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
         Pessoa pessoaCadastro = findPessoaByMatricula(matricula);
-
-        if (pessoaCadastro != null && salaParaCadastrar != null) {
-            pessoaCadastro.delSala(salaParaCadastrar);
-            salaParaCadastrar.delPessoa(pessoaCadastro);
-            return true;
+        if (pessoaCadastro == null){
+            throw new IllegalArgumentException("Matricula invalida");
         }
-        return false;
+        if(salaParaCadastrar == null){
+            throw new IllegalArgumentException("Codigo de sala invalido");
+        }
+        pessoaCadastro.delSala(salaParaCadastrar);
+        salaParaCadastrar.delPessoa(pessoaCadastro);
+        return true;
+       
     }
 
     /**
@@ -102,29 +108,32 @@ public class CtrlPessoa implements ICtrlPessoa {
      * @return
      */
     @Override
-    public String listaSalasCadastradas(int matricula) {
+    public String listaSalasCadastradas(int matricula)throws IllegalArgumentException  {
         Pessoa pessoaCadastrada = findPessoaByMatricula(matricula);
         String lista = "";
         ArrayList<Sala> salasCadastradas = pessoaCadastrada.getSalasCadastradas();
-       
-        if (pessoaCadastrada != null) {
-            for (Sala salaCadastrada : salasCadastradas) {
-                lista += salaCadastrada.getCodigoSala() +" "+ salaCadastrada.getCentro() + "\n";
-                return lista;
-            }
+        if (pessoaCadastrada == null){
+            throw new IllegalArgumentException("Matricula invalida");
         }
-        lista = "Nao ha salas cadastradas";
+        for (Sala salaCadastrada : salasCadastradas) {
+            lista += salaCadastrada.getCodigoSala() +" "+ salaCadastrada.getCentro() + "\n";
+            
+         }
+        if(lista.equals("")){
+            lista = "Nao ha salas cadastradas";
+        }
+        
         return lista;
 
     }
     
     @Override
-    public String listAllPessoasCadastradas(){
+    public String listAllPessoasCadastradas() {
         String  listaPessoasCadastradas = "";
         for(Pessoa pessoa: pessoas){
             listaPessoasCadastradas +="@" +pessoa.getMatricula() + " "+ pessoa.getNome()+"\n" ;
         }
-        if(listaPessoasCadastradas.equals(" ")){
+        if(listaPessoasCadastradas.equals("")){
             listaPessoasCadastradas = "Nao ha pessoas cadastradas";
             return listaPessoasCadastradas;
         }

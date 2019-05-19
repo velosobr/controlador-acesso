@@ -101,10 +101,10 @@ public class CtrlSala implements ICtrlSala {
         if(salaCadastrada == null){
             throw new IllegalArgumentException("Codigo de sala invalido");
         }
-        for (Pessoa pessoa : pessoasCadastradas) {
+        for(Pessoa pessoa : pessoasCadastradas) {
             listaPessoasCadastradasNaSala += pessoa.getMatricula() +" "+ pessoa.getNome()+"\n";
             }
-        if(listaPessoasCadastradasNaSala ==""){
+        if(listaPessoasCadastradasNaSala.equals("")){
            listaPessoasCadastradasNaSala = "Nao ha pessoas Cadastradas"; 
         }
         return listaPessoasCadastradasNaSala;
@@ -115,7 +115,7 @@ public class CtrlSala implements ICtrlSala {
         for(Sala sala: salas){
             listaSalasCadastradas +="@" +sala.getCodigoSala() + sala.getCentro()+"\n";
         }
-        if(listaSalasCadastradas.equals(" ")){
+        if(listaSalasCadastradas.equals("")){
             listaSalasCadastradas = "Nao ha salas cadastradas";
             return listaSalasCadastradas;
         }

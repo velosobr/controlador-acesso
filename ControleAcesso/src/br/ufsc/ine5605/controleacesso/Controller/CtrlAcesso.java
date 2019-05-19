@@ -30,16 +30,16 @@ public class CtrlAcesso implements ICtrlAcesso {
     }
 
     @Override
-    public boolean ehLiberadoAcesso(int matricula, String codigoSala) {
+    public boolean ehLiberadoAcesso(int matricula, String codigoSala) throws IllegalArgumentException{
         Pessoa pessoaParaTestarAcesso = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
         Sala salaParaTestarAcesso = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
         ArrayList<Pessoa> pessoasCadastradasNaSala = salaParaTestarAcesso.getPessoasCadastradas();
        
-        if (pessoaParaTestarAcesso == null) {
-            return false;//colocar enum ErroMatricula
-        } 
-        if (salaParaTestarAcesso == null) {
-                return false; //colocar enum ErroSala
+        if (pessoaParaTestarAcesso == null){
+            throw new IllegalArgumentException("Matricula invalida");
+        }
+        if(salaParaTestarAcesso == null){
+            throw new IllegalArgumentException("Codigo de sala invalido");
         }
         
         for (Pessoa pessoaCadastrada : pessoasCadastradasNaSala) {
@@ -63,11 +63,11 @@ public class CtrlAcesso implements ICtrlAcesso {
     }
 
     @Override
-    public String geraLogByMatricula(int matricula) {
+    public String geraLogByMatricula(int matricula)throws IllegalArgumentException {
         String logAcessos = "Sem Registro de acesso";
         Pessoa pessoa = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
         if(pessoa == null){
-            return "Matricula Invalida!";
+            throw new IllegalArgumentException("Matricula invalida");
         }
         for (Acesso acesso : acessos) {
             if (acesso.getPessoa().getMatricula() == matricula) {
@@ -80,16 +80,16 @@ public class CtrlAcesso implements ICtrlAcesso {
     }
 
     @Override
-    public String geraLogByCodigoSala(String codigoSala) {
+    public String geraLogByCodigoSala(String codigoSala)throws IllegalArgumentException {
         String logAcessos = "Sem Registro de acesso";
         Sala sala = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
         if(sala == null){
-            return "Codigo de sala invalido!";
+            throw new IllegalArgumentException("Codigo de sala invalido");
         }
         for (Acesso acesso : acessos) {
             if (acesso.getSala().getCodigoSala().equals(codigoSala)) {
                 logAcessos = "";
-                logAcessos += " @" + acesso.getData() + " " + acesso.getPessoa().getMatricula() + " " + acesso.getSala().getCodigoSala() + " " + acesso.getSituacao();
+                logAcessos += "@" + acesso.getData() + " " + acesso.getPessoa().getMatricula() + " " + acesso.getSala().getCodigoSala() + " " + acesso.getSituacao()+"\n";
             }
         }
         return logAcessos;
