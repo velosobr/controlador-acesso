@@ -105,18 +105,19 @@ public class CtrlPessoa implements ICtrlPessoa {
 
     }
     
-    
+    @Override
     public String listAllPessoasCadastradas(){
         String  listaPessoasCadastradas = "";
         for(Pessoa pessoa: pessoas){
             listaPessoasCadastradas +="@" +pessoa.getMatricula() + " "+ pessoa.getNome()+"\n" ;
         }
-        if(listaPessoasCadastradas == ""){
+        if(listaPessoasCadastradas.equals(" ")){
             listaPessoasCadastradas = "Nao ha pessoas cadastradas";
             return listaPessoasCadastradas;
         }
     return listaPessoasCadastradas;
     }
+    
     public Pessoa findPessoaByMatricula(int matricula) {
         for (Pessoa pessoa : pessoas) {
             if (pessoa.getMatricula() == matricula) {

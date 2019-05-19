@@ -31,6 +31,10 @@ public class CtrlSala implements ICtrlSala {
         return telaSala;
     }
 
+    public CtrlPrincipal getCtrlPrincipal() {
+        return this.ctrlPrincipal;
+    }
+
     @Override
     public void addSala(String codigoSala, int numero, char bloco, String centro, String campus) {
         Sala salaParaVerificar = findSalaByCodigoSala(codigoSala);

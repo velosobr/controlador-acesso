@@ -41,8 +41,9 @@ public class TelaPessoa {
             System.out.println("4 - Liberar acesso à sala");
             System.out.println("5 - Deletar acesso à sala");
             System.out.println("6 - Listar salas cadastras na pessoa");
-            System.out.println("7 - Encontrar pessoa pela matrícula");
-            System.out.println("8 - Voltar para o menu anterior");
+            System.out.println("7 - Listar todas as pessoas cadastradas no sistema");
+            System.out.println("8 - Encontrar pessoa pela matrícula");
+            System.out.println("9 - Voltar para o menu anterior");
 
             System.out.println("99 - Sair");
 
@@ -66,10 +67,17 @@ public class TelaPessoa {
                     inicio();
                 case (6):
                     listaSalasCadastradasPessoa();
+                   teclado.nextLine();
                     inicio();
                 case (7):
-                    encontraPessoaByMatricula();
+                    listAllPessoasCadastradas();
+                    teclado.nextLine();
+                    inicio();
                 case (8):
+                    encontraPessoaByMatricula();
+                    teclado.nextLine();
+                    inicio();
+                case (9):
                     ctrlPessoa.getCtrlPrincipal().abreTelaAdm();
                 case (99):
                     System.exit(0);
@@ -140,19 +148,32 @@ public class TelaPessoa {
 
     private void listaSalasCadastradasPessoa() {
         System.out.println("---");
-        System.out.println("Informações para exclusão de Pessoa");
+        System.out.println("Lista quais salas cadastradas no sistema");
         System.out.println("---");
 
         System.out.println(ctrlPessoa.listaSalasCadastradas(validador.recebeValorInteiro("Digite a matricula da Pessoa")));
     }
 
+    private void listAllPessoasCadastradas() {
+        System.out.println("---");
+        System.out.println("Lista todas as pessoas cadastradas no sistema");
+        System.out.println("---");
+        System.out.println(ctrlPessoa.listAllPessoasCadastradas());
+    }
+
     private void encontraPessoaByMatricula() {
         System.out.println("---");
-        System.out.println("Informações para exclusão de Pessoa");
+        System.out.println("encontra uma pessoa atraves da matricula, e mostra qual o nome");
         System.out.println("---");
-        Pessoa pessoa = ctrlPessoa.findPessoaByMatricula(validador.recebeValorInteiro("Digite a matricula da Pessoa"));
+        int matricula = validador.recebeValorInteiro("Digite a matricula da Pessoa");
+        Pessoa pessoa = ctrlPessoa.findPessoaByMatricula(matricula);
         String nome = pessoa.getNome();
-        System.out.println("O nome encontrado com este matricula é: "+nome);
+        String email = pessoa.getEmail();
+        int telefone = pessoa.getTelefone();
+        System.out.println("O nome encontrado com a matricula" + matricula + " é: " + nome);
+        System.out.println("O telefone é: " + telefone);
+        System.out.println("O email é: " + email);
+        System.out.println("");
     }
 
 }

@@ -98,4 +98,29 @@ public class ValidaERetorna {
         return valorBool;
     }
 
+    public char recebeValorChar() {
+        char valor = 000;
+        try {
+            valor = teclado.next().charAt(0);
+        } catch (InputMismatchException e) {
+            System.out.println("O valor digitado não é um inteiro válido");
+        } finally {
+            teclado.nextLine();
+        }
+
+        return valor;
+    }
+
+    public char recebeValorChar(String mensagem) {
+        char valor = 000;
+
+        do {
+            System.out.println(mensagem);
+
+            valor = recebeValorChar();
+
+        } while (valor == 000);
+
+        return valor;
+    }
 }

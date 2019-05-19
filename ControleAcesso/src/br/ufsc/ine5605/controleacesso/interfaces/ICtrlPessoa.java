@@ -74,5 +74,10 @@ public interface ICtrlPessoa {
      * seu cadastro.
      */
     public String listaSalasCadastradas(int matricula) ;
+    /**
+     * Metodo responsável por mostrar todas as pessoas cadastradas no sistema
+     * @return - retorna uma lista de pessoas em String
+     */
+    public String listAllPessoasCadastradas();
 
 }
