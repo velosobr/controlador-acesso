@@ -51,6 +51,9 @@ public class TelaPrincipal {
 
                     if (validacaoPorta(matricula, codSala)) {
                         System.out.println("Porta aberta com sucesso");
+                     teclado.nextLine();
+                        this.inicio();
+                    
                     } else {
                         System.out.println("Você não possui acesso a esta porta, procure um administrador de sistema");
                       teclado.nextLine();
