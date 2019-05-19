@@ -87,7 +87,7 @@ public class TelaSala {
         String codigoSala = validador.recebeValorString("Digite o código da sala");
         int numero = validador.recebeValorInteiro("Digite o número da sala");
         char bloco = validador.recebeValorChar("Digite bloco da sala");
-        String centro = validador.recebeValorString("Digite o centro academico da sala");
+        String centro = validador.recebeValorString("Digite o centro da sala");
         String campus = validador.recebeValorString("Digite o campus que a sala fica localizada");
 
         ctrlSala.addSala(codigoSala, numero, bloco, centro, campus);

@@ -6,8 +6,8 @@
 package br.ufsc.ine5605.controleacesso.View;
 
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
+import br.ufsc.ine5605.controleacesso.Model.Servidor;
 import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -35,7 +35,6 @@ public class TelaPrincipal {
         System.out.println("#### BEM VINDO AO SISTEMA ####");
         System.out.println(" ");
         try {
-
             System.out.println("1 - Acessar a porta");
             System.out.println("2 - Acessar a tela gerencial");
             System.out.println("9 - Sair");
@@ -63,6 +62,7 @@ public class TelaPrincipal {
                     int matriculaadm = validador.recebeValorInteiro("Digite a sua matricula");
 
                     if (validacaoTelaAdm(matriculaadm)) {
+                        System.out.println("Login efetuado com sucesso");
                         this.ctrlPrincipal.getTelaAdm().inicio();
                     } else {
                         System.out.println("Usuário não possui acesso a tela Adm");
@@ -93,14 +93,14 @@ public class TelaPrincipal {
     }
 
     private boolean validacaoTelaAdm(int matricula) {
-        boolean ehAdm = true;
+        boolean ehAdm = false;
 
-//        if (ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula) instanceof Servidor) {
-//            Servidor servidor = (Servidor) ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
-//            ehAdm = servidor.isAdministrador();
-//        } else {
-//            System.out.println("A matriculada digitada não pertence a um servidor, somente servidores podem acessar a tela gerencial");
-//        }
+        if (ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula) instanceof Servidor) {
+            Servidor servidor = (Servidor) ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
+            ehAdm = servidor.isAdministrador();
+        } else {
+            throw new IllegalArgumentException("A matriculada digitada não pertence a um servidor, somente servidores podem acessar a tela gerencial");
+        }
         return ehAdm;
     }
 

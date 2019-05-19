@@ -5,8 +5,6 @@
  */
 package br.ufsc.ine5605.controleacesso.validadores;
 
-import br.ufsc.ine5605.controleacesso.Exceptions.valorStringException;
-import br.ufsc.ine5605.controleacesso.Exceptions.numeroInteiroException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
