@@ -37,11 +37,11 @@ public class CtrlAcesso implements ICtrlAcesso {
        
         if (pessoaParaTestarAcesso == null) {
             return false;//colocar enum ErroMatricula
-        } else {
-            if (salaParaTestarAcesso == null) {
+        } 
+        if (salaParaTestarAcesso == null) {
                 return false; //colocar enum ErroSala
-            }
         }
+        
         for (Pessoa pessoaCadastrada : pessoasCadastradasNaSala) {
             if (pessoaCadastrada.equals(pessoaParaTestarAcesso)) {
                 //LOG

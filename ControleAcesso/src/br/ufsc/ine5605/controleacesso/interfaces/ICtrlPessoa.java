@@ -26,7 +26,7 @@ public interface ICtrlPessoa {
      * @param email - email do aluno.
      
      */
-    public void incluiAluno(int matricula, String nome, int telefone, String email, String curso);
+    public boolean incluiAluno(int matricula, String nome, int telefone, String email, String curso);
 
     /**
      * É utilizado pela TelaPessoa para incluir um novo Servidor na lista de
@@ -42,14 +42,14 @@ public interface ICtrlPessoa {
      * @param listaSalas - Lista de salas (salas cadastradas na tela de salas) o
      * aluno tem acesso,.
      */
-    public void incluiServidor(int matricula, String nome, int telefone, String email, String cargo, boolean administrador);
+    public boolean incluiServidor(int matricula, String nome, int telefone, String email, String cargo, boolean administrador);
 
     /**
      * É utilizado pela TelaPessoa para deletar uma pessoa na lista de pessoas.
      *
      * @param matricula - Qual matricula o aluno possui.
      */
-    public void delPessoa(int matricula);
+    public boolean delPessoa(int matricula);
 
     /**
      * É utilizado pela TelaPessoa para incluir uma sala cadastrada na lista de
@@ -58,14 +58,14 @@ public interface ICtrlPessoa {
      * @param codigoSala - código na listaSalas da pessoa a sala encontrada com
      * esse codigo sala.
      */
-    public void cadastraSalaNaPessoa(int matricula, String codigoSala);
+    public boolean cadastraSalaNaPessoa(int matricula, String codigoSala);
 
     /**
      *
      * @param codigoSala - é utilizado para encontrara a sala na lista de salas
      * do aluno e deleta a sala da lista.
      */
-    public void delSalaNaPessoa(int matricula, String codigoSala);
+    public boolean delSalaNaPessoa(int matricula, String codigoSala);
 
     /**
      * @param matricula - matricula da pessoa que você quer encontrar a lista de

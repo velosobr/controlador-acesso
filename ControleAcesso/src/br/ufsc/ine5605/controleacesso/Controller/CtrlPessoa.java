@@ -39,50 +39,61 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
 
     @Override
-    public void incluiAluno(int matricula, String nome, int telefone, String email, String curso) {
+    public boolean incluiAluno(int matricula, String nome, int telefone, String email, String curso) {
         Pessoa alunoParaVerificar = findPessoaByMatricula(matricula);
-        Pessoa alunoParaIncluir = null;
         if (alunoParaVerificar == null) {
-            alunoParaIncluir = new Aluno(matricula, nome, telefone, email, curso);
+            Pessoa alunoParaIncluir = new Aluno(matricula, nome, telefone, email, curso);
+            pessoas.add(alunoParaIncluir);
+            return true;
         }
-        pessoas.add(alunoParaIncluir);
+        return false;
     }
 
     @Override
-    public void incluiServidor(int matricula, String nome, int telefone, String email, String cargo, boolean administrador) {
+    public boolean incluiServidor(int matricula, String nome, int telefone, String email, String cargo, boolean administrador) {
         Pessoa servidorParaVerificar = findPessoaByMatricula(matricula);
         if (servidorParaVerificar == null) {
             Pessoa servidorParaIncluir = new Servidor(matricula, nome, telefone, email, cargo, administrador);
+            pessoas.add(servidorParaIncluir);
+            return true;
         }
-    }
-
-    public void delPessoa(int matricula) {
-        Pessoa pessoaParaDeletar = findPessoaByMatricula(matricula);
-        if (pessoaParaDeletar != null) {
-            pessoas.remove(pessoaParaDeletar);
-        }
+        return false;
     }
 
     @Override
-    public void cadastraSalaNaPessoa(int matricula, String codigoSala) {
+    public boolean delPessoa(int matricula) {
+        Pessoa pessoaParaDeletar = findPessoaByMatricula(matricula);
+        if (pessoaParaDeletar != null) {
+            pessoas.remove(pessoaParaDeletar);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean cadastraSalaNaPessoa(int matricula, String codigoSala) {
         Sala salaParaCadastrar = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
         Pessoa pessoaCadastro = findPessoaByMatricula(matricula);
 
         if (pessoaCadastro != null && salaParaCadastrar != null) {
             pessoaCadastro.addSala(salaParaCadastrar);
             salaParaCadastrar.addPessoa(pessoaCadastro);
+            return true;
         }
+        return false;
     }
 
     @Override
-    public void delSalaNaPessoa(int matricula, String codigoSala) {
+    public boolean delSalaNaPessoa(int matricula, String codigoSala) {
         Sala salaParaCadastrar = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
         Pessoa pessoaCadastro = findPessoaByMatricula(matricula);
 
         if (pessoaCadastro != null && salaParaCadastrar != null) {
             pessoaCadastro.delSala(salaParaCadastrar);
             salaParaCadastrar.delPessoa(pessoaCadastro);
+            return true;
         }
+        return false;
     }
 
     /**
@@ -124,7 +135,6 @@ public class CtrlPessoa implements ICtrlPessoa {
         for (Pessoa pessoa : pessoas) {
             if (pessoa.getMatricula() == matricula) {
                 return pessoa;
-
             }
         }
         return null;

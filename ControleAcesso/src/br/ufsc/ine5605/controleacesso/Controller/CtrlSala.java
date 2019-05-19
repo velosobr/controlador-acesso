@@ -36,52 +36,53 @@ public class CtrlSala implements ICtrlSala {
     }
 
     @Override
-    public void addSala(String codigoSala, int numero, char bloco, String centro, String campus) {
+    public boolean addSala(String codigoSala, int numero, char bloco, String centro, String campus) {
         Sala salaParaVerificar = findSalaByCodigoSala(codigoSala);
         Sala salaParaIncluir = null;
         if (salaParaVerificar == null) {
             salaParaIncluir = new Sala(codigoSala, numero, bloco, centro, campus);
             salas.add(salaParaIncluir);
+            return true;
         }
+        return false;
     }
 
     @Override
-    public void delSala(String codigoSala) {
+    public boolean delSala(String codigoSala) {
         Sala salaParaDeletar = findSalaByCodigoSala(codigoSala);
         if (salaParaDeletar != null) {
             salas.remove(salaParaDeletar);
+            return true;
         }
+            
+        return false;
     }
 
-    @Override
-    public Sala findSalaByCodigoSala(String codigoSala) {
-        for (Sala sala : salas) {
-            if (sala.getCodigoSala().equals(codigoSala)) {
-                return sala;
-            }
-        }
-        return null;
-    }
+   
 
     @Override
-    public void cadastraPessoaNaSala(int matricula, String codigoSala) {
+    public boolean cadastraPessoaNaSala(int matricula, String codigoSala) {
         Pessoa pessoaParaCadastrar = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
         Sala salaParaCadastrar = findSalaByCodigoSala(codigoSala);
         ArrayList<Pessoa> pessoasCadastradas = salaParaCadastrar.getPessoasCadastradas();
         if (pessoaParaCadastrar != null && salaParaCadastrar != null) {
             pessoaParaCadastrar.addSala(salaParaCadastrar);
             salaParaCadastrar.addPessoa(pessoaParaCadastrar);
+            return true;
         }
+        return false;
     }
 
     @Override
-    public void deletaPessoaNaSala(int matricula, String codigoSala) {
+    public boolean deletaPessoaNaSala(int matricula, String codigoSala) {
         Pessoa pessoaParaCadastrar = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
         Sala salaParaCadastrar = findSalaByCodigoSala(codigoSala);
         if (pessoaParaCadastrar != null && salaParaCadastrar != null) {
             pessoaParaCadastrar.delSala(salaParaCadastrar);
             salaParaCadastrar.delPessoa(pessoaParaCadastrar);
+            return true;
         }
+        return false;
     }
 
     @Override
@@ -108,6 +109,17 @@ public class CtrlSala implements ICtrlSala {
             return listaSalasCadastradas;
         }
     return listaSalasCadastradas;
+    }
+    
+     @Override
+    public Sala findSalaByCodigoSala(String codigoSala) {
+        for (Sala sala : salas) {
+            if (sala.getCodigoSala().equals(codigoSala)) {
+                return sala;
+            }
+        }
+       
+        return null;
     }
 
 }

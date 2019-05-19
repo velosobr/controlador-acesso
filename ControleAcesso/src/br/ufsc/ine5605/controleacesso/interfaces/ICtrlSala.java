@@ -22,13 +22,13 @@ public interface ICtrlSala {
      * @param centro - qual centro academico se encontra a sala.
      * @param campus - Em qual campus se encontra a sala.
      */
-    public void addSala(String codigoSala, int numero, char bloco, String centro, String campus);
+    public boolean addSala(String codigoSala, int numero, char bloco, String centro, String campus);
     
     /**
      * Este método é responsavel por excluir uma sala do cadastro. Seria interessante criar uma validação para que a exclusão só fosse possível se não houvesse nenhum aluno com a sala no cadastro deles.
      * @param codigoSala - atributo responsável por encontrar na lista de salas.
      */
-    public void delSala(String codigoSala);
+    public boolean delSala(String codigoSala);
     
     /**
      * Método responsável por encontrar a sala através do código da sala passado por parâmetro.
@@ -41,13 +41,13 @@ public interface ICtrlSala {
      * Método responsável por cadastrar acesso das pessoas a sala.
      * @param matricula matricula da pessoa que quer ter acesso a sala.
      */
-    public void cadastraPessoaNaSala(int matricula, String codigoSala);
+    public boolean cadastraPessoaNaSala(int matricula, String codigoSala);
     
     /**
      * Deleta da pessoa o acesso à sala
      * @param matricula Atributo responsável por encontrar a pessoa.
      */
-    public void deletaPessoaNaSala(int matricula, String codigoSala);
+    public boolean deletaPessoaNaSala(int matricula, String codigoSala);
     
     /**
      * Lista as pessoas que possuem acesso à sala.
