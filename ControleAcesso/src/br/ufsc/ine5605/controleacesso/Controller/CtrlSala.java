@@ -92,10 +92,22 @@ public class CtrlSala implements ICtrlSala {
 
         if (salaCadastrada != null) {
             for (Pessoa pessoa : pessoasCadastradas) {
-                listaPessoasCadastradasNaSala += pessoa.getMatricula() + " ";
+                listaPessoasCadastradasNaSala += pessoa.getMatricula() +" "+ pessoa.getNome()+"\n";
             }
         }
         return listaPessoasCadastradasNaSala;
+    }
+    
+    public String listAllSalasCadastradas(){
+        String  listaSalasCadastradas = "";
+        for(Sala sala: salas){
+            listaSalasCadastradas +="@" +sala.getCodigoSala() + sala.getCentro()+"\n";
+        }
+        if(listaSalasCadastradas.equals(" ")){
+            listaSalasCadastradas = "Nao ha salas cadastradas";
+            return listaSalasCadastradas;
+        }
+    return listaSalasCadastradas;
     }
 
 }

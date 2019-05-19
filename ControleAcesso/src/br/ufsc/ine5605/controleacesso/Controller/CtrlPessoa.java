@@ -95,12 +95,14 @@ public class CtrlPessoa implements ICtrlPessoa {
         Pessoa pessoaCadastrada = findPessoaByMatricula(matricula);
         String lista = "";
         ArrayList<Sala> salasCadastradas = pessoaCadastrada.getSalasCadastradas();
+       
         if (pessoaCadastrada != null) {
             for (Sala salaCadastrada : salasCadastradas) {
-                lista += salaCadastrada.getCodigoSala() + " ";
-
+                lista += salaCadastrada.getCodigoSala() +" "+ salaCadastrada.getCentro() + "\n";
+                return lista;
             }
         }
+        lista = "Nao ha salas cadastradas";
         return lista;
 
     }
