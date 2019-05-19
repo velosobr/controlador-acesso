@@ -12,13 +12,12 @@ package br.ufsc.ine5605.controleacesso.Model;
 public enum SituacaoAcesso {
     
     Permitido("Acesso Permitido"),
-    ErroMatricula("Matricula invalida"),
-    ErroCodigoSala("Codigo da Sala Invalido"),
+    
     NaoPermitido("Acesso negado");
     
     private String descricao;
     
-    SituacaoAcesso (String decricao){
+    private SituacaoAcesso (String descricao){
         this.descricao = descricao;
     }
 

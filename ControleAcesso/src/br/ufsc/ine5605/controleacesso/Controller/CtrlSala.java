@@ -96,11 +96,13 @@ public class CtrlSala implements ICtrlSala {
     @Override
     public String listaPessoasCadastradas(String codigoSala)throws IllegalArgumentException {
         Sala salaCadastrada = findSalaByCodigoSala(codigoSala);
-        ArrayList<Pessoa> pessoasCadastradas = salaCadastrada.getPessoasCadastradas();
         String listaPessoasCadastradasNaSala = "";
+        
         if(salaCadastrada == null){
             throw new IllegalArgumentException("Codigo de sala invalido");
         }
+        
+        ArrayList<Pessoa> pessoasCadastradas = salaCadastrada.getPessoasCadastradas();
         for(Pessoa pessoa : pessoasCadastradas) {
             listaPessoasCadastradasNaSala += pessoa.getMatricula() +" "+ pessoa.getNome()+"\n";
             }

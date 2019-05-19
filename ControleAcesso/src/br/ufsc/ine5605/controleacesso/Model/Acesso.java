@@ -6,6 +6,7 @@
 package br.ufsc.ine5605.controleacesso.Model;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -14,13 +15,13 @@ import java.util.Calendar;
 public class Acesso {
     private Pessoa pessoa;
     private Sala sala;
-    private long data;
+    private Date data;
     private String situacao;
     
     public Acesso(Pessoa pessoa, Sala sala, String situacao){
         setPessoa(pessoa);
         setSala(sala);
-        this.data =Calendar.getInstance().getTimeInMillis();
+        this.data =Calendar.getInstance().getTime();
         this.situacao = situacao;
     }
 
@@ -59,7 +60,7 @@ public class Acesso {
     /**
      * @return the data
      */
-    public long getData() {
+    public Date getData() {
         return data;
     }
 

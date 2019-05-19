@@ -27,7 +27,7 @@ public interface ICtrlAcesso {
     
     
     
-    public void addAcesso(Pessoa pessoa, Sala sala);
+    public void addAcesso(Pessoa pessoa, Sala sala, String situacaoDoTeste);
   
    
     /**

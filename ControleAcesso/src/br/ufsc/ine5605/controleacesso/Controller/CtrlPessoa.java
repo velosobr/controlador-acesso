@@ -111,10 +111,11 @@ public class CtrlPessoa implements ICtrlPessoa {
     public String listaSalasCadastradas(int matricula)throws IllegalArgumentException  {
         Pessoa pessoaCadastrada = findPessoaByMatricula(matricula);
         String lista = "";
-        ArrayList<Sala> salasCadastradas = pessoaCadastrada.getSalasCadastradas();
         if (pessoaCadastrada == null){
             throw new IllegalArgumentException("Matricula invalida");
         }
+        
+        ArrayList<Sala> salasCadastradas = pessoaCadastrada.getSalasCadastradas();
         for (Sala salaCadastrada : salasCadastradas) {
             lista += salaCadastrada.getCodigoSala() +" "+ salaCadastrada.getNumero()+" "+ salaCadastrada.getCentro() + "\n";
             
