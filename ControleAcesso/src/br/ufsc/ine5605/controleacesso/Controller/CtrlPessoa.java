@@ -61,7 +61,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
 
     @Override
-    public boolean delPessoa(int matricula) {
+    public boolean delPessoa(int matricula)throws IllegalArgumentException {
         Pessoa pessoaParaDeletar = findPessoaByMatricula(matricula);
         if (pessoaParaDeletar != null) {
             pessoas.remove(pessoaParaDeletar);
