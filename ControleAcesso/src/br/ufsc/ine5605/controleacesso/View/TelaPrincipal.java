@@ -32,22 +32,15 @@ public class TelaPrincipal {
     }
 
     public void inicio() {
-
-        System.out.println("--- Bem vindo ao sistema! ---");
-
-        int opcao = 0;
-
+        System.out.println("#### BEM VINDO AO SISTEMA ####");
+        System.out.println(" ");
         try {
-            System.out.println("--- Digite uma opção abaixo e tecle enter. ---");
+
             System.out.println("1 - Acessar a porta");
             System.out.println("2 - Acessar a tela gerencial");
             System.out.println("9 - Sair");
 
-            try {
-                opcao = teclado.nextInt();
-            } catch (InputMismatchException e) {
-                throw new IllegalArgumentException("Opção inválida! Escolha uma opção dentre as opções na lista.");
-            }
+            int opcao = validador.recebeValorInteiro("--- Escolha uma das opcoes acima e tecle enter. ---");
             switch (opcao) {
                 case (1):
 
@@ -90,6 +83,8 @@ public class TelaPrincipal {
             String[] args = null;
             this.inicio();
 
+        } finally {
+            teclado.nextLine();
         }
     }
 

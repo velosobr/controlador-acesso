@@ -6,6 +6,7 @@
 package br.ufsc.ine5605.controleacesso.View;
 
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
+import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -18,10 +19,12 @@ public class TelaAdm {
     private final CtrlPrincipal ctrlPrincipal;
 
     private final Scanner teclado;
+    private final ValidaERetorna validador;
 
     public TelaAdm(CtrlPrincipal ctrlPrincipal) {
         this.ctrlPrincipal = ctrlPrincipal;
         teclado = new Scanner(System.in);
+        this.validador = new ValidaERetorna(teclado);
     }
 
     public CtrlPrincipal getCtrlPrincipal() {
@@ -31,7 +34,7 @@ public class TelaAdm {
     public void inicio() throws IllegalArgumentException, InputMismatchException {
 
         System.out.println("--- TELA ADM - GERENCIAL ---");
-        System.out.println("Escolha a opção desejada, insira o número e tecle enter: ---");
+        System.out.println(" ");
         System.out.println("1 - Cadastro de pessoas");
         System.out.println("2 - Cadastro de Salas");
         System.out.println("3 - Gerenciamento de Acessos");
@@ -39,9 +42,8 @@ public class TelaAdm {
         System.out.println("");
 
         try {
-            int opcao = teclado.nextInt();
+            int opcao = validador.recebeValorInteiro("Escolha a opção desejada, insira o número e tecle enter: ---");
 
-            teclado.nextLine();
             switch (opcao) {
                 case (1):
                     ctrlPrincipal.getCtrlPessoa().getTelaPessoa().inicio();
@@ -62,6 +64,8 @@ public class TelaAdm {
             System.out.println("Opção Inválida! Escolha uma opção dentre das opções na lista.");
             String[] args = null;
             this.inicio();
+        } finally {
+            teclado.nextLine();
         }
 
     }
