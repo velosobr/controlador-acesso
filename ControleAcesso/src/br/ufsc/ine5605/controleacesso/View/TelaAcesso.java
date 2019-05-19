@@ -37,6 +37,7 @@ public class TelaAcesso {
 
             System.out.println("1 - Listar acessos por matricula");
             System.out.println("2 - Listar acessos por codigo de sala");
+            System.out.println("3 - Voltar ao menu anterior");
             System.out.println("9 - Sair");
 
             int opcao = validador.recebeValorInteiro("--- Escolha uma das opcoes acima e tecle enter. ---");
@@ -49,6 +50,9 @@ public class TelaAcesso {
                 case (2):
                     listaAcessoByCodigoSala();
                     inicio();     
+                    break;
+                case (3):
+                    ctrlAcesso.getCtrlPrincipal().abreTelaAdm();
                     break;
                 case (9):
                     System.exit(0);

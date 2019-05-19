@@ -116,7 +116,7 @@ public class CtrlPessoa implements ICtrlPessoa {
             throw new IllegalArgumentException("Matricula invalida");
         }
         for (Sala salaCadastrada : salasCadastradas) {
-            lista += salaCadastrada.getCodigoSala() +" "+ salaCadastrada.getCentro() + "\n";
+            lista += salaCadastrada.getCodigoSala() +" "+ salaCadastrada.getNumero()+" "+ salaCadastrada.getCentro() + "\n";
             
          }
         if(lista.equals("")){

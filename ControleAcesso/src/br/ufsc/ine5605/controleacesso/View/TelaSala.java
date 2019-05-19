@@ -121,10 +121,6 @@ public class TelaSala {
         System.out.println("Campus: " + sala.getCampus());
     }
 
-        
-
-    
-
     private void cadastraPessoaNaSala() {
         System.out.println("---");
         System.out.println("Informações para inclusão de acesso da pessoa na sala");
@@ -132,6 +128,9 @@ public class TelaSala {
         int matricula = validador.recebeValorInteiro("Digite a matricula");
         String codigoSala = validador.recebeValorString("Digite o código da sala");
         ctrlSala.cadastraPessoaNaSala(matricula, codigoSala);
+        
+        System.out.println("Inclusão feita com sucesso");
+        teclado.nextLine();
 
     }
 

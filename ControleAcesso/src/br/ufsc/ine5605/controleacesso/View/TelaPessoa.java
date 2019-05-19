@@ -136,6 +136,8 @@ public class TelaPessoa {
         System.out.println("---");
 
         ctrlPessoa.cadastraSalaNaPessoa(validador.recebeValorInteiro("Digite matricula da Pessoa"), validador.recebeValorString("Digite o código da Sala"));
+        System.out.println("Inclusão feita com sucesso");
+        teclado.nextLine();
     }
 
     private void deletarAcessoSala() {
@@ -151,7 +153,7 @@ public class TelaPessoa {
         System.out.println("Lista quais salas cadastradas no sistema");
         System.out.println("---");
 
-        System.out.println(ctrlPessoa.listaSalasCadastradas(validador.recebeValorInteiro("Digite a matricula da Pessoa")));
+        System.out.println("O código  "+ctrlPessoa.listaSalasCadastradas(validador.recebeValorInteiro("Digite a matricula da Pessoa")));
     }
 
     private void listAllPessoasCadastradas() {

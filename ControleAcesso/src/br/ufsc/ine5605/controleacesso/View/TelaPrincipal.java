@@ -53,6 +53,8 @@ public class TelaPrincipal {
                         System.out.println("Porta aberta com sucesso");
                     } else {
                         System.out.println("Você não possui acesso a esta porta, procure um administrador de sistema");
+                      teclado.nextLine();
+                        this.inicio();
                     }
 
                     break;

@@ -29,6 +29,11 @@ public class CtrlAcesso implements ICtrlAcesso {
 
     }
 
+    public CtrlPrincipal getCtrlPrincipal() {
+        return ctrlPrincipal;
+    }
+
+    
     @Override
     public boolean ehLiberadoAcesso(int matricula, String codigoSala) throws IllegalArgumentException{
         Pessoa pessoaParaTestarAcesso = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
