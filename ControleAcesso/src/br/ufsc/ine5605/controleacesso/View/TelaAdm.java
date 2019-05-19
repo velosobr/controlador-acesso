@@ -36,9 +36,9 @@ public class TelaAdm {
         System.out.println("--- TELA ADM - GERENCIAL ---");
         System.out.println(" ");
         System.out.println("1 - Cadastro de pessoas");
-        System.out.println("2 - Cadastro de Salas");
-        System.out.println("3 - Gerenciamento de Acessos");
-        System.out.println("4 - Voltar ao Menu Principal");
+        System.out.println("2 - Cadastro de salas");
+        System.out.println("3 - Listar acessos");
+        System.out.println("4 - Voltar ao menu principal");
         System.out.println("");
 
         try {

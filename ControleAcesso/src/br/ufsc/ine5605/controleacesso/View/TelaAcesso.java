@@ -35,18 +35,20 @@ public class TelaAcesso {
         System.out.println(" ");
         try {
 
-            System.out.println("1 ");
-            System.out.println("2 ");
+            System.out.println("1 - Listar acessos por matricula");
+            System.out.println("2 - Listar acessos por codigo de sala");
             System.out.println("9 - Sair");
 
             int opcao = validador.recebeValorInteiro("--- Escolha uma das opcoes acima e tecle enter. ---");
             switch (opcao) {
                 case (1):
-
+                    listaAcessoByMatricula();
+                    inicio();
                     break;
 
                 case (2):
-
+                    listaAcessoByCodigoSala();
+                    inicio();     
                     break;
                 case (9):
                     System.exit(0);
@@ -63,5 +65,17 @@ public class TelaAcesso {
         } finally {
             teclado.nextLine();
         }
+    }
+    
+    private void listaAcessoByMatricula(){
+        System.out.println("---");
+        int matricula = validador.recebeValorInteiro("Digite a matricula");
+        System.out.println(ctrlAcesso.geraLogByMatricula(matricula));
+    }
+    
+    private void listaAcessoByCodigoSala(){
+        System.out.println("---");
+        String codigoSala = validador.recebeValorString("Digite o codigo de sala");
+        System.out.println(ctrlAcesso.geraLogByCodigoSala(codigoSala));
     }
 }

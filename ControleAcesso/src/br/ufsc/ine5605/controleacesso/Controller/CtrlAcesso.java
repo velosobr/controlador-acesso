@@ -64,9 +64,14 @@ public class CtrlAcesso implements ICtrlAcesso {
 
     @Override
     public String geraLogByMatricula(int matricula) {
-        String logAcessos = null;
+        String logAcessos = "Sem Registro de acesso";
+        Pessoa pessoa = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
+        if(pessoa == null){
+            return "Matricula Invalida!";
+        }
         for (Acesso acesso : acessos) {
             if (acesso.getPessoa().getMatricula() == matricula) {
+                logAcessos = "";
                 logAcessos += " @" + acesso.getData() + " " + acesso.getPessoa().getMatricula() + " " + acesso.getSala().getCodigoSala() + " " + acesso.getSituacao();
             }
 
@@ -76,9 +81,14 @@ public class CtrlAcesso implements ICtrlAcesso {
 
     @Override
     public String geraLogByCodigoSala(String codigoSala) {
-        String logAcessos = null;
+        String logAcessos = "Sem Registro de acesso";
+        Sala sala = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
+        if(sala == null){
+            return "Codigo de sala invalido!";
+        }
         for (Acesso acesso : acessos) {
             if (acesso.getSala().getCodigoSala().equals(codigoSala)) {
+                logAcessos = "";
                 logAcessos += " @" + acesso.getData() + " " + acesso.getPessoa().getMatricula() + " " + acesso.getSala().getCodigoSala() + " " + acesso.getSituacao();
             }
         }
