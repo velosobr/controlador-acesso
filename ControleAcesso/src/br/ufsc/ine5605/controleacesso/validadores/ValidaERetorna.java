@@ -69,4 +69,33 @@ public class ValidaERetorna {
 
         return valor;
     }
+
+    public Boolean recebeValorBoolean(String mensagem) {
+        int valor = -1;
+        boolean valorBool = false;
+
+        System.out.println(mensagem);
+        System.out.println("1 - SIM");
+        System.out.println("2 - NÃO");
+        valor = recebeValorInteiro();
+
+        try {
+            switch (valor) {
+                case (1):
+                    valorBool = true;
+                    break;
+                case (0):
+                    valorBool = false;
+                    break;
+                default:
+                    throw new IllegalArgumentException("Você deve digitar opções válidas. Selecione um tipo dentre os tipos listados.");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            this.recebeValorBoolean("Tente novamente");
+        }
+
+        return valorBool;
+    }
+
 }

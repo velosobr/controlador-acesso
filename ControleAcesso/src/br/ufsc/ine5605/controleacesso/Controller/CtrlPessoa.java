@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class CtrlPessoa implements ICtrlPessoa {
 
     private final CtrlPrincipal ctrlPrincipal;
+
     private TelaPessoa telaPessoa;
     private ArrayList<Pessoa> pessoas;
 
@@ -31,6 +32,10 @@ public class CtrlPessoa implements ICtrlPessoa {
 
     public TelaPessoa getTelaPessoa() {
         return telaPessoa;
+    }
+
+    public CtrlPrincipal getCtrlPrincipal() {
+        return ctrlPrincipal;
     }
 
     @Override
@@ -46,9 +51,8 @@ public class CtrlPessoa implements ICtrlPessoa {
     @Override
     public void incluiServidor(int matricula, String nome, int telefone, String email, String cargo, boolean administrador) {
         Pessoa servidorParaVerificar = findPessoaByMatricula(matricula);
-        Pessoa servidorParaIncluir = null;
         if (servidorParaVerificar == null) {
-            servidorParaIncluir = new Servidor(matricula, nome, telefone, email, cargo, administrador);
+            Pessoa servidorParaIncluir = new Servidor(matricula, nome, telefone, email, cargo, administrador);
         }
     }
 
