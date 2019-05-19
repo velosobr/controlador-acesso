@@ -106,14 +106,24 @@ public class TelaSala {
         System.out.println("Informação para encontrar sala e mostrar suas informações na tela");
         System.out.println("---");
         String codigoSala = validador.recebeValorString("Digite o código da sala");
-        Sala sala = ctrlSala.findSalaByCodigoSala(codigoSala);
 
+        Sala sala = null;
+        if (ctrlSala.findSalaByCodigoSala(codigoSala) != null) {
+            sala = ctrlSala.findSalaByCodigoSala(codigoSala);
+        } else {
+            System.out.println("Não foi encontrado uma sala com o código digitado. Tente novamente com um código válido");
+            teclado.nextLine();
+            inicio();
+        }
         System.out.println("Numero da sala: " + sala.getNumero());
         System.out.println("Bloco da sala: " + sala.getBloco());
         System.out.println("Centro academico: " + sala.getCentro());
         System.out.println("Campus: " + sala.getCampus());
-
     }
+
+        
+
+    
 
     private void cadastraPessoaNaSala() {
         System.out.println("---");
