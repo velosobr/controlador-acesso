@@ -52,16 +52,16 @@ public class TelaPessoa {
             switch (opcao) {
                 case (1):
 
-                    incluirAluno();
+                    incluiAluno();
                     inicio();
                 case (2):
-                    cadastraServidor();
+                    incluiServidor();
                     this.inicio();
                 case (3):
                     deletaPessoa();
                     inicio();
                 case (4):
-                    liberarAcessoSala();
+                    cadastraSalaNaPessoa();
                     inicio();
                 case (5):
                     deletarAcessoSala();
@@ -97,7 +97,7 @@ public class TelaPessoa {
         }
     }
 
-    private void incluirAluno() {
+    private void incluiAluno() {
         System.out.println("---");
         System.out.println("Informações de cadastro do aluno");
         System.out.println("---");
@@ -110,7 +110,7 @@ public class TelaPessoa {
 
     }
 
-    private void cadastraServidor() {
+    private void incluiServidor() {
         System.out.println("---");
         System.out.println("Informações de cadastro do Servidor");
         System.out.println("---");
@@ -131,9 +131,9 @@ public class TelaPessoa {
         ctrlPessoa.delPessoa(validador.recebeValorInteiro("Digite a matricula da pessoa que você quer excluir"));
     }
 
-    private void liberarAcessoSala() {
+    private void cadastraSalaNaPessoa() {
         System.out.println("---");
-        System.out.println("Informações para liberação de acesso da Pessoa à Sala");
+        System.out.println("Informações para Incluir sala na pessoa");
         System.out.println("---");
 
         ctrlPessoa.cadastraSalaNaPessoa(validador.recebeValorInteiro("Digite matricula da Pessoa"), validador.recebeValorString("Digite o código da Sala"));
