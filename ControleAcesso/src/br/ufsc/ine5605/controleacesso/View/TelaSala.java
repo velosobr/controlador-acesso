@@ -36,10 +36,11 @@ public class TelaSala {
         try {
             System.out.println("1 - Incluir sala");
             System.out.println("2 - Deletar sala");
-            System.out.println("3 - Encontrar uma sala atráves do código da sala");
-            System.out.println("4 - Cadastra pessoa na sala");
-            System.out.println("5 - Deleta pessoa na sala");
+            System.out.println("3 - Encontrar sala pelo código");
+            System.out.println("4 - Gerenciamento de acesso - Incluir pessoa na sala");
+            System.out.println("5 - Gerenciamento de acesso - Deleta pessoa na sala");
             System.out.println("6 - Listar pessoas cadastradas na sala");
+           
             System.out.println("7 - Voltar para o menu anterior");
 
             System.out.println("99 - Sair");

@@ -33,16 +33,17 @@ public class TelaPessoa {
     public void inicio() {
         System.out.println("---TELA DE PESSOAS---");
         System.out.println(" ");
-        try {
 
+        try {
             System.out.println("1 - Incluir aluno");
             System.out.println("2 - Incluir servidor");
             System.out.println("3 - Deletar pessoa no sistema");
-            System.out.println("4 - Liberar acesso à sala");
-            System.out.println("5 - Deletar acesso à sala");
+            System.out.println("4 - Gerenciamento de acesso - Incluir sala na pessoa");
+            System.out.println("5 - Gerenciamento de acesso - Deleta sala na pessoa");
             System.out.println("6 - Listar salas cadastras na pessoa");
             System.out.println("7 - Listar todas as pessoas cadastradas no sistema");
             System.out.println("8 - Encontrar pessoa pela matrícula");
+
             System.out.println("9 - Voltar para o menu anterior");
 
             System.out.println("99 - Sair");
@@ -67,7 +68,7 @@ public class TelaPessoa {
                     inicio();
                 case (6):
                     listaSalasCadastradasPessoa();
-                   teclado.nextLine();
+                    teclado.nextLine();
                     inicio();
                 case (7):
                     listAllPessoasCadastradas();
@@ -153,7 +154,7 @@ public class TelaPessoa {
         System.out.println("Lista quais salas cadastradas no sistema");
         System.out.println("---");
 
-        System.out.println("O código  "+ctrlPessoa.listaSalasCadastradas(validador.recebeValorInteiro("Digite a matricula da Pessoa")));
+        System.out.println("O código  " + ctrlPessoa.listaSalasCadastradas(validador.recebeValorInteiro("Digite a matricula da Pessoa")));
     }
 
     private void listAllPessoasCadastradas() {
