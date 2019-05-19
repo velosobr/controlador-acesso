@@ -72,7 +72,7 @@ public class CtrlAcesso implements ICtrlAcesso {
         for (Acesso acesso : acessos) {
             if (acesso.getPessoa().getMatricula() == matricula) {
                 logAcessos = "";
-                logAcessos += " @" + acesso.getData() + " " + acesso.getPessoa().getMatricula() + " " + acesso.getSala().getCodigoSala() + " " + acesso.getSituacao();
+                logAcessos += "@" + acesso.getData() + " " + acesso.getPessoa().getMatricula() + " " + acesso.getSala().getCodigoSala() + " " + acesso.getSituacao()+"\n";
             }
 
         }
