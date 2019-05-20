@@ -7,6 +7,7 @@ package br.ufsc.ine5605.controleacesso.View;
 
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPessoa;
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
+import br.ufsc.ine5605.controleacesso.Model.Servidor;
 import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
 import java.util.Scanner;
 
@@ -154,12 +155,24 @@ public class TelaPessoa {
         System.out.println("---");
         System.out.println("Informacoes de cadastro da sala");
         System.out.println("---");
+        
         int matricula = validador.recebeValorInteiro("Digite a matricula da pessoa");
-        String nome = validador.recebeValorString("Digite o nome da pessoa");
-        int telefone = validador.recebeValorInteiro("Digite o telefone da pessoa sem caracteres especiais. Ex: 984841234");
-        String email = validador.recebeValorString("Digite o email da pessoa");
-        ctrlPessoa.alteradorDeCadastroPessoa(matricula, nome, telefone, email);
-        System.out.println("Alteracao de cadastro realizada!");
+        if(ctrlPessoa.findPessoaByMatricula(matricula) instanceof Servidor){
+            String nome = validador.recebeValorString("Digite o nome do servidor");
+            int telefone = validador.recebeValorInteiro("Digite o telefone do servidor sem caracteres especiais. Ex: 984841234");
+            String email = validador.recebeValorString("Digite o email do servidor");
+            String cargo = validador.recebeValorString("Digite o cargo do servidor");
+            boolean administrador = validador.recebeValorBoolean("O servidor possui acesso de administrador");
+            ctrlPessoa.alteradorDeCadastroServidor(matricula, nome, telefone, email, cargo, administrador);
+            System.out.println("Alteracao de cadastro realizada!");
+        }else{
+            String nome = validador.recebeValorString("Digite o nome do aluno");
+            int telefone = validador.recebeValorInteiro("Digite o telefone do aluno sem caracteres especiais. Ex: 984841234");
+            String email = validador.recebeValorString("Digite o email do aluno");
+            String curso = validador.recebeValorString("Digite o cursos do aluno");
+            ctrlPessoa.alteradorDeCadastroAluno(matricula, nome, telefone, email, curso);
+            System.out.println("Alteracao de cadastro realizada!");
+        }
     }
 
     private void cadastraSalaNaPessoa() {

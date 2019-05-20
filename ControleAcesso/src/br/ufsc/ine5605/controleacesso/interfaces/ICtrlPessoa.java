@@ -52,8 +52,8 @@ public interface ICtrlPessoa {
      */
     public boolean delPessoa(int matricula);
     
-    public boolean alteradorDeCadastroPessoa(int matricula, String nome, int telefone, String email);
-    
+    public boolean alteradorDeCadastroAluno(int matricula, String nome, int telefone, String email, String curso);
+    public boolean alteradorDeCadastroServidor(int matricula, String nome, int telefone, String email, String cargo, boolean administrador);
     
     /**
      * É utilizado pela TelaPessoa para incluir uma sala cadastrada na lista de

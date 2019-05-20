@@ -60,17 +60,33 @@ public class CtrlPessoa implements ICtrlPessoa {
         return false;
     }
     
+    
     @Override
-    public boolean alteradorDeCadastroPessoa(int matricula, String nome, int telefone, String email)throws IllegalArgumentException {
-        Pessoa pessoaParaAlterar = findPessoaByMatricula(matricula);
-        if(pessoaParaAlterar==null){
+    public boolean alteradorDeCadastroAluno(int matricula, String nome, int telefone, String email, String curso)throws IllegalArgumentException {
+        Aluno alunoParaAlterar = (Aluno)findPessoaByMatricula(matricula);
+        if(alunoParaAlterar==null){
            throw new IllegalArgumentException("Matricula invalida, alteracao nao foi realizada"); 
         }
-        pessoaParaAlterar.setNome(nome);
-        pessoaParaAlterar.setTelefone(telefone);
-        pessoaParaAlterar.setEmail(email);
+        alunoParaAlterar.setNome(nome);
+        alunoParaAlterar.setTelefone(telefone);
+        alunoParaAlterar.setEmail(email);
+        alunoParaAlterar.setCurso(email);
         return true;
         
+    }
+    
+    @Override
+    public boolean alteradorDeCadastroServidor(int matricula, String nome, int telefone, String email, String cargo, boolean administrador)throws IllegalArgumentException{
+        Servidor servidorParaAlterar = (Servidor)  findPessoaByMatricula(matricula);
+        if(servidorParaAlterar==null){
+           throw new IllegalArgumentException("Matricula invalida, alteracao nao foi realizada");
+        }
+        servidorParaAlterar.setNome(nome);
+        servidorParaAlterar.getTelefone();
+        servidorParaAlterar.setEmail(email);
+        servidorParaAlterar.setCargo(cargo);
+        servidorParaAlterar.setAdministrador(administrador);
+        return true;
     }
     
     @Override
