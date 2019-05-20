@@ -40,7 +40,7 @@ public class TelaPessoa {
             System.out.println("3 - Deletar pessoa no sistema");
             System.out.println("4 - Gerenciamento de acesso - Incluir sala na pessoa");
             System.out.println("5 - Gerenciamento de acesso - Deleta sala na pessoa");
-            System.out.println("6 - Listar salas cadastras na pessoa");
+            System.out.println("6 - Listar salas cadastradas na pessoa");
             System.out.println("7 - Listar todas as pessoas cadastradas no sistema");
             System.out.println("8 - Encontrar pessoa pela matrícula");
 
@@ -154,7 +154,7 @@ public class TelaPessoa {
         System.out.println("Lista quais salas cadastradas no sistema");
         System.out.println("---");
 
-        System.out.println("O código  " + ctrlPessoa.listaSalasCadastradas(validador.recebeValorInteiro("Digite a matricula da Pessoa")));
+        System.out.println("Codigo de sala:  " + ctrlPessoa.listaSalasCadastradas(validador.recebeValorInteiro("Digite a matricula da Pessoa")));
     }
 
     private void listAllPessoasCadastradas() {
@@ -173,7 +173,7 @@ public class TelaPessoa {
         String nome = pessoa.getNome();
         String email = pessoa.getEmail();
         int telefone = pessoa.getTelefone();
-        System.out.println("O nome encontrado com a matricula" + matricula + " é: " + nome);
+        System.out.println("O nome encontrado com a matricula " + matricula + " é: " + nome);
         System.out.println("O telefone é: " + telefone);
         System.out.println("O email é: " + email);
         System.out.println("");

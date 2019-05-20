@@ -132,7 +132,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     public String listAllPessoasCadastradas() {
         String  listaPessoasCadastradas = "";
         for(Pessoa pessoa: pessoas){
-            listaPessoasCadastradas +="@" +pessoa.getMatricula() + " "+ pessoa.getNome()+"\n" ;
+            listaPessoasCadastradas +="@Matricula: " +pessoa.getMatricula() + " Nome: "+ pessoa.getNome()+"\n" ;
         }
         if(listaPessoasCadastradas.equals("")){
             listaPessoasCadastradas = "Nao ha pessoas cadastradas";

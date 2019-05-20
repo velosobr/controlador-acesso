@@ -11,7 +11,7 @@ package br.ufsc.ine5605.controleacesso.Model;
  */
 public enum SituacaoAcesso {
     
-    Permitido("Acesso Permitido"),
+    Permitido("Acesso permitido"),
     
     NaoPermitido("Acesso negado");
     

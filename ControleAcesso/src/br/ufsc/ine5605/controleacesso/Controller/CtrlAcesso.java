@@ -52,52 +52,53 @@ public class CtrlAcesso implements ICtrlAcesso {
         for (Pessoa pessoaCadastrada : pessoasCadastradasNaSala) {
             if (pessoaCadastrada.equals(pessoaParaTestarAcesso)) {
                 //LOG
-                addAcesso(pessoaParaTestarAcesso, salaParaTestarAcesso, Permitido.getDescricao());
+                //Acesso acesso = new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, Permitido.getDescricao());
+                acessos.add(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, Permitido.getDescricao()));
                 return true;
                 // colocar enum Permitido
             }
         }
         //LOG
-        addAcesso(pessoaParaTestarAcesso, salaParaTestarAcesso, NaoPermitido.getDescricao());
-        return false;// colocar enum NaoPermitido
+        //Acesso acesso = new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, NaoPermitido.getDescricao());
+        acessos.add(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, NaoPermitido.getDescricao()));
+        return false;// clocar enum NaoPermitido
     }
 
     
-    public void addAcesso(Pessoa pessoa, Sala sala, String situacaoDoTeste) {
-        String situacao = situacaoDoTeste;
-        Acesso acesso = new Acesso(pessoa, sala, situacao);
-        acessos.add(acesso);
-    }
-
     @Override
     public String geraLogByMatricula(int matricula)throws IllegalArgumentException {
-        String logAcessos = "Sem registro de acesso";
+        String logAcessos = "";
         Pessoa pessoa = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
         if(pessoa == null){
             throw new IllegalArgumentException("Matricula invalida");
         }
         for (Acesso acesso : acessos) {
             if (acesso.getPessoa().getMatricula() == matricula) {
-                logAcessos = "";
+                
                 logAcessos += "@Data: " + acesso.getData() + " Matricula: " + acesso.getPessoa().getMatricula() + " Codigo de Sala: " + acesso.getSala().getCodigoSala() + " Situacao de Acesso: " + acesso.getSituacao()+"\n";
             }
-
+        }
+        if (acessos.size()==0){
+            logAcessos = "Sem registro de acesso";
         }
         return logAcessos;
     }
 
     @Override
     public String geraLogByCodigoSala(String codigoSala)throws IllegalArgumentException {
-        String logAcessos = "Sem registro de acesso";
+        String logAcessos = "";
         Sala sala = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
         if(sala == null){
             throw new IllegalArgumentException("Codigo de sala invalido");
         }
+        
         for (Acesso acesso : acessos) {
             if (acesso.getSala().getCodigoSala().equals(codigoSala)) {
-                logAcessos = "";
                 logAcessos += "@Data: "+ acesso.getData() + " Matricula: " + acesso.getPessoa().getMatricula() + " Codigo de Sala: " + acesso.getSala().getCodigoSala() + " Situacao de acesso: " + acesso.getSituacao()+"\n";
             }
+        }
+        if (acessos.size()==0){
+            logAcessos = "Sem registro de acesso";
         }
         return logAcessos;
     }
