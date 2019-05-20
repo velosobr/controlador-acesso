@@ -11,13 +11,13 @@ Implementar um sistema orientado a objetos em Java para permitir o controle de a
 ### Escopo do desenvolvimento:
 Um sistema é responsável por controlar o acesso de pessoas às salas e laboratórios da UFSC.
 
-#### O sistema deve permitir o cadastro das salas, contendo ao menos: Numero, bloco, centro e campus. 
+#### [OK] O sistema deve permitir o cadastro das salas, contendo ao menos: Numero, bloco, centro e campus. 
 
-#### Deve ser possível também cadastrar os funcionários Alunos e Professores, contendo no mínimo: número de matrícula, nome, email, telefone, cargo/curso, e nível de permissão ao sistema (usuário/administrador) . 
+#### [OK] Deve ser possível também cadastrar os funcionários Alunos e Professores, contendo no mínimo: número de matrícula, nome, email, telefone, cargo/curso, e nível de permissão ao sistema (usuário/administrador) . 
 
-#### No cadastro da pessoa também deve ser possível indicar quais das salas cadastradas a pessoa poderá utilizar. E por sua vez o cadastro de pessoas também deve indicar quais salas uma pessoa é cadastrada.
+#### [OK] No cadastro da pessoa também deve ser possível indicar quais das salas cadastradas a pessoa poderá utilizar. E por sua vez o cadastro de pessoas também deve indicar quais salas uma pessoa é cadastrada.
 
-#### O sistema deve portanto controlar o acesso às salas. Ao tentar acessar o sistema a pessoa informa sua matrícula. Caso seja não seja administrador o sistema testa a matrícula para verificar se é permitido o acesso ou não. Caso seja administrador abre-se opções de verificação de acesso ou gerenciamento do sistema (cadastro de salas e alunos, permissão ou retirada de acesso e relatório de acessos em uma determinada sala ou acessos feitos por uma pessoa).
+#### O sistema deve portanto controlar o acesso às salas. Ao abrir o sistema, é perguntado o que a pessoa deseja fazer. Abrir a porta ou abrir o gerencialmente Adm. Caso opte por abrir o gerenciamento, verifica se é ADM. Caso seja administrador abre-se opções de verificação de acesso ou gerenciamento do sistema (cadastro de salas e alunos, permissão ou retirada de acesso e relatório de acessos em uma determinada sala ou acessos feitos por uma pessoa).
 
 #### Para permitir a entrada em uma das salas, o sistema deve verificar primeiramente se a matrícula da pessoa é válida (se existe algum pessoa cadastrado com aquele número de matrícula) e, em caso positivo, verificar se a pessoa possui permissão para entrar na sala.
 
