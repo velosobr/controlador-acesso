@@ -38,13 +38,14 @@ public class TelaPessoa {
             System.out.println("1 - Cadastrar aluno");
             System.out.println("2 - Cadastrar servidor");
             System.out.println("3 - Deletar cadastro no sistema");
-            System.out.println("4 - Gerenciamento de acesso - Incluir sala na pessoa");
-            System.out.println("5 - Gerenciamento de acesso - Deletar sala na pessoa");
-            System.out.println("6 - Listar salas cadastradas na pessoa");
-            System.out.println("7 - Listar todas as pessoas cadastradas no sistema");
-            System.out.println("8 - Encontrar pessoa pela matricula");
+            System.out.println("4 - Alterar cadastro de pessoa");
+            System.out.println("5 - Gerenciamento de acesso - Incluir sala na pessoa");
+            System.out.println("6 - Gerenciamento de acesso - Deletar sala na pessoa");
+            System.out.println("7 - Listar salas cadastradas na pessoa");
+            System.out.println("8 - Listar todas as pessoas cadastradas no sistema");
+            System.out.println("9 - Encontrar pessoa pela matricula");
 
-            System.out.println("9 - Voltar para o menu anterior");
+            System.out.println("10 - Voltar para o menu anterior");
 
             System.out.println("99 - Sair");
 
@@ -61,25 +62,28 @@ public class TelaPessoa {
                     deletaPessoa();
                     inicio();
                 case (4):
+                    alteraCadastroPessoa();
+                    inicio();
+                case (5):
                     cadastraSalaNaPessoa();
 
                     inicio();
-                case (5):
+                case (6):
                     deletaSalaNaPessoa();
                     inicio();
-                case (6):
+                case (7):
                     listaSalasCadastradasPessoa();
                     teclado.nextLine();
                     inicio();
-                case (7):
+                case (8):
                     listAllPessoasCadastradas();
                     teclado.nextLine();
                     inicio();
-                case (8):
+                case (9):
                     encontraPessoaByMatricula();
                     teclado.nextLine();
                     inicio();
-                case (9):
+                case (10):
                     ctrlPessoa.getCtrlPrincipal().abreTelaAdm();
                 case (99):
                     System.exit(0);
@@ -144,6 +148,18 @@ public class TelaPessoa {
         }else{
             System.out.println("Nao foi possivel excluir, matricula invalida!");
         }
+    }
+    
+    private void alteraCadastroPessoa(){
+        System.out.println("---");
+        System.out.println("Informacoes de cadastro da sala");
+        System.out.println("---");
+        int matricula = validador.recebeValorInteiro("Digite a matricula da pessoa");
+        String nome = validador.recebeValorString("Digite o nome da pessoa");
+        int telefone = validador.recebeValorInteiro("Digite o telefone da pessoa sem caracteres especiais. Ex: 984841234");
+        String email = validador.recebeValorString("Digite o email da pessoa");
+        ctrlPessoa.alteradorDeCadastroPessoa(matricula, nome, telefone, email);
+        System.out.println("Alteracao de cadastro realizada!");
     }
 
     private void cadastraSalaNaPessoa() {

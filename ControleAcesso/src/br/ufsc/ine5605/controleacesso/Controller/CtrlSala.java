@@ -36,9 +36,12 @@ public class CtrlSala implements ICtrlSala {
     }
 
     @Override
-    public boolean addSala(String codigoSala, int numero, char bloco, String centro, String campus) {
+    public boolean addSala(String codigoSala, int numero, char bloco, String centro, String campus)throws IllegalArgumentException {
         Sala salaParaVerificar = findSalaByCodigoSala(codigoSala);
         Sala salaParaIncluir = null;
+        if(codigoSala.equals("")){
+            throw new IllegalArgumentException("Codigo de sala invalido, cadastro nao realizado!");
+        }
         if (salaParaVerificar == null) {
             salaParaIncluir = new Sala(codigoSala, numero, bloco, centro, campus);
             salas.add(salaParaIncluir);
@@ -56,6 +59,19 @@ public class CtrlSala implements ICtrlSala {
         }
 
         return false;
+    }
+    
+    @Override
+    public boolean alteradorDeCadastroSala(String codigoSala, int numero, char bloco, String centro, String campus)throws IllegalArgumentException{
+        Sala salaParaAlterar = findSalaByCodigoSala(codigoSala);
+        if (salaParaAlterar == null) {
+            throw new IllegalArgumentException("Codigo de sala invalido, alteracao cadastral nao realizada!");
+        }
+        salaParaAlterar.setNumero(numero);
+        salaParaAlterar.setBloco(bloco);
+        salaParaAlterar.setCentro(centro);
+        salaParaAlterar.setCampus(campus);
+        return true;
     }
 
     @Override
@@ -118,6 +134,7 @@ public class CtrlSala implements ICtrlSala {
         return listaPessoasCadastradasNaSala;
     }
 
+    @Override
     public String listAllSalasCadastradas() {
         String listaSalasCadastradas = "";
         for (Sala sala : salas) {

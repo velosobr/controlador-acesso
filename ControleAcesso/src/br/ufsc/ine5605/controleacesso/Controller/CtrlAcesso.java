@@ -34,6 +34,13 @@ public class CtrlAcesso implements ICtrlAcesso {
     public CtrlPrincipal getCtrlPrincipal() {
         return ctrlPrincipal;
     }
+    
+    /**
+     * @return the telaAcesso
+     */
+    public TelaAcesso getTelaAcesso() {
+        return telaAcesso;
+    }
 
     
     @Override
@@ -51,17 +58,12 @@ public class CtrlAcesso implements ICtrlAcesso {
         ArrayList<Pessoa> pessoasCadastradasNaSala = salaParaTestarAcesso.getPessoasCadastradas();
         for (Pessoa pessoaCadastrada : pessoasCadastradasNaSala) {
             if (pessoaCadastrada.equals(pessoaParaTestarAcesso)) {
-                //LOG
-                //Acesso acesso = new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, Permitido.getDescricao());
                 acessos.add(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, Permitido.getDescricao()));
-                return true;
-                // colocar enum Permitido
+                return true;   
             }
         }
-        //LOG
-        //Acesso acesso = new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, NaoPermitido.getDescricao());
         acessos.add(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, NaoPermitido.getDescricao()));
-        return false;// clocar enum NaoPermitido
+        return false;
     }
 
     
@@ -127,11 +129,6 @@ public class CtrlAcesso implements ICtrlAcesso {
         return null;
     }
 
-    /**
-     * @return the telaAcesso
-     */
-    public TelaAcesso getTelaAcesso() {
-        return telaAcesso;
-    }
+    
 
 }

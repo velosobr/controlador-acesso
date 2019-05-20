@@ -36,12 +36,13 @@ public class TelaSala {
         try {
             System.out.println("1 - Cadastrar sala no sistema");
             System.out.println("2 - Deletar sala do sistema");
-            System.out.println("3 - Encontrar sala pelo codigo");
-            System.out.println("4 - Gerenciamento de acesso - Incluir pessoa na sala");
-            System.out.println("5 - Gerenciamento de acesso - Deletar pessoa na sala");
-            System.out.println("6 - Listar pessoas cadastradas na sala");
-            System.out.println("7 - Listar todas as salas cadastradas");
-            System.out.println("8 - Voltar para o menu anterior");
+            System.out.println("3 - Alterar cadastro sala");
+            System.out.println("4 - Encontrar sala pelo codigo");
+            System.out.println("5 - Gerenciamento de acesso - Incluir pessoa na sala");
+            System.out.println("6 - Gerenciamento de acesso - Deletar pessoa na sala");
+            System.out.println("7 - Listar pessoas cadastradas na sala");
+            System.out.println("8 - Listar todas as salas cadastradas");
+            System.out.println("9 - Voltar para o menu anterior");
 
             System.out.println("99 - Sair");
 
@@ -54,22 +55,25 @@ public class TelaSala {
                     deletaSala();
                     inicio();
                 case (3):
+                    alteraCadastroSala();
+                    inicio();
+                case (4):
                     encontraSalaPorCodigo();
                     teclado.nextLine();
                     inicio();
-                case (4):
+                case (5):
                     cadastraPessoaNaSala();
                     inicio();
-                case (5):
+                case (6):
                     deletaPessoaNaSala();
                     inicio();
-                case (6):
+                case (7):
                     listaPessoasCadastradasNaSala();
                     inicio();
-                case (7):
+                case (8):
                     listAllSalasCadastradas();
                     inicio();
-                case (8):
+                case (9):
                     ctrlSala.getCtrlPrincipal().abreTelaAdm();
                 case (99):
                     System.exit(0);
@@ -112,6 +116,19 @@ public class TelaSala {
         }else{
             System.out.println("Nao foi realizado a exclusao, codigo de sala invalido!");
         }
+    }
+    
+    private void alteraCadastroSala(){
+        System.out.println("---");
+        System.out.println("Informacoes de cadastro da sala");
+        System.out.println("---");
+        String codigoSala = validador.recebeValorString("Digite o codigo da sala");
+        int numero = validador.recebeValorInteiro("Digite o numero da sala");
+        char bloco = validador.recebeValorChar("Digite bloco da sala");
+        String centro = validador.recebeValorString("Digite o centro da sala");
+        String campus = validador.recebeValorString("Digite o campus que a sala fica localizada");
+        ctrlSala.alteradorDeCadastroSala(codigoSala, numero, bloco, centro, campus);
+        System.out.println("Cadastro de sala alterado!");
     }
 
     private void encontraSalaPorCodigo() {

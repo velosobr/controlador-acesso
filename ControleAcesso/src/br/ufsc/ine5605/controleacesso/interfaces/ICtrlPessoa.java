@@ -48,22 +48,30 @@ public interface ICtrlPessoa {
      * É utilizado pela TelaPessoa para deletar uma pessoa na lista de pessoas.
      *
      * @param matricula - Qual matricula o aluno possui.
+     * @return 
      */
     public boolean delPessoa(int matricula);
-
+    
+    public boolean alteradorDeCadastroPessoa(int matricula, String nome, int telefone, String email);
+    
+    
     /**
      * É utilizado pela TelaPessoa para incluir uma sala cadastrada na lista de
      * salas da pessoa.
      *
+     * @param matricula
      * @param codigoSala - código na listaSalas da pessoa a sala encontrada com
      * esse codigo sala.
+     * @return 
      */
     public boolean cadastraSalaNaPessoa(int matricula, String codigoSala);
 
     /**
      *
+     * @param matricula
      * @param codigoSala - é utilizado para encontrara a sala na lista de salas
      * do aluno e deleta a sala da lista.
+     * @return 
      */
     public boolean delSalaNaPessoa(int matricula, String codigoSala);
 
@@ -79,5 +87,6 @@ public interface ICtrlPessoa {
      * @return - retorna uma lista de pessoas em String
      */
     public String listAllPessoasCadastradas();
-
+    
+    public Pessoa findPessoaByMatricula(int matricula);
 }

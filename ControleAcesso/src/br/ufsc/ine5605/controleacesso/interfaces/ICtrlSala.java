@@ -30,6 +30,9 @@ public interface ICtrlSala {
      */
     public boolean delSala(String codigoSala);
     
+    
+    
+    public boolean alteradorDeCadastroSala(String codigoSala, int numero, char bloco, String centro, String campus);
     /**
      * Método responsável por encontrar a sala através do código da sala passado por parâmetro.
      * @param codigoSala - código da sala.
@@ -56,7 +59,7 @@ public interface ICtrlSala {
      */
     public String listaPessoasCadastradas(String codigoSala);
     
-    
+    public String listAllSalasCadastradas();
     
     
 }
