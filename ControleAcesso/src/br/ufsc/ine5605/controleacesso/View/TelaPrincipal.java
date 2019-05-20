@@ -55,7 +55,7 @@ public class TelaPrincipal {
                         this.inicio();
                     
                     } else {
-                        System.out.println("Você não possui acesso a esta porta, procure um administrador de sistema");
+                        System.out.println("Voce nao possui acesso a esta porta, procure um administrador de sistema");
                       teclado.nextLine();
                         this.inicio();
                     }
@@ -67,11 +67,11 @@ public class TelaPrincipal {
                     int matriculaadm = validador.recebeValorInteiro("Digite a sua matricula");
 
                     if (validacaoTelaAdm(matriculaadm)) {
-                        System.out.println("Login efetuado com sucesso");
+                        System.out.println("Login efetuado com sucesso, pressione enter para continuar");
                         teclado.nextLine();
                         this.ctrlPrincipal.getTelaAdm().inicio();
                     } else {
-                        System.out.println("Usuário não possui acesso a tela Adm");
+                        System.out.println("Usuario nao possui acesso a tela Adm");
                         System.out.println("Tente novamente");
                         System.out.println("");
                         ctrlPrincipal.abreTelaInicial();
@@ -81,7 +81,7 @@ public class TelaPrincipal {
                     System.exit(0);
 
                 default:
-                    throw new IllegalArgumentException("Opção inválida! Escolha uma opção dentre as opções da lista.");
+                    throw new IllegalArgumentException("Opcao invalida! Escolha uma opcao dentre as opcoes da lista.");
 
             }
         } catch (IllegalArgumentException e) {
@@ -105,7 +105,7 @@ public class TelaPrincipal {
             Servidor servidor = (Servidor) ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
             ehAdm = servidor.isAdministrador();
         } else {
-            throw new IllegalArgumentException("A matriculada digitada não pertence a um servidor, somente servidores podem acessar a tela gerencial");
+            throw new IllegalArgumentException("A matriculada digitada nao pertence a um servidor, somente servidores podem acessar a tela gerencial");
         }
         return ehAdm;
     }

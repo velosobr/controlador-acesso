@@ -60,7 +60,7 @@ public class TelaAcesso {
                     System.exit(0);
 
                 default:
-                    throw new IllegalArgumentException("Opção inválida! Escolha uma opção dentre as opções da lista.");
+                    throw new IllegalArgumentException("Opcao invalida! Escolha uma opcao dentre as opcoes da lista.");
 
             }
         } catch (IllegalArgumentException e) {

@@ -35,14 +35,14 @@ public class TelaPessoa {
         System.out.println(" ");
 
         try {
-            System.out.println("1 - Incluir aluno");
-            System.out.println("2 - Incluir servidor");
-            System.out.println("3 - Deletar pessoa no sistema");
+            System.out.println("1 - Cadastrar aluno");
+            System.out.println("2 - Cadastrar servidor");
+            System.out.println("3 - Deletar cadastro no sistema");
             System.out.println("4 - Gerenciamento de acesso - Incluir sala na pessoa");
             System.out.println("5 - Gerenciamento de acesso - Deletar sala na pessoa");
             System.out.println("6 - Listar salas cadastradas na pessoa");
             System.out.println("7 - Listar todas as pessoas cadastradas no sistema");
-            System.out.println("8 - Encontrar pessoa pela matrícula");
+            System.out.println("8 - Encontrar pessoa pela matricula");
 
             System.out.println("9 - Voltar para o menu anterior");
 
@@ -85,7 +85,7 @@ public class TelaPessoa {
                     System.exit(0);
 
                 default:
-                    throw new IllegalArgumentException("Opção inválida! Escolha uma opção dentre as opções da lista.");
+                    throw new IllegalArgumentException("Opcao invalida! Escolha uma opcao dentre as opcoes da lista.");
 
             }
         } catch (IllegalArgumentException e) {
@@ -101,47 +101,60 @@ public class TelaPessoa {
 
     private void incluiAluno() {
         System.out.println("---");
-        System.out.println("Informações de cadastro do aluno");
+        System.out.println("Informacoes de cadastro do aluno");
         System.out.println("---");
         int matricula = validador.recebeValorInteiro("Digite a matricula");
         String nome = validador.recebeValorString("Digite o nome do aluno");
         int telefone = validador.recebeValorInteiro("Digite o telefone do aluno sem caracteres especiais. Ex: 984841234");
         String email = validador.recebeValorString("Digite o email do aluno");
         String curso = validador.recebeValorString("Digite o curso que o aluno pertence");
-        ctrlPessoa.incluiAluno(matricula, nome, telefone, email, curso);
+        if(ctrlPessoa.incluiAluno(matricula, nome, telefone, email, curso)){
+         System.out.println("Cadastro feito com sucesso!");
+        }else{
+            System.out.println("Cadastro nao realizado, matricula ja cadastrada!");
+        }
+
 
     }
 
     private void incluiServidor() {
         System.out.println("---");
-        System.out.println("Informações de cadastro do Servidor");
+        System.out.println("Informacoes de cadastro do servidor");
         System.out.println("---");
-        int matricula = validador.recebeValorInteiro("Digite a matricula do Servidor");
-        String nome = validador.recebeValorString("Digite o nome do Servidor");
-        int telefone = validador.recebeValorInteiro("Digite o telefone do Servidor sem caracteres especiais. Ex: 984841234");
-        String email = validador.recebeValorString("Digite o email do Servidor");
+        int matricula = validador.recebeValorInteiro("Digite a matricula do servidor");
+        String nome = validador.recebeValorString("Digite o nome do servidor");
+        int telefone = validador.recebeValorInteiro("Digite o telefone do servidor sem caracteres especiais. Ex: 984841234");
+        String email = validador.recebeValorString("Digite o email do servidor");
         String cargo = validador.recebeValorString("Digite o cargo do servidor");
-        Boolean administrador = validador.recebeValorBoolean("O Servidor possui acesso de administrador");
-        ctrlPessoa.incluiServidor(matricula, nome, telefone, email, cargo, administrador);
+        Boolean administrador = validador.recebeValorBoolean("O servidor possui acesso de administrador");
+        if(ctrlPessoa.incluiServidor(matricula, nome, telefone, email, cargo, administrador)){
+            System.out.println("Cadastro feito com sucesso!");
+        }else{
+            System.out.println("Cadastro nao realizado, matricula ja cadastrada!");
+        }
     }
 
     private void deletaPessoa() {
         System.out.println("---");
-        System.out.println("Informações para exclusão de Pessoa");
+        System.out.println("Informacoes para exclusao de Pessoa");
         System.out.println("---");
 
-        ctrlPessoa.delPessoa(validador.recebeValorInteiro("Digite a matricula da pessoa que você quer excluir"));
+        if(ctrlPessoa.delPessoa(validador.recebeValorInteiro("Digite a matricula da pessoa que deseja excluir"))){
+            System.out.println("Exclusao feita com sucesso");
+        }else{
+            System.out.println("Nao foi possivel excluir, matricula invalida!");
+        }
     }
 
     private void cadastraSalaNaPessoa() {
         System.out.println("---");
-        System.out.println("Informações para Incluir sala na pessoa");
+        System.out.println("Informacoes para incluir sala na pessoa");
         System.out.println("---");
 
-        if (ctrlPessoa.cadastraSalaNaPessoa(validador.recebeValorInteiro("Digite matricula da Pessoa"), validador.recebeValorString("Digite o código da Sala"))) {
-            System.out.println("Inclusão feita com sucesso");
+        if (ctrlPessoa.cadastraSalaNaPessoa(validador.recebeValorInteiro("Digite matricula da pessoa"), validador.recebeValorString("Digite o código da Sala"))) {
+            System.out.println("Inclusao feita com sucesso");
         } else {
-            System.out.println("Não foi possivel cadastrar sala na pessoa");
+            System.out.println("Nao foi possivel cadastrar sala na pessoa");
         }
 
         teclado.nextLine();
@@ -149,13 +162,13 @@ public class TelaPessoa {
 
     private void deletaSalaNaPessoa() {
         System.out.println("---");
-        System.out.println("Informações para exclusão de Pessoa");
+        System.out.println("Informacoes para exclusao de pessoa");
         System.out.println("---");
 
-        if (ctrlPessoa.delSalaNaPessoa(validador.recebeValorInteiro("Digite matricula da Pessoa"), validador.recebeValorString("Digite o código da Sala"))) {
-            System.out.println("Exclusão efetuada com sucesso");
+        if (ctrlPessoa.delSalaNaPessoa(validador.recebeValorInteiro("Digite matricula da pessoa"), validador.recebeValorString("Digite o código da Sala"))) {
+            System.out.println("Exclusao efetuada com sucesso");
         } else {
-            System.out.println("Não foi possivel deletar acesso à sala na pessoa. Tente novamente");
+            System.out.println("Nao foi possivel deletar acesso a sala na pessoa. Tente novamente");
         }
     }
 
@@ -164,7 +177,7 @@ public class TelaPessoa {
         System.out.println("Lista quais salas cadastradas no sistema");
         System.out.println("---");
 
-        System.out.println("Codigo de sala:  " + ctrlPessoa.listaSalasCadastradas(validador.recebeValorInteiro("Digite a matricula da Pessoa")));
+        System.out.println(ctrlPessoa.listaSalasCadastradas(validador.recebeValorInteiro("Digite a matricula da Pessoa")));
     }
 
     private void listAllPessoasCadastradas() {
@@ -176,16 +189,16 @@ public class TelaPessoa {
 
     private void encontraPessoaByMatricula() {
         System.out.println("---");
-        System.out.println("encontra uma pessoa atraves da matricula, e mostra qual o nome");
+        System.out.println("Encontra uma pessoa atraves da matricula");
         System.out.println("---");
-        int matricula = validador.recebeValorInteiro("Digite a matricula da Pessoa");
+        int matricula = validador.recebeValorInteiro("Digite a matricula da pessoa");
         Pessoa pessoa = ctrlPessoa.findPessoaByMatricula(matricula);
         String nome = pessoa.getNome();
         String email = pessoa.getEmail();
         int telefone = pessoa.getTelefone();
-        System.out.println("O nome encontrado com a matricula " + matricula + " é: " + nome);
-        System.out.println("O telefone é: " + telefone);
-        System.out.println("O email é: " + email);
+        System.out.println("Nome: " + nome);
+        System.out.println("Telefone: " + telefone);
+        System.out.println("Email: " + email);
         System.out.println("");
     }
 

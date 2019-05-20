@@ -47,7 +47,7 @@ public class ValidaERetorna {
         try {
             valor = teclado.nextInt();
         } catch (InputMismatchException e) {
-            System.out.println("O valor digitado não é um inteiro válido");
+            System.out.println("O valor digitado nao e um inteiro valido");
         } finally {
             teclado.nextLine();
         }
@@ -74,7 +74,7 @@ public class ValidaERetorna {
 
         System.out.println(mensagem);
         System.out.println("1 - SIM");
-        System.out.println("2 - NÃO");
+        System.out.println("2 - NAO");
         valor = recebeValorInteiro();
 
         try {
@@ -82,11 +82,11 @@ public class ValidaERetorna {
                 case (1):
                     valorBool = true;
                     break;
-                case (0):
+                case (2):
                     valorBool = false;
                     break;
                 default:
-                    throw new IllegalArgumentException("Você deve digitar opções válidas. Selecione um tipo dentre os tipos listados.");
+                    throw new IllegalArgumentException("Voce deve digitar opcoes validas. Selecione um tipo dentre os tipos listados.");
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -101,7 +101,7 @@ public class ValidaERetorna {
         try {
             valor = teclado.next().charAt(0);
         } catch (InputMismatchException e) {
-            System.out.println("O valor digitado não é um inteiro válido");
+            System.out.println("O valor digitado nao e um inteiro valido");
         } finally {
             teclado.nextLine();
         }

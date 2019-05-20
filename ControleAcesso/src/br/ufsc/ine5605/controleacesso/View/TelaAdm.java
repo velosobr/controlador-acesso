@@ -42,7 +42,7 @@ public class TelaAdm {
         System.out.println("");
 
         try {
-            int opcao = validador.recebeValorInteiro("Escolha a opção desejada, insira o número e tecle enter: ---");
+            int opcao = validador.recebeValorInteiro("Escolha a opcao desejada, insira o numero e tecle enter: ---");
 
             switch (opcao) {
                 case (1):
@@ -61,7 +61,7 @@ public class TelaAdm {
                     throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("Opção Inválida! Escolha uma opção dentre das opções na lista.");
+            System.out.println("Opcao Invalida! Escolha uma opcao dentre das opcoes na lista.");
             String[] args = null;
             this.inicio();
         } finally {

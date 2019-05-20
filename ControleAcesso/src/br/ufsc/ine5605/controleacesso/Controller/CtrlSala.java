@@ -74,7 +74,7 @@ public class CtrlSala implements ICtrlSala {
             salaParaCadastrar.addPessoa(pessoaParaCadastrar);
             return true;
         } else {
-            throw new IllegalArgumentException("A pessoa já está adicionada na sala. Tente novamente.");
+            throw new IllegalArgumentException("A pessoa ja esta adicionada na sala. Tente novamente.");
         }
 
     }
@@ -94,7 +94,7 @@ public class CtrlSala implements ICtrlSala {
             salaParaDeletar.delPessoa(pessoaParaDeletar);
             return true;
         }else{
-            throw new IllegalArgumentException("A pessoa não consta na lista de pessoas da pessoa. Tente novamente.");
+            throw new IllegalArgumentException("A pessoa nao consta na lista de pessoas da sala.");
         }
 
     }
@@ -110,7 +110,7 @@ public class CtrlSala implements ICtrlSala {
 
         ArrayList<Pessoa> pessoasCadastradas = salaCadastrada.getPessoasCadastradas();
         for (Pessoa pessoa : pessoasCadastradas) {
-            listaPessoasCadastradasNaSala += pessoa.getMatricula() + " " + pessoa.getNome() + "\n";
+            listaPessoasCadastradasNaSala +="@Matricula: "+ pessoa.getMatricula() + " Nome: " + pessoa.getNome() + "\n";
         }
         if (listaPessoasCadastradasNaSala.equals("")) {
             listaPessoasCadastradasNaSala = "Nao ha pessoas Cadastradas";
@@ -121,7 +121,7 @@ public class CtrlSala implements ICtrlSala {
     public String listAllSalasCadastradas() {
         String listaSalasCadastradas = "";
         for (Sala sala : salas) {
-            listaSalasCadastradas += "@" + sala.getCodigoSala() + sala.getCentro() + "\n";
+            listaSalasCadastradas += "@Codigo de sala:" + sala.getCodigoSala() +" Centro: "+ sala.getCentro() + "\n";
         }
         if (listaSalasCadastradas.equals("")) {
             listaSalasCadastradas = "Nao ha salas cadastradas";

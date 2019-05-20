@@ -78,7 +78,7 @@ public class CtrlAcesso implements ICtrlAcesso {
                 logAcessos += "@Data: " + acesso.getData() + " Matricula: " + acesso.getPessoa().getMatricula() + " Codigo de Sala: " + acesso.getSala().getCodigoSala() + " Situacao de Acesso: " + acesso.getSituacao()+"\n";
             }
         }
-        if (acessos.size()==0){
+        if (logAcessos.equals("")){
             logAcessos = "Sem registro de acesso";
         }
         return logAcessos;
@@ -97,7 +97,7 @@ public class CtrlAcesso implements ICtrlAcesso {
                 logAcessos += "@Data: "+ acesso.getData() + " Matricula: " + acesso.getPessoa().getMatricula() + " Codigo de Sala: " + acesso.getSala().getCodigoSala() + " Situacao de acesso: " + acesso.getSituacao()+"\n";
             }
         }
-        if (acessos.size()==0){
+        if (logAcessos.equals("")){
             logAcessos = "Sem registro de acesso";
         }
         return logAcessos;
