@@ -39,7 +39,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
 
     @Override
-    public boolean incluiAluno(int matricula, String nome, int telefone, String email, String curso) {
+    public boolean incluiAluno(int matricula, String nome, long telefone, String email, String curso) {
         Pessoa alunoParaVerificar = findPessoaByMatricula(matricula);
         if (alunoParaVerificar == null) {
             Pessoa alunoParaIncluir = new Aluno(matricula, nome, telefone, email, curso);
@@ -50,7 +50,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
 
     @Override
-    public boolean incluiServidor(int matricula, String nome, int telefone, String email, String cargo, boolean administrador) {
+    public boolean incluiServidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador) {
         Pessoa servidorParaVerificar = findPessoaByMatricula(matricula);
         if (servidorParaVerificar == null) {
             Pessoa servidorParaIncluir = new Servidor(matricula, nome, telefone, email, cargo, administrador);
@@ -62,7 +62,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     
     
     @Override
-    public boolean alteradorDeCadastroAluno(int matricula, String nome, int telefone, String email, String curso)throws IllegalArgumentException {
+    public boolean alteradorDeCadastroAluno(int matricula, String nome, long telefone, String email, String curso)throws IllegalArgumentException {
         Aluno alunoParaAlterar = (Aluno)findPessoaByMatricula(matricula);
         if(alunoParaAlterar==null){
            throw new IllegalArgumentException("Matricula invalida, alteracao nao foi realizada"); 
@@ -76,7 +76,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
     
     @Override
-    public boolean alteradorDeCadastroServidor(int matricula, String nome, int telefone, String email, String cargo, boolean administrador)throws IllegalArgumentException{
+    public boolean alteradorDeCadastroServidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador)throws IllegalArgumentException{
         Servidor servidorParaAlterar = (Servidor)  findPessoaByMatricula(matricula);
         if(servidorParaAlterar==null){
            throw new IllegalArgumentException("Matricula invalida, alteracao nao foi realizada");

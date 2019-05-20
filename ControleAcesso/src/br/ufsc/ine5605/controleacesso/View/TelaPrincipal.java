@@ -73,7 +73,7 @@ public class TelaPrincipal {
                     } else {
                         System.out.println("Usuario nao possui acesso a tela Adm");
                         System.out.println("Tente novamente");
-                        System.out.println("");
+                        teclado.nextLine();
                         ctrlPrincipal.abreTelaInicial();
                     }
                     break;
@@ -87,6 +87,7 @@ public class TelaPrincipal {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             String[] args = null;
+            teclado.nextLine();
             this.inicio();
 
         } finally {

@@ -110,7 +110,7 @@ public class TelaPessoa {
         System.out.println("---");
         int matricula = validador.recebeValorInteiro("Digite a matricula");
         String nome = validador.recebeValorString("Digite o nome do aluno");
-        int telefone = validador.recebeValorInteiro("Digite o telefone do aluno sem caracteres especiais. Ex: 984841234");
+        long telefone = validador.recebeValorLong("Digite o telefone do aluno sem caracteres especiais. Ex: 984841234");
         String email = validador.recebeValorString("Digite o email do aluno");
         String curso = validador.recebeValorString("Digite o curso que o aluno pertence");
         if(ctrlPessoa.incluiAluno(matricula, nome, telefone, email, curso)){
@@ -128,7 +128,7 @@ public class TelaPessoa {
         System.out.println("---");
         int matricula = validador.recebeValorInteiro("Digite a matricula do servidor");
         String nome = validador.recebeValorString("Digite o nome do servidor");
-        int telefone = validador.recebeValorInteiro("Digite o telefone do servidor sem caracteres especiais. Ex: 984841234");
+        long telefone = validador.recebeValorLong("Digite o telefone do servidor sem caracteres especiais. Ex: 984841234");
         String email = validador.recebeValorString("Digite o email do servidor");
         String cargo = validador.recebeValorString("Digite o cargo do servidor");
         Boolean administrador = validador.recebeValorBoolean("O servidor possui acesso de administrador");
@@ -159,7 +159,7 @@ public class TelaPessoa {
         int matricula = validador.recebeValorInteiro("Digite a matricula da pessoa");
         if(ctrlPessoa.findPessoaByMatricula(matricula) instanceof Servidor){
             String nome = validador.recebeValorString("Digite o nome do servidor");
-            int telefone = validador.recebeValorInteiro("Digite o telefone do servidor sem caracteres especiais. Ex: 984841234");
+            long telefone = validador.recebeValorLong("Digite o telefone do servidor sem caracteres especiais. Ex: 984841234");
             String email = validador.recebeValorString("Digite o email do servidor");
             String cargo = validador.recebeValorString("Digite o cargo do servidor");
             boolean administrador = validador.recebeValorBoolean("O servidor possui acesso de administrador");
@@ -167,7 +167,7 @@ public class TelaPessoa {
             System.out.println("Alteracao de cadastro realizada!");
         }else{
             String nome = validador.recebeValorString("Digite o nome do aluno");
-            int telefone = validador.recebeValorInteiro("Digite o telefone do aluno sem caracteres especiais. Ex: 984841234");
+            long telefone = validador.recebeValorLong("Digite o telefone do aluno sem caracteres especiais. Ex: 984841234");
             String email = validador.recebeValorString("Digite o email do aluno");
             String curso = validador.recebeValorString("Digite o cursos do aluno");
             ctrlPessoa.alteradorDeCadastroAluno(matricula, nome, telefone, email, curso);
@@ -224,7 +224,7 @@ public class TelaPessoa {
         Pessoa pessoa = ctrlPessoa.findPessoaByMatricula(matricula);
         String nome = pessoa.getNome();
         String email = pessoa.getEmail();
-        int telefone = pessoa.getTelefone();
+        long telefone = pessoa.getTelefone();
         System.out.println("Nome: " + nome);
         System.out.println("Telefone: " + telefone);
         System.out.println("Email: " + email);

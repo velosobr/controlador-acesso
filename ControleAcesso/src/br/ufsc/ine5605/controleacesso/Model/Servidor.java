@@ -16,7 +16,7 @@ public class Servidor extends Pessoa {
     private String cargo;
     private boolean administrador;
 
-    public Servidor(int matricula, String nome, int telefone, String email, String cargo, boolean administrador) {
+    public Servidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador) {
         super(matricula, nome, telefone, email);
         setCargo(cargo);
         this.administrador = administrador;

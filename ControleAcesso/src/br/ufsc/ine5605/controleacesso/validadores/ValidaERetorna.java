@@ -121,4 +121,31 @@ public class ValidaERetorna {
 
         return valor;
     }
+
+    public long recebeValorLong() {
+        long valor = -1;
+
+        try {
+            valor = teclado.nextLong();
+        } catch (InputMismatchException e) {
+            System.out.println("O valor digitado nao e um long valido");
+        } finally {
+            teclado.nextLine();
+        }
+
+        return valor;
+    }
+
+    public long recebeValorLong(String mensagem) {
+        long valor = -1;
+
+        do {
+            System.out.println(mensagem);
+
+            valor = recebeValorLong();
+
+        } while (valor == -1);
+
+        return valor;
+    }
 }

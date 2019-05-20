@@ -37,11 +37,6 @@ public class CtrlPrincipal {
         telaAdm.inicio();
     }
 
-    public boolean verificaSeEhAdm(int matricula) {
-        return false;
-
-    }
-
     public TelaPrincipal getTelaInicial() {
         return telaInicial;
     }

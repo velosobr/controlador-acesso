@@ -16,10 +16,10 @@ public abstract class Pessoa {
     private ArrayList<Sala> salasCadastradas;
     private int matricula;
     private String nome;
-    private int telefone;
+    private long telefone;
     private String email;
 
-    public Pessoa(int matricula, String nome, int telefone, String email) {
+    public Pessoa(int matricula, String nome, long telefone, String email) {
         this.salasCadastradas = new ArrayList<>();
         this.matricula = matricula;
         setNome(nome);
@@ -60,14 +60,14 @@ public abstract class Pessoa {
     /**
      * @return the telefone
      */
-    public int getTelefone() {
+    public long getTelefone() {
         return telefone;
     }
 
     /**
      * @param telefone the telefone to set
      */
-    public void setTelefone(int telefone) {
+    public void setTelefone(long telefone) {
         this.telefone = telefone;
     }
 
