@@ -62,6 +62,7 @@ public class TelaPessoa {
                     inicio();
                 case (4):
                     cadastraSalaNaPessoa();
+                    teclado.nextLine();
                     inicio();
                 case (5):
                     deletarAcessoSala();
@@ -88,7 +89,7 @@ public class TelaPessoa {
 
             }
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Aqui que a contece a bagaça toda: "+e.getMessage());
             String[] args = null;
             this.inicio();
 

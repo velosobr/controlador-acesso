@@ -54,84 +54,87 @@ public class CtrlSala implements ICtrlSala {
             salas.remove(salaParaDeletar);
             return true;
         }
-            
+
         return false;
     }
 
-   
-
     @Override
-    public boolean cadastraPessoaNaSala(int matricula, String codigoSala) throws IllegalArgumentException{
+    public boolean cadastraPessoaNaSala(int matricula, String codigoSala) throws IllegalArgumentException {
         Pessoa pessoaParaCadastrar = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
         Sala salaParaCadastrar = findSalaByCodigoSala(codigoSala);
         ArrayList<Pessoa> pessoasCadastradas = salaParaCadastrar.getPessoasCadastradas();
-        if (pessoaParaCadastrar == null){
+        if (pessoaParaCadastrar == null) {
             throw new IllegalArgumentException("Matricula invalida");
         }
-        if(salaParaCadastrar == null){
+        if (salaParaCadastrar == null) {
             throw new IllegalArgumentException("Codigo de sala invalido");
         }
-        pessoaParaCadastrar.addSala(salaParaCadastrar);
-        salaParaCadastrar.addPessoa(pessoaParaCadastrar);
-        return true; 
-        
+
+        if (!salaParaCadastrar.getPessoasCadastradas().contains(pessoaParaCadastrar)) {
+            pessoaParaCadastrar.addSala(salaParaCadastrar);
+            salaParaCadastrar.addPessoa(pessoaParaCadastrar);
+            return true;
+        } else {
+            throw new IllegalArgumentException("A pessoa já está adicionada na sala");
+        }
+
     }
 
     @Override
-    public boolean deletaPessoaNaSala(int matricula, String codigoSala)throws IllegalArgumentException {
+    public boolean deletaPessoaNaSala(int matricula, String codigoSala) throws IllegalArgumentException {
         Pessoa pessoaParaDeletar = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
         Sala salaParaDeletar = findSalaByCodigoSala(codigoSala);
-        if (pessoaParaDeletar == null){
+        if (pessoaParaDeletar == null) {
             throw new IllegalArgumentException("Matricula invalida");
         }
-        if(salaParaDeletar == null){
+        if (salaParaDeletar == null) {
             throw new IllegalArgumentException("Codigo de sala invalido");
         }
         pessoaParaDeletar.delSala(salaParaDeletar);
         salaParaDeletar.delPessoa(pessoaParaDeletar);
         return true;
-        
+
     }
 
     @Override
-    public String listaPessoasCadastradas(String codigoSala)throws IllegalArgumentException {
+    public String listaPessoasCadastradas(String codigoSala) throws IllegalArgumentException {
         Sala salaCadastrada = findSalaByCodigoSala(codigoSala);
         String listaPessoasCadastradasNaSala = "";
-        
-        if(salaCadastrada == null){
+
+        if (salaCadastrada == null) {
             throw new IllegalArgumentException("Codigo de sala invalido");
         }
-        
+
         ArrayList<Pessoa> pessoasCadastradas = salaCadastrada.getPessoasCadastradas();
-        for(Pessoa pessoa : pessoasCadastradas) {
-            listaPessoasCadastradasNaSala += pessoa.getMatricula() +" "+ pessoa.getNome()+"\n";
-            }
-        if(listaPessoasCadastradasNaSala.equals("")){
-           listaPessoasCadastradasNaSala = "Nao ha pessoas Cadastradas"; 
+        for (Pessoa pessoa : pessoasCadastradas) {
+            listaPessoasCadastradasNaSala += pessoa.getMatricula() + " " + pessoa.getNome() + "\n";
+        }
+        if (listaPessoasCadastradasNaSala.equals("")) {
+            listaPessoasCadastradasNaSala = "Nao ha pessoas Cadastradas";
         }
         return listaPessoasCadastradasNaSala;
     }
-    
-    public String listAllSalasCadastradas(){
-        String  listaSalasCadastradas = "";
-        for(Sala sala: salas){
-            listaSalasCadastradas +="@" +sala.getCodigoSala() + sala.getCentro()+"\n";
+
+    public String listAllSalasCadastradas() {
+        String listaSalasCadastradas = "";
+        for (Sala sala : salas) {
+            listaSalasCadastradas += "@" + sala.getCodigoSala() + sala.getCentro() + "\n";
         }
-        if(listaSalasCadastradas.equals("")){
+        if (listaSalasCadastradas.equals("")) {
             listaSalasCadastradas = "Nao ha salas cadastradas";
             return listaSalasCadastradas;
         }
-    return listaSalasCadastradas;
+        return listaSalasCadastradas;
     }
-    
-     @Override
+
+    @Override
     public Sala findSalaByCodigoSala(String codigoSala) {
         for (Sala sala : salas) {
             if (sala.getCodigoSala().equals(codigoSala)) {
                 return sala;
             }
         }
-       
+
         return null;
     }
 

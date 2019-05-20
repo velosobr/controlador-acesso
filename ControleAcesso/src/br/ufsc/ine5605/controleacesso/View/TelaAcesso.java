@@ -44,11 +44,13 @@ public class TelaAcesso {
             switch (opcao) {
                 case (1):
                     listaAcessoByMatricula();
+                    teclado.nextLine();
                     inicio();
                     break;
 
                 case (2):
                     listaAcessoByCodigoSala();
+                    teclado.nextLine();
                     inicio();     
                     break;
                 case (3):

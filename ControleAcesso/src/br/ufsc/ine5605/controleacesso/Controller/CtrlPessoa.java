@@ -61,7 +61,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
 
     @Override
-    public boolean delPessoa(int matricula)throws IllegalArgumentException {
+    public boolean delPessoa(int matricula) throws IllegalArgumentException {
         Pessoa pessoaParaDeletar = findPessoaByMatricula(matricula);
         if (pessoaParaDeletar != null) {
             pessoas.remove(pessoaParaDeletar);
@@ -71,35 +71,40 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
 
     @Override
-    public boolean cadastraSalaNaPessoa(int matricula, String codigoSala)throws IllegalArgumentException {
+    public boolean cadastraSalaNaPessoa(int matricula, String codigoSala) throws IllegalArgumentException {
         Sala salaParaCadastrar = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
         Pessoa pessoaCadastro = findPessoaByMatricula(matricula);
-        if (pessoaCadastro == null){
+        if (pessoaCadastro == null) {
             throw new IllegalArgumentException("Matricula invalida");
         }
-        if(salaParaCadastrar == null){
+        if (salaParaCadastrar == null) {
             throw new IllegalArgumentException("Codigo de sala invalido");
         }
-        
-        pessoaCadastro.addSala(salaParaCadastrar);
-        salaParaCadastrar.addPessoa(pessoaCadastro);
-        return true;    
+
+        if (!pessoaCadastro.getSalasCadastradas().contains(salaParaCadastrar)) {
+            pessoaCadastro.addSala(salaParaCadastrar);
+            salaParaCadastrar.addPessoa(pessoaCadastro);
+            return true;
+        } else {
+            throw new IllegalArgumentException("A Sala já está adicionada na pessoa");
+        }
+
     }
 
     @Override
-    public boolean delSalaNaPessoa(int matricula, String codigoSala)throws IllegalArgumentException {
+    public boolean delSalaNaPessoa(int matricula, String codigoSala) throws IllegalArgumentException {
         Sala salaParaCadastrar = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
         Pessoa pessoaCadastro = findPessoaByMatricula(matricula);
-        if (pessoaCadastro == null){
+        if (pessoaCadastro == null) {
             throw new IllegalArgumentException("Matricula invalida");
         }
-        if(salaParaCadastrar == null){
+        if (salaParaCadastrar == null) {
             throw new IllegalArgumentException("Codigo de sala invalido");
         }
         pessoaCadastro.delSala(salaParaCadastrar);
         salaParaCadastrar.delPessoa(pessoaCadastro);
         return true;
-       
+
     }
 
     /**
@@ -108,39 +113,39 @@ public class CtrlPessoa implements ICtrlPessoa {
      * @return
      */
     @Override
-    public String listaSalasCadastradas(int matricula)throws IllegalArgumentException  {
+    public String listaSalasCadastradas(int matricula) throws IllegalArgumentException {
         Pessoa pessoaCadastrada = findPessoaByMatricula(matricula);
         String lista = "";
-        if (pessoaCadastrada == null){
+        if (pessoaCadastrada == null) {
             throw new IllegalArgumentException("Matricula invalida");
         }
-        
+
         ArrayList<Sala> salasCadastradas = pessoaCadastrada.getSalasCadastradas();
         for (Sala salaCadastrada : salasCadastradas) {
-            lista += salaCadastrada.getCodigoSala() +" "+ salaCadastrada.getNumero()+" "+ salaCadastrada.getCentro() + "\n";
-            
-         }
-        if(lista.equals("")){
+            lista += salaCadastrada.getCodigoSala() + " " + salaCadastrada.getNumero() + " " + salaCadastrada.getCentro() + "\n";
+
+        }
+        if (lista.equals("")) {
             lista = "Nao ha salas cadastradas";
         }
-        
+
         return lista;
 
     }
-    
+
     @Override
     public String listAllPessoasCadastradas() {
-        String  listaPessoasCadastradas = "";
-        for(Pessoa pessoa: pessoas){
-            listaPessoasCadastradas +="@Matricula: " +pessoa.getMatricula() + " Nome: "+ pessoa.getNome()+"\n" ;
+        String listaPessoasCadastradas = "";
+        for (Pessoa pessoa : pessoas) {
+            listaPessoasCadastradas += "@Matricula: " + pessoa.getMatricula() + " Nome: " + pessoa.getNome() + "\n";
         }
-        if(listaPessoasCadastradas.equals("")){
+        if (listaPessoasCadastradas.equals("")) {
             listaPessoasCadastradas = "Nao ha pessoas cadastradas";
             return listaPessoasCadastradas;
         }
-    return listaPessoasCadastradas;
+        return listaPessoasCadastradas;
     }
-    
+
     public Pessoa findPessoaByMatricula(int matricula) {
         for (Pessoa pessoa : pessoas) {
             if (pessoa.getMatricula() == matricula) {
