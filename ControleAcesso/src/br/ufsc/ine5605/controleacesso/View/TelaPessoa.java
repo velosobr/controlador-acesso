@@ -39,7 +39,7 @@ public class TelaPessoa {
             System.out.println("2 - Incluir servidor");
             System.out.println("3 - Deletar pessoa no sistema");
             System.out.println("4 - Gerenciamento de acesso - Incluir sala na pessoa");
-            System.out.println("5 - Gerenciamento de acesso - Deleta sala na pessoa");
+            System.out.println("5 - Gerenciamento de acesso - Deletar sala na pessoa");
             System.out.println("6 - Listar salas cadastradas na pessoa");
             System.out.println("7 - Listar todas as pessoas cadastradas no sistema");
             System.out.println("8 - Encontrar pessoa pela matrícula");
