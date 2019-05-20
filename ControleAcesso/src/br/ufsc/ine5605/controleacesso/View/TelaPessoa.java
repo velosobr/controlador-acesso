@@ -62,10 +62,10 @@ public class TelaPessoa {
                     inicio();
                 case (4):
                     cadastraSalaNaPessoa();
-                    teclado.nextLine();
+
                     inicio();
                 case (5):
-                    deletarAcessoSala();
+                    deletaSalaNaPessoa();
                     inicio();
                 case (6):
                     listaSalasCadastradasPessoa();
@@ -89,8 +89,9 @@ public class TelaPessoa {
 
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("Aqui que a contece a bagaça toda: "+e.getMessage());
+            System.out.println(e.getMessage());
             String[] args = null;
+            teclado.nextLine();
             this.inicio();
 
         } finally {
@@ -137,17 +138,25 @@ public class TelaPessoa {
         System.out.println("Informações para Incluir sala na pessoa");
         System.out.println("---");
 
-        ctrlPessoa.cadastraSalaNaPessoa(validador.recebeValorInteiro("Digite matricula da Pessoa"), validador.recebeValorString("Digite o código da Sala"));
-        System.out.println("Inclusão feita com sucesso");
+        if (ctrlPessoa.cadastraSalaNaPessoa(validador.recebeValorInteiro("Digite matricula da Pessoa"), validador.recebeValorString("Digite o código da Sala"))) {
+            System.out.println("Inclusão feita com sucesso");
+        } else {
+            System.out.println("Não foi possivel cadastrar sala na pessoa");
+        }
+
         teclado.nextLine();
     }
 
-    private void deletarAcessoSala() {
+    private void deletaSalaNaPessoa() {
         System.out.println("---");
         System.out.println("Informações para exclusão de Pessoa");
         System.out.println("---");
 
-        ctrlPessoa.delSalaNaPessoa(validador.recebeValorInteiro("Digite matricula da Pessoa"), validador.recebeValorString("Digite o código da Sala"));
+        if (ctrlPessoa.delSalaNaPessoa(validador.recebeValorInteiro("Digite matricula da Pessoa"), validador.recebeValorString("Digite o código da Sala"))) {
+            System.out.println("Exclusão efetuada com sucesso");
+        } else {
+            System.out.println("Não foi possivel deletar acesso à sala na pessoa. Tente novamente");
+        }
     }
 
     private void listaSalasCadastradasPessoa() {

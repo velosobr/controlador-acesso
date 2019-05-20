@@ -18,8 +18,8 @@ import java.util.ArrayList;
 public class CtrlSala implements ICtrlSala {
 
     private final CtrlPrincipal ctrlPrincipal;
-    private TelaSala telaSala;
-    private ArrayList<Sala> salas;
+    private final TelaSala telaSala;
+    private final ArrayList<Sala> salas;
 
     public CtrlSala(CtrlPrincipal ctrlPrincipal) {
         this.ctrlPrincipal = ctrlPrincipal;
@@ -62,7 +62,6 @@ public class CtrlSala implements ICtrlSala {
     public boolean cadastraPessoaNaSala(int matricula, String codigoSala) throws IllegalArgumentException {
         Pessoa pessoaParaCadastrar = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
         Sala salaParaCadastrar = findSalaByCodigoSala(codigoSala);
-        ArrayList<Pessoa> pessoasCadastradas = salaParaCadastrar.getPessoasCadastradas();
         if (pessoaParaCadastrar == null) {
             throw new IllegalArgumentException("Matricula invalida");
         }
@@ -75,7 +74,7 @@ public class CtrlSala implements ICtrlSala {
             salaParaCadastrar.addPessoa(pessoaParaCadastrar);
             return true;
         } else {
-            throw new IllegalArgumentException("A pessoa já está adicionada na sala");
+            throw new IllegalArgumentException("A pessoa já está adicionada na sala. Tente novamente.");
         }
 
     }
@@ -90,9 +89,13 @@ public class CtrlSala implements ICtrlSala {
         if (salaParaDeletar == null) {
             throw new IllegalArgumentException("Codigo de sala invalido");
         }
-        pessoaParaDeletar.delSala(salaParaDeletar);
-        salaParaDeletar.delPessoa(pessoaParaDeletar);
-        return true;
+        if (salaParaDeletar.getPessoasCadastradas().contains(pessoaParaDeletar)) {
+            pessoaParaDeletar.delSala(salaParaDeletar);
+            salaParaDeletar.delPessoa(pessoaParaDeletar);
+            return true;
+        }else{
+            throw new IllegalArgumentException("A pessoa não consta na lista de pessoas da pessoa. Tente novamente.");
+        }
 
     }
 

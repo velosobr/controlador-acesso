@@ -51,7 +51,7 @@ public class TelaAcesso {
                 case (2):
                     listaAcessoByCodigoSala();
                     teclado.nextLine();
-                    inicio();     
+                    inicio();
                     break;
                 case (3):
                     ctrlAcesso.getCtrlPrincipal().abreTelaAdm();
@@ -66,20 +66,21 @@ public class TelaAcesso {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             String[] args = null;
+            teclado.nextLine();
             this.inicio();
 
         } finally {
             teclado.nextLine();
         }
     }
-    
-    private void listaAcessoByMatricula(){
+
+    private void listaAcessoByMatricula() {
         System.out.println("---");
         int matricula = validador.recebeValorInteiro("Digite a matricula");
         System.out.println(ctrlAcesso.geraLogByMatricula(matricula));
     }
-    
-    private void listaAcessoByCodigoSala(){
+
+    private void listaAcessoByCodigoSala() {
         System.out.println("---");
         String codigoSala = validador.recebeValorString("Digite o codigo de sala");
         System.out.println(ctrlAcesso.geraLogByCodigoSala(codigoSala));

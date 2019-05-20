@@ -21,8 +21,8 @@ public class CtrlPessoa implements ICtrlPessoa {
 
     private final CtrlPrincipal ctrlPrincipal;
 
-    private TelaPessoa telaPessoa;
-    private ArrayList<Pessoa> pessoas;
+    private final TelaPessoa telaPessoa;
+    private final ArrayList<Pessoa> pessoas;
 
     public CtrlPessoa(CtrlPrincipal ctrlPrincipal) {
         this.ctrlPrincipal = ctrlPrincipal;
@@ -93,17 +93,23 @@ public class CtrlPessoa implements ICtrlPessoa {
 
     @Override
     public boolean delSalaNaPessoa(int matricula, String codigoSala) throws IllegalArgumentException {
-        Sala salaParaCadastrar = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
+        Sala salaParaDeletar = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
         Pessoa pessoaCadastro = findPessoaByMatricula(matricula);
         if (pessoaCadastro == null) {
             throw new IllegalArgumentException("Matricula invalida");
         }
-        if (salaParaCadastrar == null) {
+        if (salaParaDeletar == null) {
             throw new IllegalArgumentException("Codigo de sala invalido");
         }
-        pessoaCadastro.delSala(salaParaCadastrar);
-        salaParaCadastrar.delPessoa(pessoaCadastro);
-        return true;
+
+        if (pessoaCadastro.getSalasCadastradas().contains(salaParaDeletar)) {
+
+            pessoaCadastro.delSala(salaParaDeletar);
+            salaParaDeletar.delPessoa(pessoaCadastro);
+            return true;
+        } else {
+            throw new IllegalArgumentException("A sala não consta na lista de salas da pessoa. Tente novamente.");
+        }
 
     }
 

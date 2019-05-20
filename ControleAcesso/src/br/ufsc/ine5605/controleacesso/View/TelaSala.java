@@ -74,6 +74,7 @@ public class TelaSala {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             String[] args = null;
+           teclado.nextLine();
             this.inicio();
 
         } finally {
