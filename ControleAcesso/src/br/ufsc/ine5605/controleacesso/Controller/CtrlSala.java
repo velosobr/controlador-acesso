@@ -16,15 +16,21 @@ import java.util.ArrayList;
  * @author Caio Noguerol
  */
 public class CtrlSala implements ICtrlSala {
-
-    private final CtrlPrincipal ctrlPrincipal;
+   
+    private static CtrlSala instancia;
+    
     private final TelaSala telaSala;
     private final ArrayList<Sala> salas;
 
-    public CtrlSala(CtrlPrincipal ctrlPrincipal) {
-        this.ctrlPrincipal = ctrlPrincipal;
+    private CtrlSala() {
         this.telaSala = new TelaSala(this);
         this.salas = new ArrayList<>();
+    }
+    
+    public static CtrlSala getInstancia(){
+        if(instancia == null)
+            instancia = new CtrlSala();
+        return instancia;
     }
 
     public TelaSala getTelaSala() {
@@ -32,7 +38,8 @@ public class CtrlSala implements ICtrlSala {
     }
 
     public CtrlPrincipal getCtrlPrincipal() {
-        return this.ctrlPrincipal;
+        return CtrlPrincipal.getInstancia();
+
     }
 
     @Override
@@ -76,7 +83,7 @@ public class CtrlSala implements ICtrlSala {
 
     @Override
     public boolean cadastraPessoaNaSala(int matricula, String codigoSala) throws IllegalArgumentException {
-        Pessoa pessoaParaCadastrar = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
+        Pessoa pessoaParaCadastrar = CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoaByMatricula(matricula);
         Sala salaParaCadastrar = findSalaByCodigoSala(codigoSala);
         if (pessoaParaCadastrar == null) {
             throw new IllegalArgumentException("Matricula invalida");

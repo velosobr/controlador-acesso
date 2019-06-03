@@ -7,6 +7,7 @@ package br.ufsc.ine5605.controleacesso.Controller;
 
 import br.ufsc.ine5605.controleacesso.View.TelaAdm;
 import br.ufsc.ine5605.controleacesso.View.TelaPrincipal;
+import br.ufsc.ine5605.controleacesso.View.TelaSwingPrincipal;
 
 /**
  *
@@ -14,31 +15,37 @@ import br.ufsc.ine5605.controleacesso.View.TelaPrincipal;
  */
 public class CtrlPrincipal {
 
-    private final TelaPrincipal telaInicial;
+    private static CtrlPrincipal instancia;
+    
     private final TelaAdm telaAdm;
     private final CtrlAcesso ctrlAcesso;
     private final CtrlPessoa ctrlPessoa;
-    private final CtrlSala ctrlSala;
+    private final TelaSwingPrincipal mainView;
 
     public CtrlPrincipal() {
-        telaInicial = new TelaPrincipal(this);
         telaAdm = new TelaAdm(this);
         ctrlAcesso = new CtrlAcesso(this);
         ctrlPessoa = new CtrlPessoa(this);
-        ctrlSala = new CtrlSala(this);
+        mainView = new TelaSwingPrincipal(this);
 
+    }
+    public static CtrlPrincipal getInstancia(){
+        if (instancia == null)
+            instancia = new CtrlPrincipal();
+        
+        return instancia;
     }
 
     public void abreTelaInicial() {
-        telaInicial.inicio();
+        mainView.setVisible(true);
     }
 
     public void abreTelaAdm() {
         telaAdm.inicio();
     }
 
-    public TelaPrincipal getTelaInicial() {
-        return telaInicial;
+    public TelaSwingPrincipal getTelaInicial() {
+        return mainView;
     }
 
     public TelaAdm getTelaAdm() {
@@ -54,7 +61,8 @@ public class CtrlPrincipal {
     }
 
     public CtrlSala getCtrlSala() {
-        return ctrlSala;
+        return CtrlSala.getInstancia();
+
     }
 
 }
