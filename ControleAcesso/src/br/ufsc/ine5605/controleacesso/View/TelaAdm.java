@@ -39,7 +39,7 @@ public class TelaAdm extends JFrame {
         botaoUm = new JButton();
 
         label.setText("TELA ADM");
-        botaoUm.setText("Abrir porta");
+        botaoUm.setText("teste de botão");
         botaoUm.setActionCommand("1");
 
         GerenciadorBotoes btManager = new GerenciadorBotoes();
@@ -49,7 +49,6 @@ public class TelaAdm extends JFrame {
         container.add(botaoUm);
 
         setSize(360, 250);
-        setVisible(true);
         setLocationRelativeTo(null);
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
