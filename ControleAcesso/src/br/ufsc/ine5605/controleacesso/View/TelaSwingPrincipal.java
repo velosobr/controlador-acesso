@@ -63,10 +63,6 @@ public class TelaSwingPrincipal extends JFrame {
         
     }
     
-    
-    
-    
-    
     private class GerenciadorBotoes implements ActionListener {
 
     @Override

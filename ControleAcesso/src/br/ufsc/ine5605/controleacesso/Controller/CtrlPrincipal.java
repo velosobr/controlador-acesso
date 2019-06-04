@@ -6,7 +6,6 @@
 package br.ufsc.ine5605.controleacesso.Controller;
 
 import br.ufsc.ine5605.controleacesso.View.TelaAdm;
-import br.ufsc.ine5605.controleacesso.View.TelaPrincipal;
 import br.ufsc.ine5605.controleacesso.View.TelaSwingPrincipal;
 
 /**
