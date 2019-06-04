@@ -5,13 +5,10 @@
  */
 package br.ufsc.ine5605.controleacesso.View;
 
-import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
-import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,19 +19,18 @@ import javax.swing.JOptionPane;
  * @author Linnety3
  */
 public class TelaSwingPrincipal extends JFrame {
+    
+    private static TelaSwingPrincipal instancia;
 
-    private final CtrlPrincipal ctrPrincipal;
     private JLabel label;
     private JButton botaoUm;
     private JButton botaoDois;
 
-    public TelaSwingPrincipal(CtrlPrincipal ctrlprincipal) {
+    public TelaSwingPrincipal() {
         super("Controlador de acesso");
 
         Container container = getContentPane();
         container.setLayout(new FlowLayout());
-
-        this.ctrPrincipal = ctrlprincipal;
 
         label = new JLabel();
         botaoUm = new JButton();
@@ -57,19 +53,28 @@ public class TelaSwingPrincipal extends JFrame {
         setSize(360, 250);
         setLocationRelativeTo(null);
 
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-
+    public static TelaSwingPrincipal getInstancia(){
+        if (instancia == null)
+            instancia = new TelaSwingPrincipal();
+        return instancia;
+        
+    }
+    
+    
+    
+    
+    
     private class GerenciadorBotoes implements ActionListener {
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(null, "Botão Pressionado: " 
-                    + e.getActionCommand(), "Titulo", 1);
-            CtrlPrincipal.getInstancia().abreTelaInicial(e.getActionCommand());
-        }
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        JOptionPane.showMessageDialog(null, "Botão pressionado"
+                + ae.getActionCommand(), "Titulo", 2);
 
     }
+
+}
 }

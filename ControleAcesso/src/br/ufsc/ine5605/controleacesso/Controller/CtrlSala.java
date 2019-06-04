@@ -104,7 +104,7 @@ public class CtrlSala implements ICtrlSala {
 
     @Override
     public boolean deletaPessoaNaSala(int matricula, String codigoSala) throws IllegalArgumentException {
-        Pessoa pessoaParaDeletar = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
+        Pessoa pessoaParaDeletar = CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoaByMatricula(matricula);
         Sala salaParaDeletar = findSalaByCodigoSala(codigoSala);
         if (pessoaParaDeletar == null) {
             throw new IllegalArgumentException("Matricula invalida");

@@ -20,13 +20,11 @@ public class CtrlPrincipal {
     private final TelaAdm telaAdm;
     private final CtrlAcesso ctrlAcesso;
     private final CtrlPessoa ctrlPessoa;
-    private final TelaSwingPrincipal mainView;
 
     public CtrlPrincipal() {
         telaAdm = new TelaAdm(this);
         ctrlAcesso = new CtrlAcesso(this);
         ctrlPessoa = new CtrlPessoa(this);
-        mainView = new TelaSwingPrincipal(this);
 
     }
     public static CtrlPrincipal getInstancia(){
@@ -37,7 +35,7 @@ public class CtrlPrincipal {
     }
 
     public void abreTelaInicial() {
-        mainView.setVisible(true);
+        TelaSwingPrincipal.getInstancia().setVisible(true);
     }
 
     public void abreTelaAdm() {
@@ -45,7 +43,7 @@ public class CtrlPrincipal {
     }
 
     public TelaSwingPrincipal getTelaInicial() {
-        return mainView;
+        return TelaSwingPrincipal.getInstancia();
     }
 
     public TelaAdm getTelaAdm() {
