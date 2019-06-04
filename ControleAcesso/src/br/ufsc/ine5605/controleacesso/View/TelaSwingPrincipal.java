@@ -36,9 +36,12 @@ public class TelaSwingPrincipal extends JFrame {
         botaoUm = new JButton();
         botaoDois = new JButton();
 
-        label.setText("Primeiro JLabel!!!");
-        botaoUm.setText("Botão Um");
+        label.setText("Bem vindo ao sistema!!!");
+        //Abrir porta
+        botaoUm.setText("Abrir porta");
         botaoUm.setActionCommand("1");
+        
+        //Abrir Tela Admm
         botaoDois.setText("Botão Dois");
         botaoDois.setActionCommand("2");
 
@@ -67,8 +70,9 @@ public class TelaSwingPrincipal extends JFrame {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        JOptionPane.showMessageDialog(null, "Botão pressionado: "
-                + ae.getActionCommand(), "Titulo", 2);
+         if(ae.getActionCommand() == "2");
+         TelaSwingPrincipal.getInstancia().setVisible(false);
+         TelaAdm.GetInstacia().setVisible(true);
 
     }
 

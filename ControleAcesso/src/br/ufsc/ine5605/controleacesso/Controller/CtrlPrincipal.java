@@ -16,12 +16,10 @@ public class CtrlPrincipal {
 
     private static CtrlPrincipal instancia;
     
-    private final TelaAdm telaAdm;
     private final CtrlAcesso ctrlAcesso;
     private final CtrlPessoa ctrlPessoa;
 
     public CtrlPrincipal() {
-        telaAdm = new TelaAdm(this);
         ctrlAcesso = new CtrlAcesso(this);
         ctrlPessoa = new CtrlPessoa(this);
 
@@ -38,7 +36,7 @@ public class CtrlPrincipal {
     }
 
     public void abreTelaAdm() {
-        telaAdm.inicio();
+        TelaAdm.GetInstacia().setVisible(true);
     }
 
     public TelaSwingPrincipal getTelaInicial() {
@@ -46,7 +44,7 @@ public class CtrlPrincipal {
     }
 
     public TelaAdm getTelaAdm() {
-        return telaAdm;
+        return TelaAdm.GetInstacia();
     }
 
     public CtrlAcesso getCtrlAcesso() {

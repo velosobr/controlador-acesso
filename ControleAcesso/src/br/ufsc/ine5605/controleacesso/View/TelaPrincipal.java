@@ -69,7 +69,6 @@ public class TelaPrincipal {
                     if (validacaoTelaAdm(matriculaadm)) {
                         System.out.println("Login efetuado com sucesso, pressione enter para continuar");
                         teclado.nextLine();
-                        this.ctrlPrincipal.getTelaAdm().inicio();
                     } else {
                         System.out.println("Usuario nao possui acesso a tela Adm");
                         System.out.println("Tente novamente");
