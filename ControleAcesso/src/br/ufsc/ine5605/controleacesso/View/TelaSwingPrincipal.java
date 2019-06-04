@@ -67,7 +67,7 @@ public class TelaSwingPrincipal extends JFrame {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        JOptionPane.showMessageDialog(null, "Botão pressionado"
+        JOptionPane.showMessageDialog(null, "Botão pressionado: "
                 + ae.getActionCommand(), "Titulo", 2);
 
     }
