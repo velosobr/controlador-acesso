@@ -28,6 +28,7 @@ public class TelaAdm extends JFrame {
     private static TelaAdm instancia;
     private JLabel label;
     private JButton botaoUm;
+    private JButton botaoOpcoesPessoa;
 
     public TelaAdm() {
         super("Controlador de acesso");
@@ -37,16 +38,22 @@ public class TelaAdm extends JFrame {
 
         label = new JLabel();
         botaoUm = new JButton();
-
+        botaoOpcoesPessoa = new JButton();
+        
         label.setText("TELA ADM");
         botaoUm.setText("teste de botão");
         botaoUm.setActionCommand("1");
-
+        
+        botaoOpcoesPessoa.setText("Opcoes Pessoa");
+        botaoOpcoesPessoa.setActionCommand("opcoesPessoa");
+        
         GerenciadorBotoes btManager = new GerenciadorBotoes();
         botaoUm.addActionListener(btManager);
+        botaoOpcoesPessoa.addActionListener(btManager);
 
         container.add(label);
         container.add(botaoUm);
+        container.add(botaoOpcoesPessoa);
 
         setSize(360, 250);
         setLocationRelativeTo(null);
@@ -94,6 +101,13 @@ public class TelaAdm extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
+            if("opcoesPessoa".equals(ae.getActionCommand())){
+                TelaAdm.GetInstacia().setVisible(false);
+                TelaSwingPessoa.getInstancia().setVisible(true);
+                
+            }
+            
+            
             JOptionPane.showMessageDialog(null, "Botão pressionado: "
                     + ae.getActionCommand(), "Titulo", 1);
 

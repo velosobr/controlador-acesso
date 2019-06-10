@@ -27,7 +27,7 @@ public class TelaSwingPrincipal extends JFrame {
     private JLabel label;
     private JButton botaoUm;
     private JButton botaoDois;
-        
+            
 
     public TelaSwingPrincipal() {
         super("Controlador de acesso");
@@ -47,7 +47,7 @@ public class TelaSwingPrincipal extends JFrame {
         //Abrir Tela Admm
         botaoDois.setText("Botão Dois");
         botaoDois.setActionCommand("2");
-
+        
         GerenciadorBotoes btManager = new GerenciadorBotoes();
         botaoUm.addActionListener(btManager);
         botaoDois.addActionListener(btManager);
