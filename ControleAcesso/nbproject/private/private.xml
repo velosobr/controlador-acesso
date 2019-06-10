@@ -11,22 +11,6 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/home/caiocaio/Documentos/ufsc/DSO/ControleAcessoV2/controlador-acesso/ControleAcesso/src/br/ufsc/ine5605/controleacesso/ControleAcesso.java</file>
-            <file>file:/home/caiocaio/Documentos/ufsc/DSO/ControleAcessoV2/controlador-acesso/ControleAcesso/src/br/ufsc/ine5605/controleacesso/interfaces/ICtrlSala.java</file>
-            <file>file:/home/caiocaio/Documentos/ufsc/DSO/ControleAcessoV2/controlador-acesso/ControleAcesso/src/br/ufsc/ine5605/controleacesso/View/TelaPrincipal.java</file>
-            <file>file:/home/caiocaio/Documentos/ufsc/DSO/ControleAcessoV2/controlador-acesso/ControleAcesso/src/br/ufsc/ine5605/controleacesso/newfile.md</file>
-            <file>file:/home/caiocaio/Documentos/ufsc/DSO/ControleAcessoV2/controlador-acesso/ControleAcesso/src/br/ufsc/ine5605/controleacesso/Model/Sala.java</file>
-            <file>file:/home/caiocaio/Documentos/ufsc/DSO/ControleAcessoV2/controlador-acesso/ControleAcesso/src/br/ufsc/ine5605/controleacesso/Controller/CtrlPessoa.java</file>
-            <file>file:/home/caiocaio/Documentos/ufsc/DSO/ControleAcessoV2/controlador-acesso/ControleAcesso/src/br/ufsc/ine5605/controleacesso/View/TelaAdm.java</file>
-            <file>file:/home/caiocaio/Documentos/ufsc/DSO/ControleAcessoV2/controlador-acesso/ControleAcesso/src/br/ufsc/ine5605/controleacesso/View/TelaSala.java</file>
-            <file>file:/home/caiocaio/Documentos/ufsc/DSO/ControleAcessoV2/controlador-acesso/ControleAcesso/src/br/ufsc/ine5605/controleacesso/Controller/CtrlPrincipal.java</file>
-            <file>file:/home/caiocaio/Documentos/ufsc/DSO/ControleAcessoV2/controlador-acesso/ControleAcesso/src/br/ufsc/ine5605/controleacesso/Controller/CtrlAcesso.java</file>
-            <file>file:/home/caiocaio/Documentos/ufsc/DSO/ControleAcessoV2/controlador-acesso/ControleAcesso/src/br/ufsc/ine5605/controleacesso/View/TelaPessoa.java</file>
-            <file>file:/home/caiocaio/Documentos/ufsc/DSO/ControleAcessoV2/controlador-acesso/ControleAcesso/src/br/ufsc/ine5605/controleacesso/Model/SituacaoAcesso.java</file>
-            <file>file:/home/caiocaio/Documentos/ufsc/DSO/ControleAcessoV2/controlador-acesso/ControleAcesso/src/br/ufsc/ine5605/controleacesso/validadores/ValidaERetorna.java</file>
-            <file>file:/home/caiocaio/Documentos/ufsc/DSO/ControleAcessoV2/controlador-acesso/ControleAcesso/src/br/ufsc/ine5605/controleacesso/View/TelaAcesso.java</file>
-            <file>file:/home/caiocaio/Documentos/ufsc/DSO/ControleAcessoV2/controlador-acesso/ControleAcesso/src/br/ufsc/ine5605/controleacesso/Controller/CtrlSala.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
