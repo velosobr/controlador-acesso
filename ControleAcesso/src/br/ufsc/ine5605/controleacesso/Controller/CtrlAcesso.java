@@ -10,6 +10,7 @@ import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
 import static br.ufsc.ine5605.controleacesso.Model.SituacaoAcesso.NaoPermitido;
 import static br.ufsc.ine5605.controleacesso.Model.SituacaoAcesso.Permitido;
+import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
 import br.ufsc.ine5605.controleacesso.View.TelaAcesso;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlAcesso;
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class CtrlAcesso implements ICtrlAcesso {
     
     @Override
     public boolean ehLiberadoAcesso(int matricula, String codigoSala) throws IllegalArgumentException{
-        Pessoa pessoaParaTestarAcesso = CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoaByMatricula(matricula);
+        Pessoa pessoaParaTestarAcesso = PessoaDAO.getInstancia().getPessoa(matricula);
         Sala salaParaTestarAcesso = CtrlPrincipal.getInstancia().getCtrlSala().findSalaByCodigoSala(codigoSala);
         
        
@@ -76,7 +77,7 @@ public class CtrlAcesso implements ICtrlAcesso {
     @Override
     public String geraLogByMatricula(int matricula)throws IllegalArgumentException {
         String logAcessos = "";
-        Pessoa pessoa = CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoaByMatricula(matricula);
+        Pessoa pessoa = PessoaDAO.getInstancia().getPessoa(matricula);
         if(pessoa == null){
             throw new IllegalArgumentException("Matricula invalida");
         }

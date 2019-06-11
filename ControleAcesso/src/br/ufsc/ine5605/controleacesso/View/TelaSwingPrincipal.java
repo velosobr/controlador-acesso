@@ -7,6 +7,7 @@ package br.ufsc.ine5605.controleacesso.View;
 
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
 import br.ufsc.ine5605.controleacesso.Model.Servidor;
+import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -99,8 +100,8 @@ public class TelaSwingPrincipal extends JFrame {
     private boolean validacaoTelaAdm(int matricula) {
         boolean ehAdm = false;
 
-        if (CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoaByMatricula(matricula) instanceof Servidor) {
-            Servidor servidor = (Servidor) CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoaByMatricula(matricula);
+        if (PessoaDAO.getInstancia().getPessoa(matricula) instanceof Servidor) {
+            Servidor servidor = (Servidor) PessoaDAO.getInstancia().getPessoa(matricula);
             ehAdm = servidor.isAdministrador();
         } else {
             throw new IllegalArgumentException("A matriculada digitada nao pertence a um servidor, somente servidores podem acessar a tela gerencial");

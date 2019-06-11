@@ -91,5 +91,5 @@ public interface ICtrlPessoa {
      */
     public String listAllPessoasCadastradas();
 
-    public Pessoa findPessoaByMatricula(int matricula);
+    
 }
