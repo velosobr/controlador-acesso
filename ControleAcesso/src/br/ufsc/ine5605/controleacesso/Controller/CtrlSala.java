@@ -7,6 +7,7 @@ package br.ufsc.ine5605.controleacesso.Controller;
 
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
+import br.ufsc.ine5605.controleacesso.Persistencia.SalaDAO;
 import br.ufsc.ine5605.controleacesso.View.TelaSala;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlSala;
 import java.util.ArrayList;
@@ -20,11 +21,10 @@ public class CtrlSala implements ICtrlSala {
     private static CtrlSala instancia;
     
     private final TelaSala telaSala;
-    private final ArrayList<Sala> salas;
+    
 
     private CtrlSala() {
         this.telaSala = new TelaSala(this);
-        this.salas = new ArrayList<>();
     }
     
     public static CtrlSala getInstancia(){
@@ -51,7 +51,7 @@ public class CtrlSala implements ICtrlSala {
         }
         if (salaParaVerificar == null) {
             salaParaIncluir = new Sala(codigoSala, numero, bloco, centro, campus);
-            salas.add(salaParaIncluir);
+            SalaDAO.getInstancia().put(salaParaIncluir);
             return true;
         }
         return false;
@@ -61,7 +61,7 @@ public class CtrlSala implements ICtrlSala {
     public boolean delSala(String codigoSala) {
         Sala salaParaDeletar = findSalaByCodigoSala(codigoSala);
         if (salaParaDeletar != null) {
-            salas.remove(salaParaDeletar);
+            SalaDAO.getInstancia().remove(salaParaDeletar);
             return true;
         }
 
@@ -144,7 +144,7 @@ public class CtrlSala implements ICtrlSala {
     @Override
     public String listAllSalasCadastradas() {
         String listaSalasCadastradas = "";
-        for (Sala sala : salas) {
+        for (Sala sala : SalaDAO.getInstancia().getList()) {
             listaSalasCadastradas += "@Codigo de sala:" + sala.getCodigoSala() +" Centro: "+ sala.getCentro() + "\n";
         }
         if (listaSalasCadastradas.equals("")) {
@@ -156,7 +156,7 @@ public class CtrlSala implements ICtrlSala {
 
     @Override
     public Sala findSalaByCodigoSala(String codigoSala) {
-        for (Sala sala : salas) {
+        for (Sala sala : SalaDAO.getInstancia().getList()) {
             if (sala.getCodigoSala().equals(codigoSala)) {
                 return sala;
             }

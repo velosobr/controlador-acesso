@@ -19,23 +19,29 @@ import java.util.ArrayList;
  */
 public class CtrlPessoa implements ICtrlPessoa {
 
-    private final CtrlPrincipal ctrlPrincipal;
+    private static CtrlPessoa instancia;
 
     private final TelaPessoa telaPessoa;
     private final ArrayList<Pessoa> pessoas;
 
-    public CtrlPessoa(CtrlPrincipal ctrlPrincipal) {
-        this.ctrlPrincipal = ctrlPrincipal;
+    public CtrlPessoa() {
+       
         this.pessoas = new ArrayList<>();
         this.telaPessoa = new TelaPessoa(this);
     }
-
+    
+    public static CtrlPessoa getInstancia(){
+        if(instancia == null)
+            instancia = new CtrlPessoa();
+        return instancia;
+    }
+    
     public TelaPessoa getTelaPessoa() {
         return telaPessoa;
     }
 
     public CtrlPrincipal getCtrlPrincipal() {
-        return ctrlPrincipal;
+        return CtrlPrincipal.getInstancia();
     }
 
     @Override
@@ -102,7 +108,7 @@ public class CtrlPessoa implements ICtrlPessoa {
 
     @Override
     public boolean cadastraSalaNaPessoa(int matricula, String codigoSala) throws IllegalArgumentException {
-        Sala salaParaCadastrar = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
+        Sala salaParaCadastrar = CtrlPrincipal.getInstancia().getCtrlSala().findSalaByCodigoSala(codigoSala);
         Pessoa pessoaCadastro = findPessoaByMatricula(matricula);
         if (pessoaCadastro == null) {
             throw new IllegalArgumentException("Matricula invalida");
@@ -123,7 +129,7 @@ public class CtrlPessoa implements ICtrlPessoa {
 
     @Override
     public boolean delSalaNaPessoa(int matricula, String codigoSala) throws IllegalArgumentException {
-        Sala salaParaDeletar = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
+        Sala salaParaDeletar = CtrlPrincipal.getInstancia().getCtrlSala().findSalaByCodigoSala(codigoSala);
         Pessoa pessoaCadastro = findPessoaByMatricula(matricula);
         if (pessoaCadastro == null) {
             throw new IllegalArgumentException("Matricula invalida");

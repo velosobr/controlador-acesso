@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 package br.ufsc.ine5605.controleacesso.Model;
+import java.io.Serializable;
 import java.util.ArrayList;
 /**
  *
  * @author Linnety3
  */
-public class Sala {
+public class Sala implements Serializable{
+    
     private ArrayList <Pessoa> pessoasCadastradas;
     private String codigoSala;
     private int numero;
@@ -119,6 +121,8 @@ public class Sala {
     public ArrayList <Pessoa> getPessoasCadastradas() {
         return pessoasCadastradas;
     }
+
+    
     
     
 }

@@ -20,19 +20,25 @@ import java.util.ArrayList;
  */
 public class CtrlAcesso implements ICtrlAcesso {
 
-    private final CtrlPrincipal ctrlPrincipal;
+    private static CtrlAcesso instancia;
     private TelaAcesso telaAcesso;
     private ArrayList<Acesso> acessos;
 
-    public CtrlAcesso(CtrlPrincipal ctrlPrincipal) {
-        this.ctrlPrincipal = ctrlPrincipal;
+    public CtrlAcesso() {
+        
         this.telaAcesso = new TelaAcesso(this);
         this.acessos = new ArrayList<>();
 
     }
 
     public CtrlPrincipal getCtrlPrincipal() {
-        return ctrlPrincipal;
+        return CtrlPrincipal.getInstancia();
+    }
+    
+    public static CtrlAcesso getInstancia(){
+        if(instancia == null)
+            instancia = new CtrlAcesso();
+        return instancia;
     }
     
     /**
@@ -45,8 +51,8 @@ public class CtrlAcesso implements ICtrlAcesso {
     
     @Override
     public boolean ehLiberadoAcesso(int matricula, String codigoSala) throws IllegalArgumentException{
-        Pessoa pessoaParaTestarAcesso = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
-        Sala salaParaTestarAcesso = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
+        Pessoa pessoaParaTestarAcesso = CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoaByMatricula(matricula);
+        Sala salaParaTestarAcesso = CtrlPrincipal.getInstancia().getCtrlSala().findSalaByCodigoSala(codigoSala);
         
        
         if (pessoaParaTestarAcesso == null){
@@ -70,7 +76,7 @@ public class CtrlAcesso implements ICtrlAcesso {
     @Override
     public String geraLogByMatricula(int matricula)throws IllegalArgumentException {
         String logAcessos = "";
-        Pessoa pessoa = ctrlPrincipal.getCtrlPessoa().findPessoaByMatricula(matricula);
+        Pessoa pessoa = CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoaByMatricula(matricula);
         if(pessoa == null){
             throw new IllegalArgumentException("Matricula invalida");
         }
@@ -89,7 +95,7 @@ public class CtrlAcesso implements ICtrlAcesso {
     @Override
     public String geraLogByCodigoSala(String codigoSala)throws IllegalArgumentException {
         String logAcessos = "";
-        Sala sala = ctrlPrincipal.getCtrlSala().findSalaByCodigoSala(codigoSala);
+        Sala sala = CtrlPrincipal.getInstancia().getCtrlSala().findSalaByCodigoSala(codigoSala);
         if(sala == null){
             throw new IllegalArgumentException("Codigo de sala invalido");
         }
