@@ -24,6 +24,12 @@ import javax.swing.JTextField;
 public class TelaAdm extends JFrame {
 
     private static TelaAdm instancia;
+<<<<<<< HEAD
+=======
+    private JLabel label;
+    private JButton botaoUm;
+    private JButton botaoOpcoesPessoa;
+>>>>>>> e6858082ad5b984ccb343ef9d4447090831ffddd
 
     private final GridBagLayout layout;
     private final GridBagConstraints constraints;
@@ -52,6 +58,7 @@ public class TelaAdm extends JFrame {
         
         JButton btn3 = new JButton("Button 3");
 
+<<<<<<< HEAD
         //textArea1
         constraints.fill = GridBagConstraints.BOTH;
         addComponent(textArea1, 0, 0, 1, 3);
@@ -65,6 +72,26 @@ public class TelaAdm extends JFrame {
 
         this.setLocationRelativeTo(null);
         this.setSize(300, 150);
+=======
+        label = new JLabel();
+        botaoUm = new JButton();
+        botaoOpcoesPessoa = new JButton();
+        
+        label.setText("TELA ADM");
+        botaoUm.setText("teste de botão");
+        botaoUm.setActionCommand("1");
+        
+        botaoOpcoesPessoa.setText("Opcoes Pessoa");
+        botaoOpcoesPessoa.setActionCommand("opcoesPessoa");
+        
+        GerenciadorBotoes btManager = new GerenciadorBotoes();
+        botaoUm.addActionListener(btManager);
+        botaoOpcoesPessoa.addActionListener(btManager);
+
+        container.add(label);
+        container.add(botaoUm);
+        container.add(botaoOpcoesPessoa);
+>>>>>>> e6858082ad5b984ccb343ef9d4447090831ffddd
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -129,6 +156,13 @@ public class TelaAdm extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
+            if("opcoesPessoa".equals(ae.getActionCommand())){
+                TelaAdm.GetInstacia().setVisible(false);
+                TelaSwingPessoa.getInstancia().setVisible(true);
+                
+            }
+            
+            
             JOptionPane.showMessageDialog(null, "Botão pressionado: "
                     + ae.getActionCommand(), "Titulo", 1);
 

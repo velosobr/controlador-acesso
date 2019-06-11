@@ -16,14 +16,13 @@ public class CtrlPrincipal {
 
     private static CtrlPrincipal instancia;
     
-    private final CtrlAcesso ctrlAcesso;
-    private final CtrlPessoa ctrlPessoa;
+    
+    
 
-    public CtrlPrincipal() {
-        ctrlAcesso = new CtrlAcesso(this);
-        ctrlPessoa = new CtrlPessoa(this);
-
+    public CtrlPrincipal() {   
     }
+    
+    
     public static CtrlPrincipal getInstancia(){
         if (instancia == null)
             instancia = new CtrlPrincipal();
@@ -48,11 +47,11 @@ public class CtrlPrincipal {
     }
 
     public CtrlAcesso getCtrlAcesso() {
-        return ctrlAcesso;
+        return CtrlAcesso.getInstancia();
     }
 
     public CtrlPessoa getCtrlPessoa() {
-        return ctrlPessoa;
+        return CtrlPessoa.getInstancia();
     }
 
     public CtrlSala getCtrlSala() {
