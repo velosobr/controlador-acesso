@@ -31,10 +31,6 @@ public class TelaSwingPrincipal extends JFrame {
     private JLabel label;
     private JButton botaoUm;
     private JButton botaoDois;
-<<<<<<< HEAD
-=======
-            
->>>>>>> e6858082ad5b984ccb343ef9d4447090831ffddd
 
     public TelaSwingPrincipal() {
         super("Controlador de acesso");
@@ -90,7 +86,7 @@ public class TelaSwingPrincipal extends JFrame {
             }
             if (ae.getActionCommand() == "2") {
                 TelaSwingPrincipal.getInstancia().setVisible(false);
-                TelaAdm.GetInstacia().setVisible(true);
+                TelaSwingAdm.GetInstacia().setVisible(true);
             }
         }
 

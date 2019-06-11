@@ -5,7 +5,7 @@
  */
 package br.ufsc.ine5605.controleacesso.Controller;
 
-import br.ufsc.ine5605.controleacesso.View.TelaAdm;
+import br.ufsc.ine5605.controleacesso.View.TelaSwingAdm;
 import br.ufsc.ine5605.controleacesso.View.TelaSwingPrincipal;
 
 /**
@@ -35,15 +35,15 @@ public class CtrlPrincipal {
     }
 
     public void abreTelaAdm() {
-        TelaAdm.GetInstacia().setVisible(true);
+        TelaSwingAdm.GetInstacia().setVisible(true);
     }
 
     public TelaSwingPrincipal getTelaInicial() {
         return TelaSwingPrincipal.getInstancia();
     }
 
-    public TelaAdm getTelaAdm() {
-        return TelaAdm.GetInstacia();
+    public TelaSwingAdm getTelaAdm() {
+        return TelaSwingAdm.GetInstacia();
     }
 
     public CtrlAcesso getCtrlAcesso() {
