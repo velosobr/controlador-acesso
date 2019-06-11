@@ -21,15 +21,15 @@ import javax.swing.JTextField;
  *
  * @author Lino Veloso
  */
-public class TelaAdm extends JFrame {
+public class TelaSwingAdm extends JFrame {
 
-    private static TelaAdm instancia;
+    private static TelaSwingAdm instancia;
 
     private final GridBagLayout layout;
     private final GridBagConstraints constraints;
 
     // configura a GUI
-    public TelaAdm() {
+    public TelaSwingAdm() {
         super("Tela ADM");
 
         layout = new GridBagLayout();
@@ -69,9 +69,9 @@ public class TelaAdm extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public static TelaAdm GetInstacia() {
+    public static TelaSwingAdm GetInstacia() {
         if (instancia == null) {
-            instancia = new TelaAdm();
+            instancia = new TelaSwingAdm();
         }
         return instancia;
     }

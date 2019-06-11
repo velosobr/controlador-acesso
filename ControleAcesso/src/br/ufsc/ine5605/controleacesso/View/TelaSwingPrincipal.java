@@ -9,6 +9,8 @@ import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
 import br.ufsc.ine5605.controleacesso.Model.Servidor;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -23,15 +25,20 @@ import javax.swing.JOptionPane;
 public class TelaSwingPrincipal extends JFrame {
 
     private static TelaSwingPrincipal instancia;
-
+    
+    private final GridBagLayout layout; // layout desse frame
+    private GridBagConstraints constraints;
     private JLabel label;
     private JButton botaoUm;
     private JButton botaoDois;
-        
 
     public TelaSwingPrincipal() {
         super("Controlador de acesso");
-
+        layout = new GridBagLayout();
+        setLayout(layout);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(315 ,210);
+        
         Container container = getContentPane();
         container.setLayout(new FlowLayout());
 
@@ -74,8 +81,9 @@ public class TelaSwingPrincipal extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            if (ae.getActionCommand() == "1")
+            if (ae.getActionCommand() == "1") {
                 JOptionPane.showMessageDialog(null, "Porta aberta");
+            }
             if (ae.getActionCommand() == "2") {
                 TelaSwingPrincipal.getInstancia().setVisible(false);
                 TelaAdm.GetInstacia().setVisible(true);
@@ -83,7 +91,7 @@ public class TelaSwingPrincipal extends JFrame {
         }
 
     }
-    
+
     private boolean validacaoPorta(int matricula, String codSala) {
         return CtrlPrincipal.getInstancia().getCtrlAcesso().ehLiberadoAcesso(matricula, codSala);
     }
