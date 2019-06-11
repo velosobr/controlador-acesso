@@ -7,7 +7,7 @@ package br.ufsc.ine5605.controleacesso.Controller;
 
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
-import br.ufsc.ine5605.controleacesso.Persistencia.SalaDAO;
+import br.ufsc.ine5605.controleacesso.PersistenciaLino.SalaDAO;
 import br.ufsc.ine5605.controleacesso.View.TelaSala;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlSala;
 import java.util.ArrayList;
