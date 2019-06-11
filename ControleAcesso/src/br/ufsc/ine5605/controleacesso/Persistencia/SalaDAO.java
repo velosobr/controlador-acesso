@@ -6,7 +6,6 @@
 package br.ufsc.ine5605.controleacesso.Persistencia;
 
 import br.ufsc.ine5605.controleacesso.Model.Sala;
-import com.sun.imageio.spi.FileImageOutputStreamSpi;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -15,10 +14,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.tools.FileObject;
 
 /**
  *
