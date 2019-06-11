@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufsc.ine5605.controleacesso.PersistenciaLino;
+package br.ufsc.ine5605.controleacesso.Persistencia;
 
 import br.ufsc.ine5605.controleacesso.Model.Sala;
 import com.sun.imageio.spi.FileImageOutputStreamSpi;
