@@ -9,11 +9,13 @@ import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -22,84 +24,65 @@ import javax.swing.JTextField;
  * @author Lino Veloso
  */
 public class TelaSwingAdm extends JFrame {
-
+    
     private static TelaSwingAdm instancia;
-
-    private final GridBagLayout layout;
-    private final GridBagConstraints constraints;
 
     // configura a GUI
     public TelaSwingAdm() {
         super("Tela ADM");
 
-        layout = new GridBagLayout();
+        //create a new panel with GBL manager
+        JPanel panelADM = new JPanel(new GridBagLayout());
+        GridBagConstraints constraintsPanel = new GridBagConstraints(); // instancia restrições
 
-        setLayout(layout); // configura o layout de frame
-        constraints = new GridBagConstraints(); // instancia restrições
+        constraintsPanel.anchor = GridBagConstraints.WEST;
+        constraintsPanel.insets = new Insets(10, 10, 10, 10);
+        getContentPane().add(panelADM);
 
         // cria componentes GUI
+        GridBagConstraints constraints = new GridBagConstraints();
         JTextArea textArea1 = new JTextArea("TextArea1", 5, 10);
-
+        
         JTextField textField1 = new JTextField("text1", 5);
         JTextField textField2 = new JTextField("text2", 5);
         JTextField textField3 = new JTextField("text3", 5);
-
-        JButton btn1 = new JButton("Button 1");
         
+        JButton btn1 = new JButton("Button 1");
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        panelADM.add(btn1, constraints);
         
         JButton btn2 = new JButton("Button 2");
         
-        
         JButton btn3 = new JButton("Button 3");
-
-        //textArea1
-        constraints.fill = GridBagConstraints.BOTH;
-        addComponent(textArea1, 0, 0, 1, 3);
-
-        //button1
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        addComponent(btn1, 0, 1, 2, 1);
-
+        
         GerenciadorBotoes btManager = new GerenciadorBotoes();
         //  botaoUm.addActionListener(btManager);
 
-        this.setLocationRelativeTo(null);
-        this.setSize(300, 150);
-
+        setLocationRelativeTo(null);
+        setSize(315, 210);
+        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
+    
     public static TelaSwingAdm GetInstacia() {
         if (instancia == null) {
             instancia = new TelaSwingAdm();
         }
         return instancia;
     }
-
+    
     public CtrlPrincipal getCtrlPrincipal() {
         return CtrlPrincipal.getInstancia();
     }
-    
+
     /**
-     * 
+     *
      * @param component - componete
      * @param row - linha
      * @param column - coluna
      * @param width - largura
      * @param height - altura
      */
-    private void addComponent(Component component, int row, int column, int width, int height) {
-        constraints.gridx = column;
-        constraints.gridy = row;
-        constraints.gridwidth = width;
-        constraints.gridheight = height;
-
-        layout.setConstraints(component, constraints); //configura as constrains
-
-        add(component); //adiciona componente
-
-    }
-
     /**
      * public void inicio() throws IllegalArgumentException,
      * InputMismatchException {
@@ -126,14 +109,19 @@ public class TelaSwingAdm extends JFrame {
      * this.inicio(); } finally { teclado.nextLine(); }
      */
     private class GerenciadorBotoes implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent ae) {
-            JOptionPane.showMessageDialog(null, "Botão pressionado: "
-                    + ae.getActionCommand(), "Titulo", 1);
-
+            
+            if (ae.getActionCommand() == "1") {
+                TelaSwingAdm.GetInstacia().setVisible(false);
+                TelaPessoa.getInstancia().setVisible(true);
+            }else if(ae.getActionCommand() == "2"){
+                TelaSwingAdm.GetInstacia().setVisible(false);
+                TelaSala.getInstancia().setVisible(true);
+            }
         }
-
+        
     }
-
+    
 }
