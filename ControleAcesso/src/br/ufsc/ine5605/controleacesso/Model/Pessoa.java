@@ -5,13 +5,14 @@
  */
 package br.ufsc.ine5605.controleacesso.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Caio Noguerol
  */
-public abstract class Pessoa {
+public abstract class Pessoa implements Serializable{
 
     private ArrayList<Sala> salasCadastradas;
     private int matricula;

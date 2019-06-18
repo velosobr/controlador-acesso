@@ -7,6 +7,7 @@ package br.ufsc.ine5605.controleacesso.Controller;
 
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
+import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
 import br.ufsc.ine5605.controleacesso.Persistencia.SalaDAO;
 import br.ufsc.ine5605.controleacesso.View.TelaSala;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlSala;
@@ -83,7 +84,7 @@ public class CtrlSala implements ICtrlSala {
 
     @Override
     public boolean cadastraPessoaNaSala(int matricula, String codigoSala) throws IllegalArgumentException {
-        Pessoa pessoaParaCadastrar = CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoaByMatricula(matricula);
+        Pessoa pessoaParaCadastrar = PessoaDAO.getInstancia().getPessoa(matricula);
         Sala salaParaCadastrar = findSalaByCodigoSala(codigoSala);
         if (pessoaParaCadastrar == null) {
             throw new IllegalArgumentException("Matricula invalida");
@@ -104,7 +105,7 @@ public class CtrlSala implements ICtrlSala {
 
     @Override
     public boolean deletaPessoaNaSala(int matricula, String codigoSala) throws IllegalArgumentException {
-        Pessoa pessoaParaDeletar = CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoaByMatricula(matricula);
+        Pessoa pessoaParaDeletar = PessoaDAO.getInstancia().getPessoa(matricula);
         Sala salaParaDeletar = findSalaByCodigoSala(codigoSala);
         if (pessoaParaDeletar == null) {
             throw new IllegalArgumentException("Matricula invalida");

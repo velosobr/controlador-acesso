@@ -8,6 +8,7 @@ package br.ufsc.ine5605.controleacesso.View;
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPessoa;
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Servidor;
+import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
 import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
 import java.util.Scanner;
 
@@ -157,7 +158,7 @@ public class TelaPessoa {
         System.out.println("---");
         
         int matricula = validador.recebeValorInteiro("Digite a matricula da pessoa");
-        if(ctrlPessoa.findPessoaByMatricula(matricula) instanceof Servidor){
+        if(PessoaDAO.getInstancia().getPessoa(matricula) instanceof Servidor){
             String nome = validador.recebeValorString("Digite o nome do servidor");
             long telefone = validador.recebeValorLong("Digite o telefone do servidor sem caracteres especiais. Ex: 984841234");
             String email = validador.recebeValorString("Digite o email do servidor");
@@ -221,7 +222,7 @@ public class TelaPessoa {
         System.out.println("Encontra uma pessoa atraves da matricula");
         System.out.println("---");
         int matricula = validador.recebeValorInteiro("Digite a matricula da pessoa");
-        Pessoa pessoa = ctrlPessoa.findPessoaByMatricula(matricula);
+        Pessoa pessoa = PessoaDAO.getInstancia().getPessoa(matricula);
         String nome = pessoa.getNome();
         String email = pessoa.getEmail();
         long telefone = pessoa.getTelefone();
