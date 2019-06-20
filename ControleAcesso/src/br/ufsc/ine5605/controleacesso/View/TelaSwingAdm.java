@@ -29,7 +29,7 @@ public class TelaSwingAdm extends JFrame {
         //create a new panel with GBL manager
         JPanel panelADM = new JPanel(new GridBagLayout());
         GridBagConstraints constraintsPanel = new GridBagConstraints(); // instancia restrições
-       
+
         constraintsPanel.anchor = GridBagConstraints.WEST;
         constraintsPanel.insets = new Insets(10, 10, 10, 10);
         panelADM.setBackground(Color.WHITE);
@@ -89,7 +89,6 @@ public class TelaSwingAdm extends JFrame {
         constraints.gridy = 3;
         constraints.ipadx = 125;
         constraints.ipady = 20;
-        
 
         panelADM.add(btnVoltar, constraints);
 
