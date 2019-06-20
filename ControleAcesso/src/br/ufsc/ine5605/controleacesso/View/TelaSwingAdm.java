@@ -10,9 +10,11 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 
 /**
  *
@@ -83,7 +85,7 @@ public class TelaSwingAdm extends JFrame {
         //Botão Voltar
         JButton btnVoltar = new JButton("Voltar");
         btnVoltar.setActionCommand("4");
-        constraints.insets = new Insets(10, 10, 10, 10);
+        constraints.insets = new Insets(10, 0, 10, 0);
         constraints.weightx = 0.5;
         constraints.gridx = 0;
         constraints.gridy = 3;
@@ -152,20 +154,32 @@ public class TelaSwingAdm extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-
-            if (ae.getActionCommand() == "1") {
-                setVisible(false);
-                CtrlPrincipal.getInstancia().getCtrlSala().abreTelaSwingSala();
-            } else if (ae.getActionCommand() == "2") {
-                setVisible(false);
-                CtrlPrincipal.getInstancia().getCtrlPessoa().abreTelaSwingPessoa();
-            } else if (ae.getActionCommand() == "3") {
-                setVisible(false);
-                CtrlPrincipal.getInstancia().getCtrlAcesso().abreTelaSwingAcesso();
-            } else if (ae.getActionCommand() == "4") {
-                setVisible(false);
-                CtrlPrincipal.getInstancia().abreTelaInicial();
+            try {
+                switch (ae.getActionCommand()) {
+                    case ("1"):
+                        setVisible(false);
+                        CtrlPrincipal.getInstancia().getCtrlSala().abreTelaSwingSala();
+                        break;
+                    case ("2"):
+                        setVisible(false);
+                        CtrlPrincipal.getInstancia().getCtrlPessoa().abreTelaSwingPessoa();
+                        break;
+                    case ("3"):
+                        setVisible(false);
+                        CtrlPrincipal.getInstancia().getCtrlAcesso().abreTelaSwingAcesso();
+                        break;
+                    case ("4"):
+                        setVisible(false);
+                        CtrlPrincipal.getInstancia().abreTelaInicial();
+                        break;
+                    default:
+                        throw new IllegalArgumentException();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Opcao Invalida! Escolha uma opcao dentre das opcoes na lista .");
+                TelaSwingAdm.GetInstacia().setVisible(true);
             }
+
         }
     }
 
