@@ -1,6 +1,7 @@
 package br.ufsc.ine5605.controleacesso.View;
 
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,9 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 
 /**
  *
@@ -38,7 +36,7 @@ public class TelaSwingAdm extends JFrame {
         setSize(315, 280);
 
         panelADM.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Tela ADM"));
+                BorderFactory.createEtchedBorder(), "TELA ADM | GERENCIAL"));
 
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,7 +44,7 @@ public class TelaSwingAdm extends JFrame {
 
         // cria componentes 
         //Botão sala
-        JButton btnSala = new JButton("Gerenciador de SALA");
+        JButton btnSala = new JButton("Gerenciador de Salas");
         GridBagConstraints constraints = new GridBagConstraints();
         btnSala.setActionCommand("1");
         constraints.weightx = 0.5;
@@ -114,42 +112,6 @@ public class TelaSwingAdm extends JFrame {
         return CtrlPrincipal.getInstancia();
     }
 
-//    public void inicio() throws IllegalArgumentException, InputMismatchException {
-//        System.out.println("--- TELA ADM - GERENCIAL---");
-//        System.out.println(" ");
-//        System.out.println("1 - Cadastro de pessoas ");
-//        System.out.println("2 - Cadastro de salas ");
-//        System.out.println("3 - Listar acessos ");
-//        System.out.println("4 - Voltar ao menu principal ");
-//        System.out.println("");
-//
-//        try {
-//            int opcao = validador.recebeValorInteiro("Escolha a opcao desejada, insira o numero e tecle enter : ---");
-//
-//            switch (opcao) {
-//                case (1):
-//                    CtrlPrincipal.getInstancia().getCtrlPessoa().getTelaPessoa().inicio();
-//                    break;
-//                case (2):
-//                    CtrlPrincipal.getInstancia().getCtrlSala().getTelaSala().inicio();
-//                    break;
-//                case (3):
-//                    CtrlPrincipal.getInstancia().getCtrlAcesso().getTelaAcesso().inicio();
-//                    break;
-//                case (4):
-//                    this.getCtrlPrincipal().abreTelaInicial();
-//                    break;
-//                default:
-//                    throw new IllegalArgumentException();
-//            }
-//        } catch (IllegalArgumentException e) {
-//            System.out.println("Opcao Invalida! Escolha uma opcao dentre das opcoes na lista .");
-//            String[] args = null;
-//            this.inicio();
-//        } finally {
-//            teclado.nextLine();
-//        }
-//    }
     private class GerenciadorBotoes implements ActionListener {
 
         @Override

@@ -44,7 +44,7 @@ public class TelaSwingSala extends JFrame {
         panelSala.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Tela sala"));
 
-        setSize(315, 250);
+        setSize(315, 280);
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().add(panelSala);

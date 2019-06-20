@@ -8,6 +8,7 @@ package br.ufsc.ine5605.controleacesso.View;
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
 import br.ufsc.ine5605.controleacesso.Model.Servidor;
 import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
+import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -31,10 +32,12 @@ public class TelaSwingPrincipal extends JFrame {
     private JLabel label;
     private JButton botaoUm;
     private JButton botaoDois;
+    private ValidaERetorna validador;
 
     public TelaSwingPrincipal() {
 
         super("Controlador de acesso");
+        validador = new ValidaERetorna();
 
         // create a new panel with GridBagLayout manager
         JPanel panelPrincipal = new JPanel(new GridBagLayout());
@@ -47,7 +50,8 @@ public class TelaSwingPrincipal extends JFrame {
         panelPrincipal.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Controle de acesso"));
 
-        setSize(315, 250);
+        //tamanho da tela
+        setSize(315, 280);
 
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,11 +109,36 @@ public class TelaSwingPrincipal extends JFrame {
         @Override
         public void actionPerformed(ActionEvent ae) {
             if (ae.getActionCommand() == "1") {
-                JOptionPane.showMessageDialog(null, "Porta aberta");
+                int matricula = validador.recebeValorInteiro("Digite a matricula: ");
+                String codSala = validador.recebeValorString("Digite a sala que deseja entrar: ");
+                try {
+                    if (validacaoPorta(matricula, codSala)) {
+                        JOptionPane.showMessageDialog(null, "Porta aberta");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Você não possui acesso");
+                    }
+                } catch (IllegalArgumentException e) {
+
+                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Matricula ou sala inexistente. Tente novamente.");
+                }
+
             }
             if (ae.getActionCommand() == "2") {
-                setVisible(false);
-                TelaSwingAdm.GetInstacia().setVisible(true);
+                int matricula = validador.recebeValorInteiro("Digite a matricula: ");
+                try {
+                    if (validacaoTelaAdm(matricula)) {
+                        setVisible(false);
+                        TelaSwingAdm.GetInstacia().setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Você não possui acesso");
+                    }
+
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Matricula inexistente. Tente novamente.");
+                }
+
             }
         }
 

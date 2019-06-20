@@ -7,6 +7,7 @@ package br.ufsc.ine5605.controleacesso.validadores;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,42 +15,29 @@ import java.util.Scanner;
  */
 public class ValidaERetorna {
 
-    private final Scanner teclado;
-
     public ValidaERetorna(Scanner teclado) {
-        this.teclado = new Scanner(System.in);
     }
 
-    public String recebeValorString() {
-        String valor = null;
-        try {
-            valor = teclado.nextLine();
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        return valor;
+    public ValidaERetorna() {
+
     }
 
     public String recebeValorString(String mensagem) {
         String valor = null;
         do {
-            System.out.println(mensagem);
-
-            valor = recebeValorString();
+            valor = JOptionPane.showInputDialog(mensagem);
         } while (valor == null);
 
         return valor;
     }
 
-    public int recebeValorInteiro() {
+    public int validaValorInteiro(String mensagem) {
         int valor = -1;
 
         try {
-            valor = teclado.nextInt();
-        } catch (InputMismatchException e) {
-            System.out.println("O valor digitado nao e um inteiro valido");
-        } finally {
-            teclado.nextLine();
+            valor = Integer.parseInt(JOptionPane.showInputDialog(mensagem));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "O valor digitado nao e um inteiro valido");
         }
 
         return valor;
@@ -59,15 +47,13 @@ public class ValidaERetorna {
         int valor = -1;
 
         do {
-            System.out.println(mensagem);
-
-            valor = recebeValorInteiro();
-
+            valor = validaValorInteiro(mensagem);
         } while (valor == -1);
 
         return valor;
     }
 
+    // Arrumar o método recebevalorBoolean
     public Boolean recebeValorBoolean(String mensagem) {
         int valor = -1;
         boolean valorBool = false;
@@ -75,7 +61,7 @@ public class ValidaERetorna {
         System.out.println(mensagem);
         System.out.println("1 - SIM");
         System.out.println("2 - NAO");
-        valor = recebeValorInteiro();
+        valor = validaValorInteiro(mensagem);
 
         try {
             switch (valor) {
@@ -96,15 +82,14 @@ public class ValidaERetorna {
         return valorBool;
     }
 
-    public char recebeValorChar() {
+    public char validaValorChar(String mensagem) {
         char valor = 000;
         try {
-            valor = teclado.next().charAt(0);
+          
+            valor = JOptionPane.showInputDialog(mensagem).charAt(0);
         } catch (InputMismatchException e) {
             System.out.println("O valor digitado nao e um inteiro valido");
-        } finally {
-            teclado.nextLine();
-        }
+        } 
 
         return valor;
     }
@@ -115,34 +100,30 @@ public class ValidaERetorna {
         do {
             System.out.println(mensagem);
 
-            valor = recebeValorChar();
+            valor = validaValorChar(mensagem);
 
         } while (valor == 000);
 
         return valor;
     }
 
-    public long recebeValorLong() {
-        long valor = -1;
-
-        try {
-            valor = teclado.nextLong();
-        } catch (InputMismatchException e) {
-            System.out.println("O valor digitado nao e um long valido");
-        } finally {
-            teclado.nextLine();
-        }
-
-        return valor;
-    }
+//    public long recebeValorLong() {
+//        long valor = -1;
+//
+//        try {
+//            valor = Long.parseLong(JOptionPane.showInputDialog(mensagem));;
+//        } catch (InputMismatchException e) {
+//            System.out.println("O valor digitado nao e um long valido");
+//        } 
+//
+//        return valor;
+//    }
 
     public long recebeValorLong(String mensagem) {
         long valor = -1;
 
         do {
-            System.out.println(mensagem);
-
-            valor = recebeValorLong();
+            valor = Long.parseLong(JOptionPane.showInputDialog(mensagem));
 
         } while (valor == -1);
 
