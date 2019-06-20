@@ -47,7 +47,7 @@ public class TelaSwingPrincipal extends JFrame {
         panelPrincipal.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Controle de acesso"));
 
-        setSize(315, 210);
+        setSize(315, 250);
 
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -108,7 +108,7 @@ public class TelaSwingPrincipal extends JFrame {
                 JOptionPane.showMessageDialog(null, "Porta aberta");
             }
             if (ae.getActionCommand() == "2") {
-             setVisible(false);
+                setVisible(false);
                 TelaSwingAdm.GetInstacia().setVisible(true);
             }
         }

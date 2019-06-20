@@ -33,11 +33,10 @@ public class TelaSwingAdm extends JFrame {
         constraintsPanel.anchor = GridBagConstraints.WEST;
         constraintsPanel.insets = new Insets(10, 10, 10, 10);
         panelADM.setBackground(Color.WHITE);
+          setSize(315, 250);
 
         panelADM.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Tela ADM"));
-
-        setSize(315, 210);
 
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,16 +48,17 @@ public class TelaSwingAdm extends JFrame {
         GridBagConstraints constraints = new GridBagConstraints();
         btnSala.setActionCommand("1");
         constraints.weightx = 0.5;
+        constraints.insets = new Insets(10, 0, 0, 0);
         constraints.gridx = 0;
         constraints.gridy = 0;
-        constraints.ipadx = 52;
+        constraints.ipadx = 65;
         constraints.ipady = 20;
 
         panelADM.add(btnSala, constraints);
 
         //Botão Pessoas
-        JButton btnPessoas = new JButton("Gerenciador de Pessoas");
-        btnPessoas.setActionCommand("2");
+        JButton btnPessoa = new JButton("Gerenciador de Pessoas");
+        btnPessoa.setActionCommand("2");
         constraints.insets = new Insets(10, 0, 0, 0);
         constraints.weightx = 0.5;
         constraints.gridx = 0;
@@ -66,15 +66,28 @@ public class TelaSwingAdm extends JFrame {
         constraints.ipadx = 48;
         constraints.ipady = 20;
 
-        panelADM.add(btnPessoas, constraints);
+        panelADM.add(btnPessoa, constraints);
 
-        JButton btn2 = new JButton("Button 2");
+        //Botão Acessos
+        JButton btnAcesso = new JButton("Gerenciador de Acessos");
+        btnAcesso.setActionCommand("3");
+        constraints.insets = new Insets(10, 0, 10, 0);
+        constraints.weightx = 0.5;
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        constraints.ipadx = 48;
+        constraints.ipady = 20;
 
-        JButton btn3 = new JButton("Button 3");
+        panelADM.add(btnAcesso, constraints);
 
+        //gerenciador dos botões
         GerenciadorBotoes btManager = new GerenciadorBotoes();
         btnSala.addActionListener(btManager);
-
+        btnPessoa.addActionListener(btManager);
+        btnAcesso.addActionListener(btManager);
+        
+        
+      
     }
 
     public static TelaSwingAdm GetInstacia() {
@@ -118,10 +131,13 @@ public class TelaSwingAdm extends JFrame {
 
             if (ae.getActionCommand() == "1") {
                 setVisible(false);
-                CtrlPrincipal.getInstancia().getCtrlSala().getTelaSwingSala().setVisible(true);
+                CtrlPrincipal.getInstancia().getCtrlSala().abreTelaSwingSala();
             } else if (ae.getActionCommand() == "2") {
                 setVisible(false);
-                TelaSwingPessoa.getInstancia().setVisible(true);
+                CtrlPrincipal.getInstancia().getCtrlPessoa().abreTelaSwingPessoa();
+            } else if (ae.getActionCommand() == "3") {
+                setVisible(false);
+                CtrlPrincipal.getInstancia().getCtrlAcesso().abreTelaSwingAcesso();
             }
         }
     }

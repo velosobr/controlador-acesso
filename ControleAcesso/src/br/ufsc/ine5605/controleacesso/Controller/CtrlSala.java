@@ -9,6 +9,7 @@ import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
 import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
 import br.ufsc.ine5605.controleacesso.Persistencia.SalaDAO;
+import br.ufsc.ine5605.controleacesso.View.TelaSwingPrincipal;
 import br.ufsc.ine5605.controleacesso.View.TelaSwingSala;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlSala;
 import java.util.ArrayList;
@@ -33,6 +34,9 @@ public class CtrlSala implements ICtrlSala {
 
     public TelaSwingSala getTelaSwingSala() {
         return TelaSwingSala.GetInstancia();
+    }
+    public void abreTelaSwingSala() {
+        TelaSwingSala.GetInstancia().setVisible(true);
     }
 
     public CtrlPrincipal getCtrlPrincipal() {

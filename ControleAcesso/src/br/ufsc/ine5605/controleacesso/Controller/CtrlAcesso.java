@@ -136,6 +136,10 @@ public class CtrlAcesso implements ICtrlAcesso {
         return null;
     }
 
+    public void abreTelaSwingAcesso() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
 
 }
