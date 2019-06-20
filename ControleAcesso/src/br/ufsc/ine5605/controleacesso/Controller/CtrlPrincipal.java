@@ -15,9 +15,6 @@ import br.ufsc.ine5605.controleacesso.View.TelaSwingPrincipal;
 public class CtrlPrincipal {
 
     private static CtrlPrincipal instancia;
-    
-    
-    
 
     public CtrlPrincipal() {   
     }

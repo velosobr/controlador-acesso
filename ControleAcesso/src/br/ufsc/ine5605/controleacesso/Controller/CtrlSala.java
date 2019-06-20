@@ -9,7 +9,7 @@ import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
 import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
 import br.ufsc.ine5605.controleacesso.Persistencia.SalaDAO;
-import br.ufsc.ine5605.controleacesso.View.TelaSala;
+import br.ufsc.ine5605.controleacesso.View.TelaSwingSala;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlSala;
 import java.util.ArrayList;
 
@@ -18,24 +18,21 @@ import java.util.ArrayList;
  * @author Caio Noguerol
  */
 public class CtrlSala implements ICtrlSala {
-   
+
     private static CtrlSala instancia;
-    
-    private final TelaSala telaSala;
-    
 
     private CtrlSala() {
-        this.telaSala = new TelaSala(this);
     }
-    
-    public static CtrlSala getInstancia(){
-        if(instancia == null)
+
+    public static CtrlSala getInstancia() {
+        if (instancia == null) {
             instancia = new CtrlSala();
+        }
         return instancia;
     }
 
-    public TelaSala getTelaSala() {
-        return telaSala;
+    public TelaSwingSala getTelaSwingSala() {
+        return TelaSwingSala.GetInstancia();
     }
 
     public CtrlPrincipal getCtrlPrincipal() {
@@ -44,10 +41,10 @@ public class CtrlSala implements ICtrlSala {
     }
 
     @Override
-    public boolean addSala(String codigoSala, int numero, char bloco, String centro, String campus)throws IllegalArgumentException {
+    public boolean addSala(String codigoSala, int numero, char bloco, String centro, String campus) throws IllegalArgumentException {
         Sala salaParaVerificar = findSalaByCodigoSala(codigoSala);
         Sala salaParaIncluir = null;
-        if(codigoSala.equals("")){
+        if (codigoSala.equals("")) {
             throw new IllegalArgumentException("Codigo de sala invalido, cadastro nao realizado!");
         }
         if (salaParaVerificar == null) {
@@ -68,9 +65,9 @@ public class CtrlSala implements ICtrlSala {
 
         return false;
     }
-    
+
     @Override
-    public boolean alteradorDeCadastroSala(String codigoSala, int numero, char bloco, String centro, String campus)throws IllegalArgumentException{
+    public boolean alteradorDeCadastroSala(String codigoSala, int numero, char bloco, String centro, String campus) throws IllegalArgumentException {
         Sala salaParaAlterar = findSalaByCodigoSala(codigoSala);
         if (salaParaAlterar == null) {
             throw new IllegalArgumentException("Codigo de sala invalido, alteracao cadastral nao realizada!");
@@ -117,7 +114,7 @@ public class CtrlSala implements ICtrlSala {
             pessoaParaDeletar.delSala(salaParaDeletar);
             salaParaDeletar.delPessoa(pessoaParaDeletar);
             return true;
-        }else{
+        } else {
             throw new IllegalArgumentException("A pessoa nao consta na lista de pessoas da sala.");
         }
 
@@ -134,7 +131,7 @@ public class CtrlSala implements ICtrlSala {
 
         ArrayList<Pessoa> pessoasCadastradas = salaCadastrada.getPessoasCadastradas();
         for (Pessoa pessoa : pessoasCadastradas) {
-            listaPessoasCadastradasNaSala +="@Matricula: "+ pessoa.getMatricula() + " Nome: " + pessoa.getNome() + "\n";
+            listaPessoasCadastradasNaSala += "@Matricula: " + pessoa.getMatricula() + " Nome: " + pessoa.getNome() + "\n";
         }
         if (listaPessoasCadastradasNaSala.equals("")) {
             listaPessoasCadastradasNaSala = "Nao ha pessoas Cadastradas";
@@ -146,7 +143,7 @@ public class CtrlSala implements ICtrlSala {
     public String listAllSalasCadastradas() {
         String listaSalasCadastradas = "";
         for (Sala sala : SalaDAO.getInstancia().getList()) {
-            listaSalasCadastradas += "@Codigo de sala:" + sala.getCodigoSala() +" Centro: "+ sala.getCentro() + "\n";
+            listaSalasCadastradas += "@Codigo de sala:" + sala.getCodigoSala() + " Centro: " + sala.getCentro() + "\n";
         }
         if (listaSalasCadastradas.equals("")) {
             listaSalasCadastradas = "Nao ha salas cadastradas";

@@ -9,8 +9,6 @@ import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
 import br.ufsc.ine5605.controleacesso.Model.Servidor;
 import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
 import java.awt.Color;
-import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -22,7 +20,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
 
 /**
  *
@@ -65,7 +62,7 @@ public class TelaSwingPrincipal extends JFrame {
 
         constraints.weightx = 0.5;
         constraints.gridx = 0;
-        constraints.gridy = 1;
+        constraints.gridy = 0;
         constraints.ipadx = 52;
         constraints.ipady = 20;
 
@@ -74,12 +71,11 @@ public class TelaSwingPrincipal extends JFrame {
 
         //Abrir Tela Admm
         //botão 2
-        botaoDois = new JButton();
-        botaoDois.setText("Abrir Tela ADM");
+        botaoDois = new JButton("Abrir Tela ADM");
 
         constraints.weightx = 0.5;
         constraints.gridx = 0;
-        constraints.gridy = 2;
+        constraints.gridy = 1;
         constraints.insets = new Insets(10, 0, 0, 0);
         constraints.ipadx = 30;
         constraints.ipady = 20;
@@ -112,7 +108,7 @@ public class TelaSwingPrincipal extends JFrame {
                 JOptionPane.showMessageDialog(null, "Porta aberta");
             }
             if (ae.getActionCommand() == "2") {
-                TelaSwingPrincipal.getInstancia().setVisible(false);
+             setVisible(false);
                 TelaSwingAdm.GetInstacia().setVisible(true);
             }
         }
