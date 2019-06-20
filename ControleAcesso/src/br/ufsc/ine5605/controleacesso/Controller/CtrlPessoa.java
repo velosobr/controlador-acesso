@@ -11,6 +11,7 @@ import br.ufsc.ine5605.controleacesso.Model.Sala;
 import br.ufsc.ine5605.controleacesso.Model.Servidor;
 import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
 import br.ufsc.ine5605.controleacesso.View.TelaPessoa;
+import br.ufsc.ine5605.controleacesso.View.TelaSwingPessoa;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlPessoa;
 import java.util.ArrayList;
 
@@ -190,7 +191,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
 
     public void abreTelaSwingPessoa() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TelaSwingPessoa.getInstancia().setVisible(true);
     }
 
     

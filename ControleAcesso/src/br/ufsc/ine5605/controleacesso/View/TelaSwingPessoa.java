@@ -5,14 +5,24 @@
  */
 package br.ufsc.ine5605.controleacesso.View;
 
+import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -21,55 +31,130 @@ import javax.swing.JOptionPane;
 public class TelaSwingPessoa extends JFrame{
     private static TelaSwingPessoa instancia;
     private JLabel label;
-    private JButton botaoOpcoesCadastro;
-    private JButton botaoOpcoesPermissao;
-    private JButton botaoOpcoesVisualizacao;
+    private JButton cadastro;
+    private JButton editar;
+    private JButton remover;
+    private JButton opcoesPermissao;
+    private JButton voltar;
 
     public TelaSwingPessoa() {
         super("Opcoes de gerenciamento de pessoa");
         
-        Container container = getContentPane();
-        container.setLayout(new GridLayout());
+        JPanel panelPessoa = new JPanel (new GridBagLayout());
         
+        GridBagConstraints constraintsPanel = new GridBagConstraints();
+        constraintsPanel.anchor = GridBagConstraints.WEST;
+        constraintsPanel.insets = new Insets(10, 10, 10, 10);
+        panelPessoa.setBackground(Color.WHITE);
+        setSize(750, 500);
+        
+        panelPessoa.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createEtchedBorder(), "Opcoes Pessoa"));
+        
+        setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getContentPane().add(panelPessoa);
+        
+        GridBagConstraints constraintsBTN = new GridBagConstraints();
+        
+        //COMPONENTES TELASWINGPESSOA
+        // Label
         label = new JLabel();
-        botaoOpcoesCadastro = new JButton();
-        botaoOpcoesPermissao = new JButton();
-        botaoOpcoesVisualizacao = new JButton();
-    
-        
         label.setText("Selecione uma das opções");
         
-        //opcoes cadastro
         
-        botaoOpcoesCadastro.setText("Opcoes de Cadastro");
-        botaoOpcoesCadastro.setActionCommand("cadastro");
+        //Botao Cadastro
+        cadastro = new JButton("Cadastro");
+        cadastro.setActionCommand("cadastro");
+        constraintsBTN.weightx = 0.5;
+        constraintsBTN.insets = new Insets(10, 0, 0, 0);
+        constraintsBTN.gridx = 1;
+        constraintsBTN.gridy = 0;
+        //constraintsBTN.ipadx = 20;
+        //constraintsBTN.ipady = 20;
         
-        // opcoes gerenciamento
+        panelPessoa.add(cadastro,constraintsBTN );
+        //Botao Editar
+        editar = new JButton("Editar");
+        editar.setActionCommand("editar");
+        constraintsBTN.weightx = 0.5;
+        constraintsBTN.insets = new Insets(10, 0, 0, 0);
+        constraintsBTN.gridx = 1;
+        constraintsBTN.gridy = 1;
+        //constraintsBTN.ipadx = 20;
+        //constraintsBTN.ipady = 20;
         
-        botaoOpcoesPermissao.setText("Opcoes de Permissao de Acesso");
-        botaoOpcoesPermissao.setActionCommand("permisao");
+        panelPessoa.add(editar,constraintsBTN);
+        // Botao Remover
+        remover = new JButton("Remover");
+        remover.setActionCommand("remover");
+        constraintsBTN.weightx = 0.5;
+        constraintsBTN.insets = new Insets(10, 0, 0, 0);
+        constraintsBTN.gridx = 1;
+        constraintsBTN.gridy = 2;
+        //constraintsBTN.ipadx = 20;
+        //constraintsBTN.ipady = 20;
         
-        //opcoes Visualizacao
+        panelPessoa.add(remover,constraintsBTN);
+        //Botao opcoesPermissoes
+        opcoesPermissao = new JButton("Opcoes de permissao");
+        opcoesPermissao.setActionCommand("opcoesPermissao");
+        constraintsBTN.weightx = 0.5;
+        constraintsBTN.insets = new Insets(10, 0, 0, 0);
+        constraintsBTN.gridx = 1;
+        constraintsBTN.gridy = 3;
+        //constraintsBTN.ipadx = 20;
+        //constraintsBTN.ipady = 20;
         
-        botaoOpcoesVisualizacao.setText("Opcoes de Visualizacao");
-        botaoOpcoesVisualizacao.setActionCommand("visalizacao");
+        panelPessoa.add(opcoesPermissao,constraintsBTN);
+        
+
+        //Botao voltar
+        voltar = new JButton("Voltar");
+        voltar.setActionCommand("voltar");
+        constraintsBTN.weightx = 0.5;
+        constraintsBTN.insets = new Insets(10, 0, 0, 0);
+        constraintsBTN.gridx = 1;
+        constraintsBTN.gridy = 4;
+        //constraintsBTN.ipadx = 0;
+        //constraintsBTN.ipady = 0;
+        
+        panelPessoa.add(voltar,constraintsBTN);
+       
+        
+        
         
         
         GerenciadorBotoes btManager = new GerenciadorBotoes();
-        botaoOpcoesCadastro.addActionListener(btManager);
-        botaoOpcoesPermissao.addActionListener(btManager);
-        botaoOpcoesVisualizacao.addActionListener(btManager);
+        cadastro.addActionListener(btManager);
+        editar.addActionListener(btManager);
+        remover.addActionListener(btManager);
+        opcoesPermissao.addActionListener(btManager);
+        voltar.addActionListener(btManager);
         
-        container.add(label);
-        container.add(botaoOpcoesCadastro);
-        container.add(botaoOpcoesPermissao);
-        container.add(botaoOpcoesVisualizacao);
+        String[] columnNames = {"Matricula","Tipo", "Nome","Telefone", "Email", "Curso", "Cargo", "PermissaoADM"}; 
         
-        setSize(360, 150);
-        setLocationRelativeTo(null);
+        Object[][] data = {{ 123, "Aluno", "Fulaninho", "6666666666", "fulaninho@gmail.com", "Biblioteconomia","",""},
+            {456, "Servidor", "Ciclaninho", "6666666666", "ciclaninho@gmail.com", "", "Tecnico ADM", "true"},
+            {777, "Servidor","Beltraninho", "6666666666", "beltraninho@gmail.com", "", "Professor", "false"},
+            {666, "Servidor", "Fulaninha", "6666666666", "fulaninha@gmail.com", "", "Tecnico ADM", "true"}};
         
+        GridBagConstraints tableConstraints = new GridBagConstraints();
+        JTable table = new JTable(data, columnNames);
+        table.setPreferredScrollableViewportSize(new Dimension (400,70));
+        table.setFillsViewportHeight(true);
         
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JScrollPane scroll= new JScrollPane(table);
+        
+        scroll.setPreferredSize(new Dimension(300,50));
+        tableConstraints.fill = GridBagConstraints.CENTER;
+        tableConstraints.gridx =2;
+        tableConstraints.gridy = 0;
+        tableConstraints.gridheight = 4;
+        tableConstraints.gridwidth = 2;
+        
+        panelPessoa.add(table, tableConstraints);
+        
     }
     
     
@@ -77,7 +162,28 @@ public class TelaSwingPessoa extends JFrame{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(null, "BotaoPressionado" + e.getActionCommand(), "Teste", 1);
+            try{
+                switch(e.getActionCommand()){
+                    case ("cadastro"):
+                        break;
+                    case ("editar"):
+                        break;
+                    case ("remover"):
+                        break;
+                    case ("opcoesPermissao"):
+                        break;
+                    case ("voltar"):
+                        setVisible(false);
+                        CtrlPrincipal.getInstancia().abreTelaInicial();
+                        break;
+                    
+                }
+            }catch (Exception ex){
+               JOptionPane.showMessageDialog(null, "Opcao Invalida! Escolha uma opcao dentre das opcoes na lista .");
+                TelaSwingPessoa.getInstancia().setVisible(true);
+            }
+            
+            
         }
         
     }
@@ -90,6 +196,10 @@ public class TelaSwingPessoa extends JFrame{
             instancia = new TelaSwingPessoa();
         }
         return instancia;
+    }
+    
+    public CtrlPrincipal getCtrlPrincipal() {
+        return CtrlPrincipal.getInstancia();
     }
 
 }
