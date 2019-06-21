@@ -16,7 +16,7 @@ import java.util.Scanner;
  *
  * @author Lino Veloso
  */
-public class TelaPessoa {
+/*public class TelaPessoa {
 
     private final CtrlPessoa ctrlPessoa;
     private final Scanner teclado;
@@ -133,7 +133,7 @@ public class TelaPessoa {
         String email = validador.recebeValorString("Digite o email do servidor");
         String cargo = validador.recebeValorString("Digite o cargo do servidor");
         Boolean administrador = validador.recebeValorBoolean("O servidor possui acesso de administrador");
-        if(ctrlPessoa.incluiServidor(matricula, nome, telefone, email, cargo, administrador)){
+        //if(ctrlPessoa.incluiServidor(matricula, nome, telefone, email, cargo, administrador)){
             System.out.println("Cadastro feito com sucesso!");
         }else{
             System.out.println("Cadastro nao realizado, matricula ja cadastrada!");
@@ -163,7 +163,7 @@ public class TelaPessoa {
             long telefone = validador.recebeValorLong("Digite o telefone do servidor sem caracteres especiais. Ex: 984841234");
             String email = validador.recebeValorString("Digite o email do servidor");
             String cargo = validador.recebeValorString("Digite o cargo do servidor");
-            boolean administrador = validador.recebeValorBoolean("O servidor possui acesso de administrador");
+            //boolean administrador = validador.recebeValorBoolean("O servidor possui acesso de administrador");
             ctrlPessoa.alteradorDeCadastroServidor(matricula, nome, telefone, email, cargo, administrador);
             System.out.println("Alteracao de cadastro realizada!");
         }else{
@@ -233,3 +233,4 @@ public class TelaPessoa {
     }
 
 }
+*/

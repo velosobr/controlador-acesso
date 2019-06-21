@@ -54,21 +54,19 @@ public class ValidaERetorna {
     }
 
     // Arrumar o método recebevalorBoolean
-    public Boolean recebeValorBoolean(String mensagem) {
+    public Boolean recebeValorBoolean() {
         int valor = -1;
         boolean valorBool = false;
 
-        System.out.println(mensagem);
-        System.out.println("1 - SIM");
-        System.out.println("2 - NAO");
-        valor = validaValorInteiro(mensagem);
+        String[] opcoes = {"Sim", "Nao"};
+            int teste = JOptionPane.showOptionDialog(null, "Possui acesso como administrador?", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
 
         try {
-            switch (valor) {
-                case (1):
+            switch (teste) {
+                case (0):
                     valorBool = true;
                     break;
-                case (2):
+                case (1):
                     valorBool = false;
                     break;
                 default:
@@ -76,7 +74,7 @@ public class ValidaERetorna {
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            this.recebeValorBoolean("Tente novamente");
+            //this.recebeValorBoolean("Tente novamente");
         }
 
         return valorBool;
