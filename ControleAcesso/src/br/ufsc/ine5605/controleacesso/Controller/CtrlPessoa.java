@@ -10,7 +10,7 @@ import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
 import br.ufsc.ine5605.controleacesso.Model.Servidor;
 import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
-import br.ufsc.ine5605.controleacesso.View.TelaPessoa;
+//import br.ufsc.ine5605.controleacesso.View.TelaPessoa;
 import br.ufsc.ine5605.controleacesso.View.TelaSwingPessoa;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlPessoa;
 import java.util.ArrayList;
@@ -23,13 +23,13 @@ public class CtrlPessoa implements ICtrlPessoa {
 
     private static CtrlPessoa instancia;
 
-    private final TelaPessoa telaPessoa;
+    private final TelaSwingPessoa telaPessoa;
     
 
     public CtrlPessoa() {
        
         
-        this.telaPessoa = new TelaPessoa(this);
+        this.telaPessoa = new TelaSwingPessoa();
     }
     
     public static CtrlPessoa getInstancia(){
@@ -38,14 +38,14 @@ public class CtrlPessoa implements ICtrlPessoa {
         return instancia;
     }
     
-    public TelaPessoa getTelaPessoa() {
-        return telaPessoa;
-    }
+    //public TelaPessoa getTelaPessoa() {
+        //return telaPessoa;
+    //}
 
     public CtrlPrincipal getCtrlPrincipal() {
         return CtrlPrincipal.getInstancia();
     }
-
+   
     @Override
     public boolean incluiAluno(int matricula, String nome, long telefone, String email, String curso) {
         Pessoa alunoParaVerificar = PessoaDAO.getInstancia().getPessoa(matricula);

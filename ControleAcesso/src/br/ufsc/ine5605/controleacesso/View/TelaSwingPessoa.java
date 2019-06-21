@@ -6,6 +6,7 @@
 package br.ufsc.ine5605.controleacesso.View;
 
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
+import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -36,10 +37,12 @@ public class TelaSwingPessoa extends JFrame{
     private JButton remover;
     private JButton opcoesPermissao;
     private JButton voltar;
+    private ValidaERetorna validador = new ValidaERetorna();
 
     public TelaSwingPessoa() {
         super("Opcoes de gerenciamento de pessoa");
         
+       
         JPanel panelPessoa = new JPanel (new GridBagLayout());
         
         GridBagConstraints constraintsPanel = new GridBagConstraints();
@@ -168,6 +171,9 @@ public class TelaSwingPessoa extends JFrame{
             try{
                 switch(e.getActionCommand()){
                     case ("cadastro"):
+                        testeTipoPessoa();
+                       
+                        
                         break;
                     case ("editar"):
                         break;
@@ -187,6 +193,32 @@ public class TelaSwingPessoa extends JFrame{
             }
             
             
+        }
+
+        private void testeTipoPessoa() {
+            
+            String[] opcoes = {"Aluno", "Servidor"};
+            int teste = JOptionPane.showOptionDialog(null, "Escolha um tipo de pessoa", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+            if(teste == 0){
+                int matricula = validador.recebeValorInteiro("Digite a matricula: ");
+                String nome = validador.recebeValorString("Digite o nome: ");
+                String telefone = validador.recebeValorString("Digite o telefone: ");
+                String email = validador.recebeValorString("Digite o email: ");
+                String curso = validador.recebeValorString("Digite o curso");
+                getCtrlPrincipal().getCtrlPessoa().incluiAluno(matricula, nome, teste, email, curso);
+            }else{
+                int matricula = validador.recebeValorInteiro("Digite a matricula: ");
+                String nome = validador.recebeValorString("Digite o nome: ");
+                String telefone = validador.recebeValorString("Digite o telefone: ");
+                String email = validador.recebeValorString("Digite o email: ");
+                String cargo = validador.recebeValorString("Digite o cargo");
+                boolean administrador = validador.recebeValorBoolean();
+                getCtrlPrincipal().getCtrlPessoa().incluiServidor(matricula, nome, teste, email, cargo, administrador);
+            }
+        }
+
+        private void cadastraPessoa(int teste) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
         
     }
