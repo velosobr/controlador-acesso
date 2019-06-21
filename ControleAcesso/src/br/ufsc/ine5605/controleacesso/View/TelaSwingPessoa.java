@@ -6,6 +6,7 @@
 package br.ufsc.ine5605.controleacesso.View;
 
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
+import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -36,17 +37,19 @@ public class TelaSwingPessoa extends JFrame{
     private JButton remover;
     private JButton opcoesPermissao;
     private JButton voltar;
+    private ValidaERetorna validador = new ValidaERetorna();
 
     public TelaSwingPessoa() {
         super("Opcoes de gerenciamento de pessoa");
         
+       
         JPanel panelPessoa = new JPanel (new GridBagLayout());
         
         GridBagConstraints constraintsPanel = new GridBagConstraints();
         constraintsPanel.anchor = GridBagConstraints.WEST;
         constraintsPanel.insets = new Insets(10, 10, 10, 10);
         panelPessoa.setBackground(Color.WHITE);
-        setSize(750, 500);
+        setSize(1000, 500);
         
         panelPessoa.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Opcoes Pessoa"));
@@ -68,7 +71,7 @@ public class TelaSwingPessoa extends JFrame{
         cadastro.setActionCommand("cadastro");
         constraintsBTN.weightx = 0.5;
         constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 1;
+        constraintsBTN.gridx = 2;
         constraintsBTN.gridy = 0;
         //constraintsBTN.ipadx = 20;
         //constraintsBTN.ipady = 20;
@@ -79,7 +82,7 @@ public class TelaSwingPessoa extends JFrame{
         editar.setActionCommand("editar");
         constraintsBTN.weightx = 0.5;
         constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 1;
+        constraintsBTN.gridx = 2;
         constraintsBTN.gridy = 1;
         //constraintsBTN.ipadx = 20;
         //constraintsBTN.ipady = 20;
@@ -90,7 +93,7 @@ public class TelaSwingPessoa extends JFrame{
         remover.setActionCommand("remover");
         constraintsBTN.weightx = 0.5;
         constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 1;
+        constraintsBTN.gridx = 2;
         constraintsBTN.gridy = 2;
         //constraintsBTN.ipadx = 20;
         //constraintsBTN.ipady = 20;
@@ -101,7 +104,7 @@ public class TelaSwingPessoa extends JFrame{
         opcoesPermissao.setActionCommand("opcoesPermissao");
         constraintsBTN.weightx = 0.5;
         constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 1;
+        constraintsBTN.gridx = 2;
         constraintsBTN.gridy = 3;
         //constraintsBTN.ipadx = 20;
         //constraintsBTN.ipady = 20;
@@ -114,7 +117,7 @@ public class TelaSwingPessoa extends JFrame{
         voltar.setActionCommand("voltar");
         constraintsBTN.weightx = 0.5;
         constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 1;
+        constraintsBTN.gridx = 2;
         constraintsBTN.gridy = 4;
         //constraintsBTN.ipadx = 0;
         //constraintsBTN.ipady = 0;
@@ -132,27 +135,30 @@ public class TelaSwingPessoa extends JFrame{
         opcoesPermissao.addActionListener(btManager);
         voltar.addActionListener(btManager);
         
-        String[] columnNames = {"Matricula","Tipo", "Nome","Telefone", "Email", "Curso", "Cargo", "PermissaoADM"}; 
+        Object[] columnNames = {"Matricula","Tipo", "Nome","Telefone", "Email", "Curso", "Cargo", "PermissaoADM"}; 
         
         Object[][] data = {{ 123, "Aluno", "Fulaninho", "6666666666", "fulaninho@gmail.com", "Biblioteconomia","",""},
             {456, "Servidor", "Ciclaninho", "6666666666", "ciclaninho@gmail.com", "", "Tecnico ADM", "true"},
             {777, "Servidor","Beltraninho", "6666666666", "beltraninho@gmail.com", "", "Professor", "false"},
             {666, "Servidor", "Fulaninha", "6666666666", "fulaninha@gmail.com", "", "Tecnico ADM", "true"}};
         
+        
+        
         GridBagConstraints tableConstraints = new GridBagConstraints();
         JTable table = new JTable(data, columnNames);
-        table.setPreferredScrollableViewportSize(new Dimension (400,70));
+       
         table.setFillsViewportHeight(true);
         
-        JScrollPane scroll= new JScrollPane(table);
         
-        scroll.setPreferredSize(new Dimension(300,50));
         tableConstraints.fill = GridBagConstraints.CENTER;
-        tableConstraints.gridx =2;
+        tableConstraints.gridx =0;
         tableConstraints.gridy = 0;
         tableConstraints.gridheight = 4;
         tableConstraints.gridwidth = 2;
-        
+        table.setPreferredScrollableViewportSize(new Dimension (200,10));
+        JScrollPane scroll= new JScrollPane(table);
+        scroll.setPreferredSize(new Dimension(200,10));
+       
         panelPessoa.add(table, tableConstraints);
         
     }
@@ -165,6 +171,9 @@ public class TelaSwingPessoa extends JFrame{
             try{
                 switch(e.getActionCommand()){
                     case ("cadastro"):
+                        testeTipoPessoa();
+                       
+                        
                         break;
                     case ("editar"):
                         break;
@@ -184,6 +193,32 @@ public class TelaSwingPessoa extends JFrame{
             }
             
             
+        }
+
+        private void testeTipoPessoa() {
+            
+            String[] opcoes = {"Aluno", "Servidor"};
+            int teste = JOptionPane.showOptionDialog(null, "Escolha um tipo de pessoa", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+            if(teste == 0){
+                int matricula = validador.recebeValorInteiro("Digite a matricula: ");
+                String nome = validador.recebeValorString("Digite o nome: ");
+                String telefone = validador.recebeValorString("Digite o telefone: ");
+                String email = validador.recebeValorString("Digite o email: ");
+                String curso = validador.recebeValorString("Digite o curso");
+                getCtrlPrincipal().getCtrlPessoa().incluiAluno(matricula, nome, teste, email, curso);
+            }else{
+                int matricula = validador.recebeValorInteiro("Digite a matricula: ");
+                String nome = validador.recebeValorString("Digite o nome: ");
+                String telefone = validador.recebeValorString("Digite o telefone: ");
+                String email = validador.recebeValorString("Digite o email: ");
+                String cargo = validador.recebeValorString("Digite o cargo");
+                boolean administrador = validador.recebeValorBoolean();
+                getCtrlPrincipal().getCtrlPessoa().incluiServidor(matricula, nome, teste, email, cargo, administrador);
+            }
+        }
+
+        private void cadastraPessoa(int teste) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
         
     }
