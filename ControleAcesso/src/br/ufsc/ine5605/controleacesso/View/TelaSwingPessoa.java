@@ -29,6 +29,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -176,6 +178,7 @@ public class TelaSwingPessoa extends JFrame{
         modelo.addColumn("Curso");
         modelo.addColumn("Cargo");
         modelo.addColumn("Administrador");
+        modelo.addColumn("Tipo");
         ArrayList <Pessoa> listaPessoas = PessoaDAO.getInstancia().getList();
         
         for(Pessoa pessoa: listaPessoas){
@@ -183,10 +186,10 @@ public class TelaSwingPessoa extends JFrame{
             if(pessoa instanceof Aluno){
                 
                 Aluno aluno = (Aluno) pessoa;
-                modelo.addRow(new Object []{aluno.getMatricula(),aluno.getNome(),aluno.getTelefone(), aluno.getEmail(), aluno.getCurso(), "N/A", "N/A"});
+                modelo.addRow(new Object []{aluno.getMatricula(),aluno.getNome(),aluno.getTelefone(), aluno.getEmail(), aluno.getCurso(), "N/A", "N/A", "Aluno"});
             }else{
                 Servidor servidor = (Servidor) pessoa;
-                modelo.addRow(new Object [] {servidor.getMatricula(), servidor.getNome(), servidor.getTelefone(), servidor.getEmail(), "N/A", servidor.getCargo(), servidor.isAdministrador()});
+                modelo.addRow(new Object [] {servidor.getMatricula(), servidor.getNome(), servidor.getTelefone(), servidor.getEmail(), "N/A", servidor.getCargo(), servidor.isAdministrador(), "Servidor"});
             }
             
             table.setModel(modelo);
@@ -194,7 +197,27 @@ public class TelaSwingPessoa extends JFrame{
         }           
     }
     
-    
+   /* private static class SeletorLinha implements ListSelectionListener{
+        JTable table;
+        TelaSwingPessoa context;
+        Object record;
+        Pessoa pessoa;
+        
+        public SeletorLinha(JTable table, TelaSwingPessoa context){
+            this.table = table;
+            this.context = context;
+}
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            record = this.table.getValueAt(table.getSelectedRow(),0);
+            this.setRecord(record);
+        }
+        
+        public void setRecord(Object record){
+            this.record = record;
+}
+        
+    }*/
     
     
     private class GerenciadorBotoes implements ActionListener{
@@ -208,7 +231,8 @@ public class TelaSwingPessoa extends JFrame{
                         updateTable();
                         break;
                     case ("editar"):
-                        
+                        editarPessoa();
+                        updateTable();
                         break;
                     case ("remover"):
                         
@@ -229,8 +253,11 @@ public class TelaSwingPessoa extends JFrame{
             
             
         }
-
-        private void cadastraPessoa() {
+       
+        
+    }
+    
+    private void cadastraPessoa() {
             
             String[] opcoes = {"Aluno", "Servidor"};
             int teste = JOptionPane.showOptionDialog(null, "Escolha um tipo de pessoa", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
@@ -239,24 +266,45 @@ public class TelaSwingPessoa extends JFrame{
                 String nome = validador.recebeValorString("Digite o nome: ");
                 long telefone = validador.recebeValorLong("Digite o telefone: ");
                 String email = validador.recebeValorString("Digite o email: ");
-                String curso = validador.recebeValorString("Digite o curso");
+                String curso = validador.recebeValorString("Digite o curso: ");
                 getCtrlPrincipal().getCtrlPessoa().incluiAluno(matricula, nome, telefone, email, curso);
             }else{
                 int matricula = validador.recebeValorInteiro("Digite a matricula: ");
                 String nome = validador.recebeValorString("Digite o nome: ");
                 long telefone = validador.recebeValorLong("Digite o telefone: ");
                 String email = validador.recebeValorString("Digite o email: ");
-                String cargo = validador.recebeValorString("Digite o cargo");
+                String cargo = validador.recebeValorString("Digite o cargo: ");
                 boolean administrador = validador.recebeValorBoolean();
                 getCtrlPrincipal().getCtrlPessoa().incluiServidor(matricula, nome, telefone, email, cargo, administrador);
+        }
+    }
+    
+    
+    private void editarPessoa() {
+        
+        int linhaSelecionada = table.getSelectedRow();
+        if(linhaSelecionada>=0){
+            String tipoPessoa = table.getValueAt(linhaSelecionada, 7).toString();
+            int matricula = (int) table.getValueAt(linhaSelecionada, 0);
+            if(tipoPessoa.equals("Aluno")){
+                String nome = validador.recebeValorString("Digite o nome: ");
+                long telefone = validador.recebeValorLong("Digite o telefone: ");
+                String email = validador.recebeValorString("Digite o email: ");
+                String curso = validador.recebeValorString("Digite o curso: ");
+                getCtrlPrincipal().getCtrlPessoa().alteradorDeCadastroAluno(matricula, nome, telefone, email, curso);
+            }else{
+                String nome = validador.recebeValorString("Digite o nome: ");
+                long telefone = validador.recebeValorLong("Digite o telefone: ");
+                String email = validador.recebeValorString("Digite o email: ");
+                String cargo = validador.recebeValorString("Digite o cargo: ");
+                boolean administrador = validador.recebeValorBoolean();
+                getCtrlPrincipal().getCtrlPessoa().alteradorDeCadastroServidor(matricula, nome, telefone, email, cargo, administrador);
             }
         }
-
-        private void cadastraPessoa(int teste) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-        
     }
+
+        
+    
 
     /**
      * @return the instancia
