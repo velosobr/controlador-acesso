@@ -6,6 +6,10 @@
 package br.ufsc.ine5605.controleacesso.View;
 
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
+import br.ufsc.ine5605.controleacesso.Model.Aluno;
+import br.ufsc.ine5605.controleacesso.Model.Pessoa;
+import br.ufsc.ine5605.controleacesso.Model.Servidor;
+import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
 import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
 import java.awt.Color;
 import java.awt.Container;
@@ -16,6 +20,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,6 +29,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -135,31 +141,58 @@ public class TelaSwingPessoa extends JFrame{
         opcoesPermissao.addActionListener(btManager);
         voltar.addActionListener(btManager);
         
-        Object[] columnNames = {"Matricula","Tipo", "Nome","Telefone", "Email", "Curso", "Cargo", "PermissaoADM"}; 
-        
-        Object[][] data = {{ 123, "Aluno", "Fulaninho", "6666666666", "fulaninho@gmail.com", "Biblioteconomia","",""},
-            {456, "Servidor", "Ciclaninho", "6666666666", "ciclaninho@gmail.com", "", "Tecnico ADM", "true"},
-            {777, "Servidor","Beltraninho", "6666666666", "beltraninho@gmail.com", "", "Professor", "false"},
-            {666, "Servidor", "Fulaninha", "6666666666", "fulaninha@gmail.com", "", "Tecnico ADM", "true"}};
-        
         
         
         GridBagConstraints tableConstraints = new GridBagConstraints();
-        JTable table = new JTable(data, columnNames);
-       
-        table.setFillsViewportHeight(true);
-        
+        DefaultTableModel modelo = new DefaultTableModel();
+        JTable table = new JTable(modelo);
+        JScrollPane scroll= new JScrollPane(table);
+        scroll.setPreferredSize(new Dimension(650,200));
+       // table.setFillsViewportHeight(true);
+        modelo.addColumn("Matricula");
+        modelo.addColumn("Nome");
+        modelo.addColumn("Telefone");
+        modelo.addColumn("Email");
+        modelo.addColumn("Curso");
+        modelo.addColumn("Cargo");
+        modelo.addColumn("Administrador");
         
         tableConstraints.fill = GridBagConstraints.CENTER;
         tableConstraints.gridx =0;
         tableConstraints.gridy = 0;
         tableConstraints.gridheight = 4;
         tableConstraints.gridwidth = 2;
-        table.setPreferredScrollableViewportSize(new Dimension (200,10));
-        JScrollPane scroll= new JScrollPane(table);
-        scroll.setPreferredSize(new Dimension(200,10));
+        //table.setPreferredScrollableViewportSize(new Dimension (200,10));
+        
+        
        
-        panelPessoa.add(table, tableConstraints);
+        panelPessoa.add(scroll, tableConstraints);
+        
+        updateTable(modelo, table);
+    }
+    
+    private void updateTable(DefaultTableModel modelo, JTable table){
+         
+        modelo.setNumRows(0);
+        ArrayList <Pessoa> listaPessoas = PessoaDAO.getInstancia().getList();
+        
+        for(Pessoa pessoa: listaPessoas){
+            
+            if(pessoa instanceof Aluno){
+                
+                Aluno aluno = (Aluno) pessoa;
+                modelo.addRow(new Object []{aluno.getMatricula(),aluno.getNome(),aluno.getTelefone(), aluno.getEmail(), aluno.getCurso(), "N/A", "N/A"});
+            }else{
+                Servidor servidor = (Servidor) pessoa;
+                modelo.addRow(new Object [] {servidor.getMatricula(), servidor.getNome(), servidor.getTelefone(), servidor.getEmail(), "N/A", servidor.getCargo(), servidor.isAdministrador()});
+            }
+            
+            table.setModel(modelo);
+            this.repaint();
+        }
+         
+       
+        
         
     }
     
@@ -171,15 +204,16 @@ public class TelaSwingPessoa extends JFrame{
             try{
                 switch(e.getActionCommand()){
                     case ("cadastro"):
-                        testeTipoPessoa();
-                       
-                        
+                        cadastraPessoa();                  
                         break;
                     case ("editar"):
+                        
                         break;
                     case ("remover"):
+                        
                         break;
                     case ("opcoesPermissao"):
+                        
                         break;
                     case ("voltar"):
                         setVisible(false);
@@ -195,7 +229,7 @@ public class TelaSwingPessoa extends JFrame{
             
         }
 
-        private void testeTipoPessoa() {
+        private void cadastraPessoa() {
             
             String[] opcoes = {"Aluno", "Servidor"};
             int teste = JOptionPane.showOptionDialog(null, "Escolha um tipo de pessoa", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);

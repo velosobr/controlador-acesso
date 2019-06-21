@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class Aluno extends Pessoa{
     private String curso;
+    private boolean administrador = false;
     public Aluno(int matricula, String nome, long telefone, String email, String curso) {
         super(matricula, nome, telefone, email);
         setCurso(curso);

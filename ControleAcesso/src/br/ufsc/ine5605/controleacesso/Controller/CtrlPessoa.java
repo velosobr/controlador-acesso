@@ -50,7 +50,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     public boolean incluiAluno(int matricula, String nome, long telefone, String email, String curso) {
         Pessoa alunoParaVerificar = PessoaDAO.getInstancia().getPessoa(matricula);
         if (alunoParaVerificar == null) {
-            Pessoa alunoParaIncluir = new Aluno(matricula, nome, telefone, email, curso);
+            Aluno alunoParaIncluir = new Aluno(matricula, nome, telefone, email, curso);
             PessoaDAO.getInstancia().put(alunoParaIncluir);
             return true;
         }
@@ -61,7 +61,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     public boolean incluiServidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador) {
         Pessoa servidorParaVerificar = PessoaDAO.getInstancia().getPessoa(matricula);
         if (servidorParaVerificar == null) {
-            Pessoa servidorParaIncluir = new Servidor(matricula, nome, telefone, email, cargo, administrador);
+            Servidor servidorParaIncluir = new Servidor(matricula, nome, telefone, email, cargo, administrador);
             PessoaDAO.getInstancia().put(servidorParaIncluir);
             return true;
         }

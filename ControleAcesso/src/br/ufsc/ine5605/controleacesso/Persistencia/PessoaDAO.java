@@ -6,7 +6,9 @@
 package br.ufsc.ine5605.controleacesso.Persistencia;
 
 
+import br.ufsc.ine5605.controleacesso.Model.Aluno;
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
+import br.ufsc.ine5605.controleacesso.Model.Servidor;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -43,7 +45,12 @@ public class PessoaDAO  {
         return cachePessoas.get(matricula);
     }
    
-    public void put(Pessoa pessoa){
+    public void put(Servidor pessoa){
+        cachePessoas.put(pessoa.getMatricula(), pessoa);
+        persist();
+    }
+    
+    public void put(Aluno pessoa){
         cachePessoas.put(pessoa.getMatricula(), pessoa);
         persist();
     }
