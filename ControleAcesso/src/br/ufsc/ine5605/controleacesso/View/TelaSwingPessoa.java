@@ -43,6 +43,7 @@ public class TelaSwingPessoa extends JFrame{
     private JButton remover;
     private JButton opcoesPermissao;
     private JButton voltar;
+    private JTable table;
     private ValidaERetorna validador = new ValidaERetorna();
 
     public TelaSwingPessoa() {
@@ -144,11 +145,30 @@ public class TelaSwingPessoa extends JFrame{
         
         
         GridBagConstraints tableConstraints = new GridBagConstraints();
-        DefaultTableModel modelo = new DefaultTableModel();
-        JTable table = new JTable(modelo);
+        
+        table = new JTable();
         JScrollPane scroll= new JScrollPane(table);
         scroll.setPreferredSize(new Dimension(650,200));
-       // table.setFillsViewportHeight(true);
+       
+           
+        tableConstraints.fill = GridBagConstraints.CENTER;
+        tableConstraints.gridx =0;
+        tableConstraints.gridy = 0;
+        tableConstraints.gridheight = 4;
+        tableConstraints.gridwidth = 2;
+        table.setFillsViewportHeight(true);
+        table.setPreferredScrollableViewportSize(new Dimension (650,200));
+        
+        
+       
+        panelPessoa.add(scroll, tableConstraints);
+        
+        updateTable();
+    }
+    
+    private void updateTable(){
+        DefaultTableModel modelo = new DefaultTableModel(); 
+        modelo.setNumRows(0);
         modelo.addColumn("Matricula");
         modelo.addColumn("Nome");
         modelo.addColumn("Telefone");
@@ -156,24 +176,6 @@ public class TelaSwingPessoa extends JFrame{
         modelo.addColumn("Curso");
         modelo.addColumn("Cargo");
         modelo.addColumn("Administrador");
-        
-        tableConstraints.fill = GridBagConstraints.CENTER;
-        tableConstraints.gridx =0;
-        tableConstraints.gridy = 0;
-        tableConstraints.gridheight = 4;
-        tableConstraints.gridwidth = 2;
-        //table.setPreferredScrollableViewportSize(new Dimension (200,10));
-        
-        
-       
-        panelPessoa.add(scroll, tableConstraints);
-        
-        updateTable(modelo, table);
-    }
-    
-    private void updateTable(DefaultTableModel modelo, JTable table){
-         
-        modelo.setNumRows(0);
         ArrayList <Pessoa> listaPessoas = PessoaDAO.getInstancia().getList();
         
         for(Pessoa pessoa: listaPessoas){
@@ -189,12 +191,10 @@ public class TelaSwingPessoa extends JFrame{
             
             table.setModel(modelo);
             this.repaint();
-        }
-         
-       
-        
-        
+        }           
     }
+    
+    
     
     
     private class GerenciadorBotoes implements ActionListener{
@@ -204,7 +204,8 @@ public class TelaSwingPessoa extends JFrame{
             try{
                 switch(e.getActionCommand()){
                     case ("cadastro"):
-                        cadastraPessoa();                  
+                        cadastraPessoa();
+                        updateTable();
                         break;
                     case ("editar"):
                         
@@ -236,18 +237,18 @@ public class TelaSwingPessoa extends JFrame{
             if(teste == 0){
                 int matricula = validador.recebeValorInteiro("Digite a matricula: ");
                 String nome = validador.recebeValorString("Digite o nome: ");
-                String telefone = validador.recebeValorString("Digite o telefone: ");
+                long telefone = validador.recebeValorLong("Digite o telefone: ");
                 String email = validador.recebeValorString("Digite o email: ");
                 String curso = validador.recebeValorString("Digite o curso");
-                getCtrlPrincipal().getCtrlPessoa().incluiAluno(matricula, nome, teste, email, curso);
+                getCtrlPrincipal().getCtrlPessoa().incluiAluno(matricula, nome, telefone, email, curso);
             }else{
                 int matricula = validador.recebeValorInteiro("Digite a matricula: ");
                 String nome = validador.recebeValorString("Digite o nome: ");
-                String telefone = validador.recebeValorString("Digite o telefone: ");
+                long telefone = validador.recebeValorLong("Digite o telefone: ");
                 String email = validador.recebeValorString("Digite o email: ");
                 String cargo = validador.recebeValorString("Digite o cargo");
                 boolean administrador = validador.recebeValorBoolean();
-                getCtrlPrincipal().getCtrlPessoa().incluiServidor(matricula, nome, teste, email, cargo, administrador);
+                getCtrlPrincipal().getCtrlPessoa().incluiServidor(matricula, nome, telefone, email, cargo, administrador);
             }
         }
 
