@@ -10,6 +10,7 @@ import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
 import br.ufsc.ine5605.controleacesso.Model.Servidor;
 import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
+import br.ufsc.ine5605.controleacesso.Persistencia.SalaDAO;
 import br.ufsc.ine5605.controleacesso.View.TelaSwingGestaoPermissaoPessoa;
 //import br.ufsc.ine5605.controleacesso.View.TelaPessoa;
 import br.ufsc.ine5605.controleacesso.View.TelaSwingPessoa;
@@ -112,7 +113,7 @@ public class CtrlPessoa implements ICtrlPessoa {
 
     @Override
     public boolean cadastraSalaNaPessoa(int matricula, String codigoSala) throws IllegalArgumentException {
-        Sala salaParaCadastrar = CtrlPrincipal.getInstancia().getCtrlSala().findSalaByCodigoSala(codigoSala);
+        Sala salaParaCadastrar = SalaDAO.getInstancia().getSala(codigoSala);
         Pessoa pessoaCadastro = PessoaDAO.getInstancia().getPessoa(matricula);
         if (pessoaCadastro == null) {
             throw new IllegalArgumentException("Matricula invalida");
