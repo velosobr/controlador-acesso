@@ -235,7 +235,8 @@ public class TelaSwingPessoa extends JFrame{
                         updateTable();
                         break;
                     case ("remover"):
-                        
+                        removerPessoa();
+                        updateTable();
                         break;
                     case ("opcoesPermissao"):
                         
@@ -253,6 +254,8 @@ public class TelaSwingPessoa extends JFrame{
             
             
         }
+
+       
        
         
     }
@@ -300,6 +303,19 @@ public class TelaSwingPessoa extends JFrame{
                 boolean administrador = validador.recebeValorBoolean();
                 getCtrlPrincipal().getCtrlPessoa().alteradorDeCadastroServidor(matricula, nome, telefone, email, cargo, administrador);
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+        }
+    }
+    
+     private void removerPessoa() {
+            int linhaSelecionada = table.getSelectedRow();
+            if(linhaSelecionada>=0){
+                int matricula = (int) table.getValueAt(linhaSelecionada, 0);
+                Pessoa pessoaParaRemover = PessoaDAO.getInstancia().getPessoa(matricula);
+                PessoaDAO.getInstancia().remove(pessoaParaRemover);
+            }else{
+            JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
         }
     }
 
