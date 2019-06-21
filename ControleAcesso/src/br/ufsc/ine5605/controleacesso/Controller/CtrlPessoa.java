@@ -10,6 +10,7 @@ import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
 import br.ufsc.ine5605.controleacesso.Model.Servidor;
 import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
+import br.ufsc.ine5605.controleacesso.View.TelaSwingGestaoPermissaoPessoa;
 //import br.ufsc.ine5605.controleacesso.View.TelaPessoa;
 import br.ufsc.ine5605.controleacesso.View.TelaSwingPessoa;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlPessoa;
@@ -24,6 +25,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     private static CtrlPessoa instancia;
 
     private final TelaSwingPessoa telaPessoa;
+    
     
 
     public CtrlPessoa() {
@@ -193,7 +195,13 @@ public class CtrlPessoa implements ICtrlPessoa {
     public void abreTelaSwingPessoa() {
         TelaSwingPessoa.getInstancia().setVisible(true);
     }
-
+    
+    public void abreTelaGestaoPermissaoPessoa(int matricula){
+        TelaSwingGestaoPermissaoPessoa telaGestaoPermissaoPessoa = new TelaSwingGestaoPermissaoPessoa(matricula);
+        telaGestaoPermissaoPessoa.setVisible(true);
+    }
+            
+            
     
 
 }

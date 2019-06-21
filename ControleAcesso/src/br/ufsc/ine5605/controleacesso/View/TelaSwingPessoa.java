@@ -192,34 +192,12 @@ public class TelaSwingPessoa extends JFrame{
                 modelo.addRow(new Object [] {servidor.getMatricula(), servidor.getNome(), servidor.getTelefone(), servidor.getEmail(), "N/A", servidor.getCargo(), servidor.isAdministrador(), "Servidor"});
             }
             
-            table.setModel(modelo);
-            this.repaint();
-        }           
+        }
+        table.setModel(modelo);
+        this.repaint();
     }
     
-   /* private static class SeletorLinha implements ListSelectionListener{
-        JTable table;
-        TelaSwingPessoa context;
-        Object record;
-        Pessoa pessoa;
-        
-        public SeletorLinha(JTable table, TelaSwingPessoa context){
-            this.table = table;
-            this.context = context;
-}
-        @Override
-        public void valueChanged(ListSelectionEvent e) {
-            record = this.table.getValueAt(table.getSelectedRow(),0);
-            this.setRecord(record);
-        }
-        
-        public void setRecord(Object record){
-            this.record = record;
-}
-        
-    }*/
-    
-    
+       
     private class GerenciadorBotoes implements ActionListener{
 
         @Override
@@ -240,10 +218,12 @@ public class TelaSwingPessoa extends JFrame{
                         break;
                     case ("opcoesPermissao"):
                         
+                        opcoesPermissao();
+                        
                         break;
                     case ("voltar"):
                         setVisible(false);
-                        CtrlPrincipal.getInstancia().abreTelaInicial();
+                        CtrlPrincipal.getInstancia().abreTelaAdm();
                         break;
                     
                 }
@@ -254,6 +234,8 @@ public class TelaSwingPessoa extends JFrame{
             
             
         }
+
+        
 
        
        
@@ -319,7 +301,15 @@ public class TelaSwingPessoa extends JFrame{
         }
     }
 
-        
+    private void opcoesPermissao() {
+            int linhaSelecionada = table.getSelectedRow();
+            if(linhaSelecionada>=0){
+                int matricula = (int) table.getValueAt(linhaSelecionada, 0);
+                getCtrlPrincipal().getCtrlPessoa().abreTelaGestaoPermissaoPessoa(matricula);
+            }else{
+            JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+            }    
+        }    
     
 
     /**
