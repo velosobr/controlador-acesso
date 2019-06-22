@@ -82,7 +82,7 @@ public TelaSwingGestaoPermissaoPessoa(int matricula){
         panelPermissaoPessoa.add(permitirAcesso,constraintsBTN );
         
         
-        //Botao Editar
+        //Botao Remover
         removerAcesso = new JButton("Remover Acesso");
         removerAcesso.setActionCommand("removerAcesso");
         constraintsBTN.weightx = 0.5;

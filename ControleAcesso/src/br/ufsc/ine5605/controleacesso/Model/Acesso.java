@@ -5,24 +5,29 @@
  */
 package br.ufsc.ine5605.controleacesso.Model;
 
+
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 /**
  *
  * @author Linnety3
  */
 public class Acesso {
+    private Integer id;
     private Pessoa pessoa;
     private Sala sala;
     private Date data;
     private String situacao;
+    Random random = new Random();
     
     public Acesso(Pessoa pessoa, Sala sala, String situacao){
         setPessoa(pessoa);
         setSala(sala);
         this.data =Calendar.getInstance().getTime();
         this.situacao = situacao;
+        id = random.nextInt(100000);
     }
 
     /**
@@ -77,6 +82,13 @@ public class Acesso {
      */
     public void setSituacao(String situacao) {
         this.situacao = situacao;
+    }
+
+    /**
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
     }
     
 }
