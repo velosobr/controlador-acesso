@@ -8,6 +8,7 @@ package br.ufsc.ine5605.controleacesso.interfaces;
 import br.ufsc.ine5605.controleacesso.Model.Acesso;
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
+import java.util.ArrayList;
 
 /**
  *
@@ -35,9 +36,9 @@ public interface ICtrlAcesso {
      * @param matricula
      * @return 
      */
-    public String geraLogByMatricula(int matricula);
+    public ArrayList <Acesso> geraListaByMatricula(int matricula);
 
-    public String geraLogByCodigoSala(String codigoSala);
+    public ArrayList <Acesso> geraListaByCodigoSala(String codigoSala);
     
     public Acesso findAcessoByMatricula(int matricula);
     

@@ -13,7 +13,7 @@ import java.util.Scanner;
  *
  * @author Lino Veloso
  */
-public class TelaAcesso {
+/*public class TelaAcesso {
 
     private final CtrlAcesso ctrlAcesso;
 
@@ -86,3 +86,4 @@ public class TelaAcesso {
         System.out.println(ctrlAcesso.geraLogByCodigoSala(codigoSala));
     }
 }
+*/

@@ -51,7 +51,7 @@ public class CtrlPessoa implements ICtrlPessoa {
    
     @Override
     public boolean incluiAluno(int matricula, String nome, long telefone, String email, String curso) {
-        Pessoa alunoParaVerificar = PessoaDAO.getInstancia().getPessoa(matricula);
+        Pessoa alunoParaVerificar = findPessoabyMatricula(matricula);
         if (alunoParaVerificar == null) {
             Aluno alunoParaIncluir = new Aluno(matricula, nome, telefone, email, curso);
             PessoaDAO.getInstancia().put(alunoParaIncluir);
@@ -62,7 +62,7 @@ public class CtrlPessoa implements ICtrlPessoa {
 
     @Override
     public boolean incluiServidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador) {
-        Pessoa servidorParaVerificar = PessoaDAO.getInstancia().getPessoa(matricula);
+        Pessoa servidorParaVerificar = findPessoabyMatricula(matricula);
         if (servidorParaVerificar == null) {
             Servidor servidorParaIncluir = new Servidor(matricula, nome, telefone, email, cargo, administrador);
             PessoaDAO.getInstancia().put(servidorParaIncluir);
@@ -74,7 +74,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     
     @Override
     public boolean alteradorDeCadastroAluno(int matricula, String nome, long telefone, String email, String curso)throws IllegalArgumentException {
-        Aluno alunoParaAlterar = (Aluno)PessoaDAO.getInstancia().getPessoa(matricula);
+        Aluno alunoParaAlterar = (Aluno)findPessoabyMatricula(matricula);
         if(alunoParaAlterar==null){
            throw new IllegalArgumentException("Matricula invalida, alteracao nao foi realizada"); 
         }
@@ -88,7 +88,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     
     @Override
     public boolean alteradorDeCadastroServidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador)throws IllegalArgumentException{
-        Servidor servidorParaAlterar = (Servidor)  PessoaDAO.getInstancia().getPessoa(matricula);
+        Servidor servidorParaAlterar = (Servidor)  findPessoabyMatricula(matricula);
         if(servidorParaAlterar==null){
            throw new IllegalArgumentException("Matricula invalida, alteracao nao foi realizada");
         }
@@ -102,7 +102,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     
     @Override
     public boolean delPessoa(int matricula) throws IllegalArgumentException {
-        Pessoa pessoaParaDeletar = PessoaDAO.getInstancia().getPessoa(matricula);
+        Pessoa pessoaParaDeletar = findPessoabyMatricula(matricula);
         if (pessoaParaDeletar != null) {
             PessoaDAO.getInstancia().remove(pessoaParaDeletar);
             return true;
@@ -113,8 +113,8 @@ public class CtrlPessoa implements ICtrlPessoa {
 
     @Override
     public boolean cadastraSalaNaPessoa(int matricula, String codigoSala) throws IllegalArgumentException {
-        Sala salaParaCadastrar = SalaDAO.getInstancia().getSala(codigoSala);
-        Pessoa pessoaCadastro = PessoaDAO.getInstancia().getPessoa(matricula);
+        Sala salaParaCadastrar = CtrlSala.getInstancia().findSalaByCodigoSala(codigoSala);
+        Pessoa pessoaCadastro = findPessoabyMatricula(matricula);
         if (pessoaCadastro == null) {
             throw new IllegalArgumentException("Matricula invalida");
         }
@@ -135,7 +135,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     @Override
     public boolean delSalaNaPessoa(int matricula, String codigoSala) throws IllegalArgumentException {
         Sala salaParaDeletar = CtrlPrincipal.getInstancia().getCtrlSala().findSalaByCodigoSala(codigoSala);
-        Pessoa pessoaCadastro = PessoaDAO.getInstancia().getPessoa(matricula);
+        Pessoa pessoaCadastro = findPessoabyMatricula(matricula);
         if (pessoaCadastro == null) {
             throw new IllegalArgumentException("Matricula invalida");
         }
@@ -154,45 +154,7 @@ public class CtrlPessoa implements ICtrlPessoa {
 
     }
 
-    /**
-     *
-     * @param matricula
-     * @return
-     */
-    @Override
-    public String listaSalasCadastradas(int matricula) throws IllegalArgumentException {
-        Pessoa pessoaCadastrada = PessoaDAO.getInstancia().getPessoa(matricula);
-        String lista = "";
-        if (pessoaCadastrada == null) {
-            throw new IllegalArgumentException("Matricula invalida");
-        }
-
-        ArrayList<Sala> salasCadastradas = pessoaCadastrada.getSalasCadastradas();
-        for (Sala salaCadastrada : salasCadastradas) {
-            lista += "@Codigo de sala: " +salaCadastrada.getCodigoSala() + " Numero: " + salaCadastrada.getNumero() + " Centro: " + salaCadastrada.getCentro() + "\n";
-
-        }
-        if (lista.equals("")) {
-            lista = "Nao ha salas cadastradas";
-        }
-
-        return lista;
-
-    }
-
-    @Override
-    public String listAllPessoasCadastradas() {
-        String listaPessoasCadastradas = "";
-        for (Pessoa pessoa : PessoaDAO.getInstancia().getList()) {
-            listaPessoasCadastradas += "@Matricula: " + pessoa.getMatricula() + " Nome: " + pessoa.getNome() + "\n";
-        }
-        if (listaPessoasCadastradas.equals("")) {
-            listaPessoasCadastradas = "Nao ha pessoas cadastradas";
-            return listaPessoasCadastradas;
-        }
-        return listaPessoasCadastradas;
-    }
-
+   
     public void abreTelaSwingPessoa() {
         TelaSwingPessoa.getInstancia().setVisible(true);
     }
@@ -203,6 +165,9 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
             
             
-    
+    public Pessoa findPessoabyMatricula(int matricula){
+        Pessoa pessoa = PessoaDAO.getInstancia().getPessoa(matricula);
+        return pessoa;
+    }
 
 }

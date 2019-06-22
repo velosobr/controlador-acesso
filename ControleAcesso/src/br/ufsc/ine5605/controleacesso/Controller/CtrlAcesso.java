@@ -10,8 +10,10 @@ import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
 import static br.ufsc.ine5605.controleacesso.Model.SituacaoAcesso.NaoPermitido;
 import static br.ufsc.ine5605.controleacesso.Model.SituacaoAcesso.Permitido;
+import br.ufsc.ine5605.controleacesso.Persistencia.AcessoDAO;
 import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
-import br.ufsc.ine5605.controleacesso.View.TelaAcesso;
+import br.ufsc.ine5605.controleacesso.View.TelaSwingLogAcessos;
+
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlAcesso;
 import java.util.ArrayList;
 
@@ -22,13 +24,13 @@ import java.util.ArrayList;
 public class CtrlAcesso implements ICtrlAcesso {
 
     private static CtrlAcesso instancia;
-    private TelaAcesso telaAcesso;
-    private ArrayList<Acesso> acessos;
+    private final TelaSwingLogAcessos telaAcesso;
+    
 
     public CtrlAcesso() {
         
-        this.telaAcesso = new TelaAcesso(this);
-        this.acessos = new ArrayList<>();
+        this.telaAcesso = TelaSwingLogAcessos.getInstancia();
+        
 
     }
 
@@ -45,14 +47,12 @@ public class CtrlAcesso implements ICtrlAcesso {
     /**
      * @return the telaAcesso
      */
-    public TelaAcesso getTelaAcesso() {
-        return telaAcesso;
-    }
+   
 
     
     @Override
     public boolean ehLiberadoAcesso(int matricula, String codigoSala) throws IllegalArgumentException{
-        Pessoa pessoaParaTestarAcesso = PessoaDAO.getInstancia().getPessoa(matricula);
+        Pessoa pessoaParaTestarAcesso = CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoabyMatricula(matricula);
         Sala salaParaTestarAcesso = CtrlPrincipal.getInstancia().getCtrlSala().findSalaByCodigoSala(codigoSala);
         
        
@@ -65,75 +65,69 @@ public class CtrlAcesso implements ICtrlAcesso {
         ArrayList<Pessoa> pessoasCadastradasNaSala = salaParaTestarAcesso.getPessoasCadastradas();
         for (Pessoa pessoaCadastrada : pessoasCadastradasNaSala) {
             if (pessoaCadastrada.equals(pessoaParaTestarAcesso)) {
-                acessos.add(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, Permitido.getDescricao()));
+                AcessoDAO.getInstancia().put(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, Permitido.getDescricao()));
                 return true;   
             }
         }
-        acessos.add(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, NaoPermitido.getDescricao()));
+        AcessoDAO.getInstancia().put(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, NaoPermitido.getDescricao()));
         return false;
     }
 
     
     @Override
-    public String geraLogByMatricula(int matricula)throws IllegalArgumentException {
-        String logAcessos = "";
-        Pessoa pessoa = PessoaDAO.getInstancia().getPessoa(matricula);
+    public ArrayList <Acesso> geraListaByMatricula(int matricula)throws IllegalArgumentException {
+        Pessoa pessoa = CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoabyMatricula(matricula);
         if(pessoa == null){
             throw new IllegalArgumentException("Matricula invalida");
         }
-        for (Acesso acesso : acessos) {
-            if (acesso.getPessoa().getMatricula() == matricula) {
-                
-                logAcessos += "@Data: " + acesso.getData() + " Matricula: " + acesso.getPessoa().getMatricula() + " Codigo de Sala: " + acesso.getSala().getCodigoSala() + " Situacao de Acesso: " + acesso.getSituacao()+"\n";
+        ArrayList <Acesso> listaAcessos = new ArrayList();
+        for(Acesso acesso:AcessoDAO.getInstancia().getList()){
+            if(acesso.getPessoa().equals(pessoa)){
+                listaAcessos.add(acesso);
             }
+            
         }
-        if (logAcessos.equals("")){
-            logAcessos = "Sem registro de acesso";
+        if(listaAcessos.isEmpty()){
+            throw new IllegalArgumentException("Sem registro de acesso");
         }
-        return logAcessos;
+    
+    return listaAcessos;       
+       
     }
 
     @Override
-    public String geraLogByCodigoSala(String codigoSala)throws IllegalArgumentException {
-        String logAcessos = "";
+    public ArrayList <Acesso> geraListaByCodigoSala(String codigoSala)throws IllegalArgumentException {
+        
         Sala sala = CtrlPrincipal.getInstancia().getCtrlSala().findSalaByCodigoSala(codigoSala);
         if(sala == null){
             throw new IllegalArgumentException("Codigo de sala invalido");
         }
-        
-        for (Acesso acesso : acessos) {
-            if (acesso.getSala().getCodigoSala().equals(codigoSala)) {
-                logAcessos += "@Data: "+ acesso.getData() + " Matricula: " + acesso.getPessoa().getMatricula() + " Codigo de Sala: " + acesso.getSala().getCodigoSala() + " Situacao de acesso: " + acesso.getSituacao()+"\n";
+        ArrayList <Acesso> listaAcessos = new ArrayList();
+        for (Acesso acesso : listaAcessos) {
+            if (acesso.getSala().equals(sala)) {
+                listaAcessos.add(acesso);
             }
         }
-        if (logAcessos.equals("")){
-            logAcessos = "Sem registro de acesso";
+        if (listaAcessos.isEmpty()){
+            throw new IllegalArgumentException("Sem registro de acesso");
         }
-        return logAcessos;
+        return listaAcessos;
+    }
+    
+    public ArrayList <Acesso> geraListaTodosAcessos(){
+        return AcessoDAO.getInstancia().getList();
     }
 
     @Override
     public Acesso findAcessoByMatricula(int matricula) {
-        int matriculaNoAcesso;
-        for (Acesso acesso : acessos) {
-            matriculaNoAcesso = acesso.getPessoa().getMatricula();
-            if (matriculaNoAcesso == matricula) {
-                return acesso;
-            }
-        }
-        return null;
+        Acesso acesso = AcessoDAO.getInstancia().getAcesso(matricula);
+        return acesso;
     }
 
     @Override
     public Acesso findAcessoByCodigoSala(String codigoSala) {
-        String codigoSalaNoAcesso = null;
-        for (Acesso acesso : acessos) {
-            codigoSalaNoAcesso = acesso.getSala().getCodigoSala();
-            if (codigoSalaNoAcesso.equals(codigoSala)) {
-                return acesso;
-            }
-        }
-        return null;
+        Acesso acesso = AcessoDAO.getInstancia().getAcesso(codigoSala);
+        return acesso;
     }
 
     public void abreTelaSwingAcesso() {
