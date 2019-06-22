@@ -114,6 +114,15 @@ public class TelaSwingLogAcessos extends JFrame {
         
         panelAcesso.add(voltar,constraintsBTN);
         
+        GerenciadorBotoes btManager = new GerenciadorBotoes();
+        verTodaLista.addActionListener(btManager);
+        procurarPorMatricula.addActionListener(btManager);
+        procurarPorCodigoSala.addActionListener(btManager);
+        voltar.addActionListener(btManager);
+        
+        
+        
+        
         GridBagConstraints tableConstraints = new GridBagConstraints();
         
         table = new JTable();
@@ -194,11 +203,11 @@ public class TelaSwingLogAcessos extends JFrame {
                         updateTable();
                         break;
                     case ("procuraMatricula"):
-                        
+                        procuraPorMatricula();
                         
                         break;
                     case ("procuraCodigoSala"):
-                        
+                        procuraPorCodigoSala();
                         
                         break;
                     
@@ -216,13 +225,20 @@ public class TelaSwingLogAcessos extends JFrame {
             
         }
 
-      
         
 
        
-       
         
     }
+    
+     private void procuraPorMatricula() {
+            int matricula = validador.recebeValorInteiro("Digite a matricula: ");
+            updateTable(matricula);
+        }
+     private void procuraPorCodigoSala() {
+           String codigoSala = validador.recebeValorString("Digite o codigo de sala: ");
+           updateTable(codigoSala);
+        }
     
      public static TelaSwingLogAcessos getInstancia() {
         if (instancia == null) {

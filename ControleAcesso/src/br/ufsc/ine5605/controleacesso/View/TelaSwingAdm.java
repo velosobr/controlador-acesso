@@ -128,7 +128,7 @@ public class TelaSwingAdm extends JFrame {
                         break;
                     case ("3"):
                         setVisible(false);
-                        CtrlPrincipal.getInstancia().getCtrlAcesso().abreTelaSwingAcesso();
+                        CtrlPrincipal.getInstancia().getCtrlAcesso().abreTelaSwingLogAcessos();
                         break;
                     case ("4"):
                         setVisible(false);
