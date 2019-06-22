@@ -15,13 +15,6 @@ import javax.swing.JOptionPane;
  */
 public class ValidaERetorna {
 
-    public ValidaERetorna(Scanner teclado) {
-    }
-
-    public ValidaERetorna() {
-
-    }
-
     public String recebeValorString(String mensagem) {
         String valor = null;
         do {
@@ -31,27 +24,50 @@ public class ValidaERetorna {
         return valor;
     }
 
-    public int validaValorInteiro(String mensagem) {
+    public int OldValidaValorInteiro(String mensagem) {
         int valor = -1;
+        do {
+            try {
 
-        try {
-            valor = Integer.parseInt(JOptionPane.showInputDialog(mensagem));
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "O valor digitado nao e um inteiro valido");
-        }
+            } catch (Exception e) {
+            }
+        } while (valor == -1);
 
         return valor;
     }
 
     public int recebeValorInteiro(String mensagem) {
         int valor = -1;
+         
+        while (valor == -1) {
+            try {
+                String o = JOptionPane.showInputDialog(null,mensagem);
+                if (o == null) {
+                    JOptionPane.showMessageDialog(null, "Você precisa informar um valor inteiro");
+              break;
+                } else {
+                    valor = Integer.parseInt(o);
+                    break;
+                }
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "Error : " + nfe);
+            } catch (NullPointerException npe) {
 
-        do {
-            valor = validaValorInteiro(mensagem);
-        } while (valor == -1);
-
+            }
+        }
         return valor;
+
     }
+
+//    public int recebeValorInteiro(String mensagem) {
+//        int valor = -1;
+//
+//        do {
+//            valor = validaValorInteiro(mensagem);
+//        } while (valor == -1);
+//
+//        return valor;
+//    }
 
     // Arrumar o método recebevalorBoolean
     public Boolean recebeValorBoolean() {
@@ -59,7 +75,7 @@ public class ValidaERetorna {
         boolean valorBool = false;
 
         String[] opcoes = {"Sim", "Nao"};
-            int teste = JOptionPane.showOptionDialog(null, "Possui acesso como administrador?", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+        int teste = JOptionPane.showOptionDialog(null, "Possui acesso como administrador?", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
 
         try {
             switch (teste) {
@@ -83,11 +99,11 @@ public class ValidaERetorna {
     public char validaValorChar(String mensagem) {
         char valor = 000;
         try {
-          
+
             valor = JOptionPane.showInputDialog(mensagem).charAt(0);
         } catch (InputMismatchException e) {
             System.out.println("O valor digitado nao e um inteiro valido");
-        } 
+        }
 
         return valor;
     }
@@ -116,7 +132,6 @@ public class ValidaERetorna {
 //
 //        return valor;
 //    }
-
     public long recebeValorLong(String mensagem) {
         long valor = -1;
 

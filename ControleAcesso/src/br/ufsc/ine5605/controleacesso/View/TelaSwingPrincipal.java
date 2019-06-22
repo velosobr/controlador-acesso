@@ -127,12 +127,14 @@ public class TelaSwingPrincipal extends JFrame {
             if (ae.getActionCommand() == "2") {
                 int matricula = validador.recebeValorInteiro("Digite a matricula: ");
                 try {
-                    if (validacaoTelaAdm(matricula)) {
-                        setVisible(false);
-                        TelaSwingAdm.GetInstacia().setVisible(true);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Você não possui acesso");
-                    }
+                    if (matricula != -1) {
+                        if (validacaoTelaAdm(matricula)) {
+                            setVisible(false);
+                            TelaSwingAdm.GetInstacia().setVisible(true);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Você não possui acesso");
+                        }
+                    } 
 
                 } catch (IllegalArgumentException e) {
                     System.out.println(e.getMessage());
