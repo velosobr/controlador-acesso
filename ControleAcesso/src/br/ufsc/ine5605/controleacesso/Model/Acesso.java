@@ -6,6 +6,7 @@
 package br.ufsc.ine5605.controleacesso.Model;
 
 
+import br.ufsc.ine5605.controleacesso.Persistencia.AcessoDAO;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -20,14 +21,14 @@ public class Acesso {
     private Sala sala;
     private Date data;
     private String situacao;
-    Random random = new Random();
+    
     
     public Acesso(Pessoa pessoa, Sala sala, String situacao){
         setPessoa(pessoa);
         setSala(sala);
         this.data =Calendar.getInstance().getTime();
         this.situacao = situacao;
-        id = random.nextInt(100000);
+        this.id = setId(); 
     }
 
     /**
@@ -89,6 +90,21 @@ public class Acesso {
      */
     public Integer getId() {
         return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public int setId() {
+        int primeiroID = 0;
+        int ultimoID = (AcessoDAO.getInstancia().getList().size())-1;
+        if(ultimoID>=0){
+            ultimoID++;
+            
+        }else{
+            ultimoID = primeiroID;
+        }
+        return ultimoID;
     }
     
 }
