@@ -5,7 +5,10 @@
  */
 package br.ufsc.ine5605.controleacesso.Persistencia;
 
+import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
 import br.ufsc.ine5605.controleacesso.Model.Acesso;
+import br.ufsc.ine5605.controleacesso.Model.Pessoa;
+import br.ufsc.ine5605.controleacesso.Model.Sala;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -39,7 +42,7 @@ public class AcessoDAO {
     public Acesso getAcesso(int matricula){
         return cacheAcessos.get(matricula);
     }
-    
+      
     public Acesso getAcesso (String codigoSala){
         return cacheAcessos.get(codigoSala);
     }
@@ -52,6 +55,7 @@ public class AcessoDAO {
         cacheAcessos.remove(acesso.getId());
     }
     
+        
     public ArrayList <Acesso> getList(){
         return new ArrayList(this.cacheAcessos.values());
     }

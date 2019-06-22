@@ -76,20 +76,7 @@ public interface ICtrlPessoa {
      */
     public boolean delSalaNaPessoa(int matricula, String codigoSala);
 
-    /**
-     * @param matricula - matricula da pessoa que você quer encontrar a lista de
-     * salas cadastradas.
-     * @return - deve retonar um arrayList com as salas que a pessoa possui em
-     * seu cadastro.
-     */
-    public String listaSalasCadastradas(int matricula);
-
-    /**
-     * Metodo responsável por mostrar todas as pessoas cadastradas no sistema
-     *
-     * @return - retorna uma lista de pessoas em String
-     */
-    public String listAllPessoasCadastradas();
+    
 
     
 }
