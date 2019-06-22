@@ -6,6 +6,10 @@
 package br.ufsc.ine5605.controleacesso.View;
 
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
+import br.ufsc.ine5605.controleacesso.Model.Aluno;
+import br.ufsc.ine5605.controleacesso.Model.Pessoa;
+import br.ufsc.ine5605.controleacesso.Model.Servidor;
+import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
 import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
 import java.awt.Color;
 import java.awt.Container;
@@ -16,6 +20,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,6 +29,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -37,6 +45,7 @@ public class TelaSwingPessoa extends JFrame{
     private JButton remover;
     private JButton opcoesPermissao;
     private JButton voltar;
+    private JTable table;
     private ValidaERetorna validador = new ValidaERetorna();
 
     public TelaSwingPessoa() {
@@ -135,35 +144,60 @@ public class TelaSwingPessoa extends JFrame{
         opcoesPermissao.addActionListener(btManager);
         voltar.addActionListener(btManager);
         
-        Object[] columnNames = {"Matricula","Tipo", "Nome","Telefone", "Email", "Curso", "Cargo", "PermissaoADM"}; 
-        
-        Object[][] data = {{ 123, "Aluno", "Fulaninho", "6666666666", "fulaninho@gmail.com", "Biblioteconomia","",""},
-            {456, "Servidor", "Ciclaninho", "6666666666", "ciclaninho@gmail.com", "", "Tecnico ADM", "true"},
-            {777, "Servidor","Beltraninho", "6666666666", "beltraninho@gmail.com", "", "Professor", "false"},
-            {666, "Servidor", "Fulaninha", "6666666666", "fulaninha@gmail.com", "", "Tecnico ADM", "true"}};
-        
         
         
         GridBagConstraints tableConstraints = new GridBagConstraints();
-        JTable table = new JTable(data, columnNames);
+        
+        table = new JTable();
+        JScrollPane scroll= new JScrollPane(table);
+        scroll.setPreferredSize(new Dimension(650,200));
        
-        table.setFillsViewportHeight(true);
-        
-        
+           
         tableConstraints.fill = GridBagConstraints.CENTER;
         tableConstraints.gridx =0;
         tableConstraints.gridy = 0;
         tableConstraints.gridheight = 4;
         tableConstraints.gridwidth = 2;
-        table.setPreferredScrollableViewportSize(new Dimension (200,10));
-        JScrollPane scroll= new JScrollPane(table);
-        scroll.setPreferredSize(new Dimension(200,10));
-       
-        panelPessoa.add(table, tableConstraints);
+        table.setFillsViewportHeight(true);
+        table.setPreferredScrollableViewportSize(new Dimension (650,200));
         
+        
+       
+        panelPessoa.add(scroll, tableConstraints);
+        
+        updateTable();
     }
     
+    private void updateTable(){
+        DefaultTableModel modelo = new DefaultTableModel(); 
+        modelo.setNumRows(0);
+        modelo.addColumn("Matricula");
+        modelo.addColumn("Nome");
+        modelo.addColumn("Telefone");
+        modelo.addColumn("Email");
+        modelo.addColumn("Curso");
+        modelo.addColumn("Cargo");
+        modelo.addColumn("Administrador");
+        modelo.addColumn("Tipo");
+        ArrayList <Pessoa> listaPessoas = PessoaDAO.getInstancia().getList();
+        
+        for(Pessoa pessoa: listaPessoas){
+            
+            if(pessoa instanceof Aluno){
+                
+                Aluno aluno = (Aluno) pessoa;
+                modelo.addRow(new Object []{aluno.getMatricula(),aluno.getNome(),aluno.getTelefone(), aluno.getEmail(), aluno.getCurso(), "N/A", "N/A", "Aluno"});
+            }else{
+                Servidor servidor = (Servidor) pessoa;
+                modelo.addRow(new Object [] {servidor.getMatricula(), servidor.getNome(), servidor.getTelefone(), servidor.getEmail(), "N/A", servidor.getCargo(), servidor.isAdministrador(), "Servidor"});
+            }
+            
+        }
+        table.setModel(modelo);
+        this.repaint();
+    }
     
+       
     private class GerenciadorBotoes implements ActionListener{
 
         @Override
@@ -171,19 +205,25 @@ public class TelaSwingPessoa extends JFrame{
             try{
                 switch(e.getActionCommand()){
                     case ("cadastro"):
-                        testeTipoPessoa();
-                       
-                        
+                        cadastraPessoa();
+                        updateTable();
                         break;
                     case ("editar"):
+                        editarPessoa();
+                        updateTable();
                         break;
                     case ("remover"):
+                        removerPessoa();
+                        updateTable();
                         break;
                     case ("opcoesPermissao"):
+                        
+                        opcoesPermissao();
+                        
                         break;
                     case ("voltar"):
                         setVisible(false);
-                        CtrlPrincipal.getInstancia().abreTelaInicial();
+                        CtrlPrincipal.getInstancia().abreTelaAdm();
                         break;
                     
                 }
@@ -195,33 +235,82 @@ public class TelaSwingPessoa extends JFrame{
             
         }
 
-        private void testeTipoPessoa() {
+        
+
+       
+       
+        
+    }
+    
+    private void cadastraPessoa() {
             
             String[] opcoes = {"Aluno", "Servidor"};
             int teste = JOptionPane.showOptionDialog(null, "Escolha um tipo de pessoa", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
             if(teste == 0){
                 int matricula = validador.recebeValorInteiro("Digite a matricula: ");
                 String nome = validador.recebeValorString("Digite o nome: ");
-                String telefone = validador.recebeValorString("Digite o telefone: ");
+                long telefone = validador.recebeValorLong("Digite o telefone: ");
                 String email = validador.recebeValorString("Digite o email: ");
-                String curso = validador.recebeValorString("Digite o curso");
-                getCtrlPrincipal().getCtrlPessoa().incluiAluno(matricula, nome, teste, email, curso);
+                String curso = validador.recebeValorString("Digite o curso: ");
+                getCtrlPrincipal().getCtrlPessoa().incluiAluno(matricula, nome, telefone, email, curso);
             }else{
                 int matricula = validador.recebeValorInteiro("Digite a matricula: ");
                 String nome = validador.recebeValorString("Digite o nome: ");
-                String telefone = validador.recebeValorString("Digite o telefone: ");
+                long telefone = validador.recebeValorLong("Digite o telefone: ");
                 String email = validador.recebeValorString("Digite o email: ");
-                String cargo = validador.recebeValorString("Digite o cargo");
+                String cargo = validador.recebeValorString("Digite o cargo: ");
                 boolean administrador = validador.recebeValorBoolean();
-                getCtrlPrincipal().getCtrlPessoa().incluiServidor(matricula, nome, teste, email, cargo, administrador);
-            }
+                getCtrlPrincipal().getCtrlPessoa().incluiServidor(matricula, nome, telefone, email, cargo, administrador);
         }
-
-        private void cadastraPessoa(int teste) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-        
     }
+    
+    
+    private void editarPessoa() {
+        
+        int linhaSelecionada = table.getSelectedRow();
+        if(linhaSelecionada>=0){
+            String tipoPessoa = table.getValueAt(linhaSelecionada, 7).toString();
+            int matricula = (int) table.getValueAt(linhaSelecionada, 0);
+            if(tipoPessoa.equals("Aluno")){
+                String nome = validador.recebeValorString("Digite o nome: ");
+                long telefone = validador.recebeValorLong("Digite o telefone: ");
+                String email = validador.recebeValorString("Digite o email: ");
+                String curso = validador.recebeValorString("Digite o curso: ");
+                getCtrlPrincipal().getCtrlPessoa().alteradorDeCadastroAluno(matricula, nome, telefone, email, curso);
+            }else{
+                String nome = validador.recebeValorString("Digite o nome: ");
+                long telefone = validador.recebeValorLong("Digite o telefone: ");
+                String email = validador.recebeValorString("Digite o email: ");
+                String cargo = validador.recebeValorString("Digite o cargo: ");
+                boolean administrador = validador.recebeValorBoolean();
+                getCtrlPrincipal().getCtrlPessoa().alteradorDeCadastroServidor(matricula, nome, telefone, email, cargo, administrador);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+        }
+    }
+    
+     private void removerPessoa() {
+            int linhaSelecionada = table.getSelectedRow();
+            if(linhaSelecionada>=0){
+                int matricula = (int) table.getValueAt(linhaSelecionada, 0);
+                Pessoa pessoaParaRemover = PessoaDAO.getInstancia().getPessoa(matricula);
+                PessoaDAO.getInstancia().remove(pessoaParaRemover);
+            }else{
+            JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+        }
+    }
+
+    private void opcoesPermissao() {
+            int linhaSelecionada = table.getSelectedRow();
+            if(linhaSelecionada>=0){
+                int matricula = (int) table.getValueAt(linhaSelecionada, 0);
+                getCtrlPrincipal().getCtrlPessoa().abreTelaGestaoPermissaoPessoa(matricula);
+            }else{
+            JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+            }    
+        }    
+    
 
     /**
      * @return the instancia

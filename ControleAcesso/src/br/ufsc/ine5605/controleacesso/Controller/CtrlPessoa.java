@@ -10,6 +10,7 @@ import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
 import br.ufsc.ine5605.controleacesso.Model.Servidor;
 import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
+import br.ufsc.ine5605.controleacesso.View.TelaSwingGestaoPermissaoPessoa;
 //import br.ufsc.ine5605.controleacesso.View.TelaPessoa;
 import br.ufsc.ine5605.controleacesso.View.TelaSwingPessoa;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlPessoa;
@@ -24,6 +25,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     private static CtrlPessoa instancia;
 
     private final TelaSwingPessoa telaPessoa;
+    
     
 
     public CtrlPessoa() {
@@ -50,7 +52,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     public boolean incluiAluno(int matricula, String nome, long telefone, String email, String curso) {
         Pessoa alunoParaVerificar = PessoaDAO.getInstancia().getPessoa(matricula);
         if (alunoParaVerificar == null) {
-            Pessoa alunoParaIncluir = new Aluno(matricula, nome, telefone, email, curso);
+            Aluno alunoParaIncluir = new Aluno(matricula, nome, telefone, email, curso);
             PessoaDAO.getInstancia().put(alunoParaIncluir);
             return true;
         }
@@ -61,7 +63,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     public boolean incluiServidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador) {
         Pessoa servidorParaVerificar = PessoaDAO.getInstancia().getPessoa(matricula);
         if (servidorParaVerificar == null) {
-            Pessoa servidorParaIncluir = new Servidor(matricula, nome, telefone, email, cargo, administrador);
+            Servidor servidorParaIncluir = new Servidor(matricula, nome, telefone, email, cargo, administrador);
             PessoaDAO.getInstancia().put(servidorParaIncluir);
             return true;
         }
@@ -193,7 +195,13 @@ public class CtrlPessoa implements ICtrlPessoa {
     public void abreTelaSwingPessoa() {
         TelaSwingPessoa.getInstancia().setVisible(true);
     }
-
+    
+    public void abreTelaGestaoPermissaoPessoa(int matricula){
+        TelaSwingGestaoPermissaoPessoa telaGestaoPermissaoPessoa = new TelaSwingGestaoPermissaoPessoa(matricula);
+        telaGestaoPermissaoPessoa.setVisible(true);
+    }
+            
+            
     
 
 }
