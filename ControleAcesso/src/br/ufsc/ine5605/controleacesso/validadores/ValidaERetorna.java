@@ -16,42 +16,53 @@ import javax.swing.JOptionPane;
 public class ValidaERetorna {
 
     public String recebeValorString(String mensagem) {
-        String valor = null;
-        do {
-            valor = JOptionPane.showInputDialog(mensagem);
-        } while (valor == null);
+        String valor = "vazio";
 
-        return valor;
-    }
-
-    public int OldValidaValorInteiro(String mensagem) {
-        int valor = -1;
-        do {
+        while (valor == "vazio") {
             try {
+                String v = JOptionPane.showInputDialog(null, mensagem);
+                if (v.length() == 0) {
+                    //   JOptionPane.showMessageDialog(null, "Você precisa informar um valor inteiro");
+                    JOptionPane.showMessageDialog(null, "STRING: Você precisa digitar um valor válido, tente novamente");
+                    System.out.println("Entrou no IF");
 
-            } catch (Exception e) {
+                } else {
+                    System.out.println("entrou no else");
+                    valor = v;
+                }
+
+            } catch (NullPointerException npe) {
+                System.err.println("Causa npe: " + npe.getCause());
+                System.err.println("mensagem npe: " + npe.getMessage());
+                break;
+
             }
-        } while (valor == -1);
-
+        }
         return valor;
+
     }
 
     public int recebeValorInteiro(String mensagem) {
         int valor = -1;
-         
+
         while (valor == -1) {
             try {
-                String o = JOptionPane.showInputDialog(null,mensagem);
+                String o = JOptionPane.showInputDialog(null, mensagem);
                 if (o == null) {
-                    JOptionPane.showMessageDialog(null, "Você precisa informar um valor inteiro");
-              break;
+                    //   JOptionPane.showMessageDialog(null, "Você precisa informar um valor inteiro");
+                    break;
                 } else {
                     valor = Integer.parseInt(o);
                     break;
                 }
             } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "Error : " + nfe);
+                System.err.println("Causa nfe: " + nfe.getCause());
+                System.err.println("mensagem nfe: " + nfe.getMessage());
+                JOptionPane.showMessageDialog(null, "INT: Você precisa digitar um valor válido, tente novamente");
             } catch (NullPointerException npe) {
+                System.err.println("Causa npe: " + npe.getCause());
+                System.err.println("mensagem npe: " + npe.getMessage());
+                JOptionPane.showMessageDialog(null, "Valor vazio");
 
             }
         }
@@ -68,8 +79,7 @@ public class ValidaERetorna {
 //
 //        return valor;
 //    }
-
-    // Arrumar o método recebevalorBoolean
+// Arrumar o método recebevalorBoolean
     public Boolean recebeValorBoolean() {
         int valor = -1;
         boolean valorBool = false;

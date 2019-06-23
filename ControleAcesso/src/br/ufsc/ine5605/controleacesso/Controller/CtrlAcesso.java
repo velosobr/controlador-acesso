@@ -57,10 +57,10 @@ public class CtrlAcesso implements ICtrlAcesso {
         
        
         if (pessoaParaTestarAcesso == null){
-            throw new IllegalArgumentException("Matricula invalida");
+            throw new IllegalArgumentException("Matricula não encontrada");
         }
         if(salaParaTestarAcesso == null){
-            throw new IllegalArgumentException("Codigo de sala invalido");
+            throw new IllegalArgumentException("Sala não encontrada");
         }
         ArrayList<Pessoa> pessoasCadastradasNaSala = salaParaTestarAcesso.getPessoasCadastradas();
         for (Pessoa pessoaCadastrada : pessoasCadastradasNaSala) {
