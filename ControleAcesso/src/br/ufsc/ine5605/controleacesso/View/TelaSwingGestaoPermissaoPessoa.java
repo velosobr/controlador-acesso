@@ -36,7 +36,7 @@ import javax.swing.table.DefaultTableModel;
  * @author caiocaio
  */
 public class TelaSwingGestaoPermissaoPessoa extends JFrame {
-    private static TelaSwingGestaoPermissaoPessoa instancia;
+    
     private JLabel label;
     private JButton permitirAcesso;
     private JButton removerAcesso;
@@ -47,14 +47,14 @@ public class TelaSwingGestaoPermissaoPessoa extends JFrame {
    
 public TelaSwingGestaoPermissaoPessoa(int matricula){
     super("Opcoes de gerenciamento de permissao de acesso");
-    int matriculaPessoa = matricula;
+    matriculaPessoa = matricula;
     JPanel panelPermissaoPessoa = new JPanel (new GridBagLayout());
         
         GridBagConstraints constraintsPanel = new GridBagConstraints();
         constraintsPanel.anchor = GridBagConstraints.WEST;
-        constraintsPanel.insets = new Insets(10, 10, 10, 10);
+        constraintsPanel.insets = new Insets(5,5,5,5);
         panelPermissaoPessoa.setBackground(Color.WHITE);
-        setSize(1000, 500);
+        setSize(680, 300);
         
         panelPermissaoPessoa.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Opcoes de permissao de acesso"));
         
@@ -62,50 +62,47 @@ public TelaSwingGestaoPermissaoPessoa(int matricula){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().add(panelPermissaoPessoa);
         
-        GridBagConstraints constraintsBTN = new GridBagConstraints();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5,5,5,5);
         
-        //COMPONENTES TELASWINGPESSOA
-        // Label
+//COMPONENTES TELASWINGPESSOA
+// Label
         label = new JLabel();
         label.setText("Selecione uma das opções");
         
         
-        //Permitir Acesso a Sala
+//Permitir Acesso a Sala
         permitirAcesso = new JButton("Permitir Acesso");
         permitirAcesso.setActionCommand("permitirAcesso");
-        constraintsBTN.weightx = 0.5;
-        constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 2;
-        constraintsBTN.gridy = 0;
-        //constraintsBTN.ipadx = 20;
-        //constraintsBTN.ipady = 20;
-        panelPermissaoPessoa.add(permitirAcesso,constraintsBTN );
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        
+        panelPermissaoPessoa.add(permitirAcesso,gbc );
         
         
-        //Botao Remover
+//Botao Remover
         removerAcesso = new JButton("Remover Acesso");
         removerAcesso.setActionCommand("removerAcesso");
-        constraintsBTN.weightx = 0.5;
-        constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 2;
-        constraintsBTN.gridy = 1;
-        //constraintsBTN.ipadx = 20;
-        //constraintsBTN.ipady = 20;
+        gbc.gridx = 2;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         
-        panelPermissaoPessoa.add(removerAcesso,constraintsBTN);
+        panelPermissaoPessoa.add(removerAcesso,gbc);
         
 
-        //Botao voltar
+//Botao voltar
         voltar = new JButton("Voltar");
         voltar.setActionCommand("voltar");
-        constraintsBTN.weightx = 0.5;
-        constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 2;
-        constraintsBTN.gridy = 4;
-        //constraintsBTN.ipadx = 0;
-        //constraintsBTN.ipady = 0;
+        gbc.gridx = 3;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         
-        panelPermissaoPessoa.add(voltar,constraintsBTN);
+        
+        panelPermissaoPessoa.add(voltar,gbc);
        
         
         
@@ -119,29 +116,29 @@ public TelaSwingGestaoPermissaoPessoa(int matricula){
         
         
         
-        GridBagConstraints tableConstraints = new GridBagConstraints();
-        
+       
+//CONFIGURACOES TABELA       
         table = new JTable();
         JScrollPane scroll= new JScrollPane(table);
         scroll.setPreferredSize(new Dimension(650,200));
        
            
-        tableConstraints.fill = GridBagConstraints.CENTER;
-        tableConstraints.gridx =0;
-        tableConstraints.gridy = 0;
-        tableConstraints.gridheight = 4;
-        tableConstraints.gridwidth = 2;
+        gbc.gridx =0;
+        gbc.gridy = 0;
+        gbc.gridheight =2;
+        gbc.gridwidth = 8;
+        gbc.fill = GridBagConstraints.CENTER;
         table.setFillsViewportHeight(true);
         table.setPreferredScrollableViewportSize(new Dimension (650,200));
         
         
        
-        panelPermissaoPessoa.add(scroll, tableConstraints);
+        panelPermissaoPessoa.add(scroll, gbc);
         
-        updateTable();
+        updateTable(matricula);
     }
     
-    private void updateTable(){
+    private void updateTable(int matriculaPessoa){
         DefaultTableModel modelo = new DefaultTableModel(); 
         modelo.setNumRows(0);
         modelo.addColumn("Codigo Sala");
@@ -151,10 +148,14 @@ public TelaSwingGestaoPermissaoPessoa(int matricula){
         modelo.addColumn("Campus");
         
         ArrayList <Sala> listaSalasCadastradas = PessoaDAO.getInstancia().getPessoa(matriculaPessoa).getSalasCadastradas();
-        
-        for(Sala sala: listaSalasCadastradas){
+        if(listaSalasCadastradas == null){
+            modelo.addRow(new Object [] {"Sem sala cadastrada", "N/A", "N/A", "N/A","N/A"});
+        }else{
+            for(Sala sala: listaSalasCadastradas){
             modelo.addRow(new Object []{sala.getCodigoSala(),sala.getNumero(),sala.getBloco(), sala.getCentro(), sala.getCampus()});
             
+        }
+        
         }
         table.setModel(modelo);
         this.repaint();
@@ -168,11 +169,11 @@ public TelaSwingGestaoPermissaoPessoa(int matricula){
                 switch(e.getActionCommand()){
                     case ("permitirAcesso"):
                         permitirAcesso();
-                        updateTable();
+                        updateTable(matriculaPessoa);
                         break;
                     case ("removerAcesso"):
                         removerAcesso();
-                        updateTable();
+                        updateTable(matriculaPessoa);
                         break;
                     case ("voltar"):
                         setVisible(false);

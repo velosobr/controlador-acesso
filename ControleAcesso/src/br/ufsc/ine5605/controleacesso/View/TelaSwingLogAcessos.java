@@ -51,68 +51,61 @@ public class TelaSwingLogAcessos extends JFrame {
         constraintsPanel.anchor = GridBagConstraints.WEST;
         constraintsPanel.insets = new Insets(10, 10, 10, 10);
         panelAcesso.setBackground(Color.WHITE);
-        setSize(1000, 500);
+        setSize(750, 300);
         
         panelAcesso.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Opcoes Pessoa"));
+                BorderFactory.createEtchedBorder(), "Gerenciamento acesso"));
         
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().add(panelAcesso);
         
-        GridBagConstraints constraintsBTN = new GridBagConstraints();
-        
-        // Label
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5,5,5,5);
+// Label
         label = new JLabel();
         label.setText("Selecione uma das opções");
         
-        // Botao Ver toda a lista
+// Botao Ver toda a lista
         verTodaLista = new JButton("Ver todos os acessos");
         verTodaLista.setActionCommand("verTodaLista");
-        constraintsBTN.weightx = 0.5;
-        constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 2;
-        constraintsBTN.gridy = 1;
-        //constraintsBTN.ipadx = 20;
-        //constraintsBTN.ipady = 20;
+                
+        gbc.gridx = 1;
+        gbc.gridy = 3;
         
-        panelAcesso.add(verTodaLista,constraintsBTN);
         
-        // Botao Procurar por matricula
+        panelAcesso.add(verTodaLista,gbc);
+        
+// Botao Procurar por matricula
         procurarPorMatricula = new JButton("Procurar por matricula");
         procurarPorMatricula.setActionCommand("procuraMatricula");
-        constraintsBTN.weightx = 0.5;
-        constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 2;
-        constraintsBTN.gridy = 2;
-        //constraintsBTN.ipadx = 20;
-        //constraintsBTN.ipady = 20;
         
-        panelAcesso.add(procurarPorMatricula,constraintsBTN);
-        //Botao Procurar por codigo de sala
+        gbc.gridx = 2;
+        gbc.gridy = 3;
+        
+        
+        panelAcesso.add(procurarPorMatricula,gbc);
+        
+//Botao Procurar por codigo de sala
         procurarPorCodigoSala = new JButton("Procurar por codigo de sala");
         procurarPorCodigoSala.setActionCommand("procuraCodigoSala");
-        constraintsBTN.weightx = 0.5;
-        constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 2;
-        constraintsBTN.gridy = 3;
-        //constraintsBTN.ipadx = 20;
-        //constraintsBTN.ipady = 20;
+       
+        gbc.gridx = 3;
+        gbc.gridy = 3;
         
-        panelAcesso.add(procurarPorCodigoSala,constraintsBTN);
+        
+        panelAcesso.add(procurarPorCodigoSala,gbc);
         
 
-        //Botao voltar
+        
+//Botao voltar
         voltar = new JButton("Voltar");
         voltar.setActionCommand("voltar");
-        constraintsBTN.weightx = 0.5;
-        constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 2;
-        constraintsBTN.gridy = 4;
-        //constraintsBTN.ipadx = 0;
-        //constraintsBTN.ipady = 0;
         
-        panelAcesso.add(voltar,constraintsBTN);
+        gbc.gridx = 4;
+        gbc.gridy = 3;
+        
+        panelAcesso.add(voltar,gbc);
         
         GerenciadorBotoes btManager = new GerenciadorBotoes();
         verTodaLista.addActionListener(btManager);
@@ -122,27 +115,25 @@ public class TelaSwingLogAcessos extends JFrame {
         
         
         
-        
-        GridBagConstraints tableConstraints = new GridBagConstraints();
-        
+//CONFIGURACOES TABELA        
         table = new JTable();
         JScrollPane scroll= new JScrollPane(table);
         scroll.setPreferredSize(new Dimension(650,200));
        
            
-        tableConstraints.fill = GridBagConstraints.CENTER;
-        tableConstraints.gridx =0;
-        tableConstraints.gridy = 0;
-        tableConstraints.gridheight = 4;
-        tableConstraints.gridwidth = 2;
+        gbc.gridx =0;
+        gbc.gridy = 0;
+        gbc.gridheight =2;
+        gbc.gridwidth = 8;
+        gbc.fill = GridBagConstraints.CENTER;
         table.setFillsViewportHeight(true);
         table.setPreferredScrollableViewportSize(new Dimension (650,200));
         
         
        
-        panelAcesso.add(scroll, tableConstraints);
+        panelAcesso.add(scroll, gbc);
         
-        
+      
     }
     private void updateTable(int matricula) {
         DefaultTableModel modelo = new DefaultTableModel(); 
@@ -158,6 +149,8 @@ public class TelaSwingLogAcessos extends JFrame {
         for(Acesso acesso:listaAcessos){
             modelo.addRow(new Object[]{acesso.getId(), acesso.getPessoa().getMatricula(), acesso.getPessoa().getNome(), acesso.getSala().getCodigoSala(), acesso.getData(), acesso.getSituacao()});
         }
+        table.setModel(modelo);
+        this.repaint();
     }
      
     private void updateTable(String codigoSala) {
@@ -174,6 +167,8 @@ public class TelaSwingLogAcessos extends JFrame {
         for(Acesso acesso:listaAcessos){
             modelo.addRow(new Object[]{acesso.getId(), acesso.getPessoa().getMatricula(), acesso.getPessoa().getNome(), acesso.getSala().getCodigoSala(), acesso.getData(), acesso.getSituacao()});
         }
+        table.setModel(modelo);
+        this.repaint();
     }
     
     private void updateTable() {
@@ -190,6 +185,8 @@ public class TelaSwingLogAcessos extends JFrame {
         for(Acesso acesso:listaAcessos){
             modelo.addRow(new Object[]{acesso.getId(), acesso.getPessoa().getMatricula(), acesso.getPessoa().getNome(), acesso.getSala().getCodigoSala(), acesso.getData(), acesso.getSituacao()});
         }
+        table.setModel(modelo);
+        this.repaint();
     }
     
     private class GerenciadorBotoes implements ActionListener{
@@ -237,7 +234,8 @@ public class TelaSwingLogAcessos extends JFrame {
         }
      private void procuraPorCodigoSala() {
            String codigoSala = validador.recebeValorString("Digite o codigo de sala: ");
-           updateTable(codigoSala);
+           //updateTable(codigoSala);
+           JOptionPane.showMessageDialog(null, codigoSala);
         }
     
      public static TelaSwingLogAcessos getInstancia() {

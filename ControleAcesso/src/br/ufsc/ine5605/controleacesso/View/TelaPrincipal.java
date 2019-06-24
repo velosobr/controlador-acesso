@@ -14,7 +14,7 @@ import java.util.Scanner;
  *
  * @author Lino Veloso
  */
-public class TelaPrincipal {
+/*public class TelaPrincipal {
 
     private final CtrlPrincipal ctrlPrincipal;
     private final ValidaERetorna validador;
@@ -24,7 +24,7 @@ public class TelaPrincipal {
     public TelaPrincipal(CtrlPrincipal ctrlprincipal) {
         this.ctrlPrincipal = ctrlprincipal;
         this.teclado = new Scanner(System.in);
-        this.validador = new ValidaERetorna(teclado);
+        this.validador = new ValidaERetorna();
     }
 
     public CtrlPrincipal getCtrlPrincipal() {
@@ -96,4 +96,4 @@ public class TelaPrincipal {
 
     
 
-}
+}*/
