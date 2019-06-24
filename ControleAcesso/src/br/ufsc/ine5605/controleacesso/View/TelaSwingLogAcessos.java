@@ -51,17 +51,17 @@ public class TelaSwingLogAcessos extends JFrame {
         constraintsPanel.anchor = GridBagConstraints.WEST;
         constraintsPanel.insets = new Insets(10, 10, 10, 10);
         panelAcesso.setBackground(Color.WHITE);
-        setSize(1000, 500);
+        setSize(750, 300);
         
         panelAcesso.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Opcoes Pessoa"));
+                BorderFactory.createEtchedBorder(), "Gerenciamento acesso"));
         
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().add(panelAcesso);
         
-        GridBagConstraints constraintsBTN = new GridBagConstraints();
-        
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5,5,5,5);
         // Label
         label = new JLabel();
         label.setText("Selecione uma das opções");
@@ -69,50 +69,47 @@ public class TelaSwingLogAcessos extends JFrame {
         // Botao Ver toda a lista
         verTodaLista = new JButton("Ver todos os acessos");
         verTodaLista.setActionCommand("verTodaLista");
-        constraintsBTN.weightx = 0.5;
-        constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 2;
-        constraintsBTN.gridy = 1;
+        
+        
+        gbc.gridx = 1;
+        gbc.gridy = 3;
         //constraintsBTN.ipadx = 20;
         //constraintsBTN.ipady = 20;
         
-        panelAcesso.add(verTodaLista,constraintsBTN);
+        panelAcesso.add(verTodaLista,gbc);
         
         // Botao Procurar por matricula
         procurarPorMatricula = new JButton("Procurar por matricula");
         procurarPorMatricula.setActionCommand("procuraMatricula");
-        constraintsBTN.weightx = 0.5;
-        constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 2;
-        constraintsBTN.gridy = 2;
+        
+        gbc.gridx = 2;
+        gbc.gridy = 3;
         //constraintsBTN.ipadx = 20;
         //constraintsBTN.ipady = 20;
         
-        panelAcesso.add(procurarPorMatricula,constraintsBTN);
+        panelAcesso.add(procurarPorMatricula,gbc);
         //Botao Procurar por codigo de sala
         procurarPorCodigoSala = new JButton("Procurar por codigo de sala");
         procurarPorCodigoSala.setActionCommand("procuraCodigoSala");
-        constraintsBTN.weightx = 0.5;
-        constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 2;
-        constraintsBTN.gridy = 3;
+       
+        gbc.gridx = 3;
+        gbc.gridy = 3;
         //constraintsBTN.ipadx = 20;
         //constraintsBTN.ipady = 20;
         
-        panelAcesso.add(procurarPorCodigoSala,constraintsBTN);
+        panelAcesso.add(procurarPorCodigoSala,gbc);
         
 
         //Botao voltar
         voltar = new JButton("Voltar");
         voltar.setActionCommand("voltar");
-        constraintsBTN.weightx = 0.5;
-        constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 2;
-        constraintsBTN.gridy = 4;
+        
+        gbc.gridx = 4;
+        gbc.gridy = 3;
         //constraintsBTN.ipadx = 0;
         //constraintsBTN.ipady = 0;
         
-        panelAcesso.add(voltar,constraintsBTN);
+        panelAcesso.add(voltar,gbc);
         
         GerenciadorBotoes btManager = new GerenciadorBotoes();
         verTodaLista.addActionListener(btManager);
@@ -123,24 +120,24 @@ public class TelaSwingLogAcessos extends JFrame {
         
         
         
-        GridBagConstraints tableConstraints = new GridBagConstraints();
+        
         
         table = new JTable();
         JScrollPane scroll= new JScrollPane(table);
         scroll.setPreferredSize(new Dimension(650,200));
        
            
-        tableConstraints.fill = GridBagConstraints.CENTER;
-        tableConstraints.gridx =0;
-        tableConstraints.gridy = 0;
-        tableConstraints.gridheight = 4;
-        tableConstraints.gridwidth = 2;
+        gbc.gridx =0;
+        gbc.gridy = 0;
+        gbc.gridheight =2;
+        gbc.gridwidth = 8;
+        gbc.fill = GridBagConstraints.CENTER;
         table.setFillsViewportHeight(true);
         table.setPreferredScrollableViewportSize(new Dimension (650,200));
         
         
        
-        panelAcesso.add(scroll, tableConstraints);
+        panelAcesso.add(scroll, gbc);
         
         
     }

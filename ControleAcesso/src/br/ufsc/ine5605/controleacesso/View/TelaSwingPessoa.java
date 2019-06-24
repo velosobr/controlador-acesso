@@ -15,6 +15,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import static java.awt.GridBagConstraints.NORTHWEST;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
@@ -55,10 +56,14 @@ public class TelaSwingPessoa extends JFrame{
         JPanel panelPessoa = new JPanel (new GridBagLayout());
         
         GridBagConstraints constraintsPanel = new GridBagConstraints();
+        
+        
+        
+        
         constraintsPanel.anchor = GridBagConstraints.WEST;
-        constraintsPanel.insets = new Insets(10, 10, 10, 10);
+        constraintsPanel.insets = new Insets(5, 5, 5, 5);
         panelPessoa.setBackground(Color.WHITE);
-        setSize(1000, 500);
+        setSize(680, 300);
         
         panelPessoa.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Opcoes Pessoa"));
@@ -67,76 +72,77 @@ public class TelaSwingPessoa extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().add(panelPessoa);
         
-        GridBagConstraints constraintsBTN = new GridBagConstraints();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5,5,5,5);
         
-        //COMPONENTES TELASWINGPESSOA
-        // Label
+
+
+//COMPONENTES TELASWINGPESSOA
+// Label
         label = new JLabel();
         label.setText("Selecione uma das opções");
         
         
-        //Botao Cadastro
+//Botao Cadastro
         cadastro = new JButton("Cadastro");
         cadastro.setActionCommand("cadastro");
-        constraintsBTN.weightx = 0.5;
-        constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 2;
-        constraintsBTN.gridy = 0;
-        //constraintsBTN.ipadx = 20;
-        //constraintsBTN.ipady = 20;
         
-        panelPessoa.add(cadastro,constraintsBTN );
-        //Botao Editar
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        
+        
+        panelPessoa.add(cadastro,gbc );
+        
+//Botao Editar
         editar = new JButton("Editar");
         editar.setActionCommand("editar");
-        constraintsBTN.weightx = 0.5;
-        constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 2;
-        constraintsBTN.gridy = 1;
-        //constraintsBTN.ipadx = 20;
-        //constraintsBTN.ipady = 20;
         
-        panelPessoa.add(editar,constraintsBTN);
-        // Botao Remover
+        gbc.gridx = 2;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        
+        
+        panelPessoa.add(editar,gbc);
+
+
+// Botao Remover
         remover = new JButton("Remover");
         remover.setActionCommand("remover");
-        constraintsBTN.weightx = 0.5;
-        constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 2;
-        constraintsBTN.gridy = 2;
-        //constraintsBTN.ipadx = 20;
-        //constraintsBTN.ipady = 20;
         
-        panelPessoa.add(remover,constraintsBTN);
-        //Botao opcoesPermissoes
-        opcoesPermissao = new JButton("Opcoes de permissao");
-        opcoesPermissao.setActionCommand("opcoesPermissao");
-        constraintsBTN.weightx = 0.5;
-        constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 2;
-        constraintsBTN.gridy = 3;
-        //constraintsBTN.ipadx = 20;
-        //constraintsBTN.ipady = 20;
-        
-        panelPessoa.add(opcoesPermissao,constraintsBTN);
-        
-
-        //Botao voltar
-        voltar = new JButton("Voltar");
-        voltar.setActionCommand("voltar");
-        constraintsBTN.weightx = 0.5;
-        constraintsBTN.insets = new Insets(10, 0, 0, 0);
-        constraintsBTN.gridx = 2;
-        constraintsBTN.gridy = 4;
-        //constraintsBTN.ipadx = 0;
-        //constraintsBTN.ipady = 0;
-        
-        panelPessoa.add(voltar,constraintsBTN);
+        gbc.gridx = 3;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
        
         
+        panelPessoa.add(remover,gbc);
+        
+//Botao opcoesPermissoes
+        opcoesPermissao = new JButton("Opcoes de permissao");
+        opcoesPermissao.setActionCommand("opcoesPermissao");
+        
+        gbc.gridx = 4;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
         
         
+        panelPessoa.add(opcoesPermissao,gbc);
         
+
+//Botao voltar
+        voltar = new JButton("Voltar");
+        voltar.setActionCommand("voltar");
+        
+        gbc.gridx = 5;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        
+        
+        panelPessoa.add(voltar,gbc);
+        
+        
+//Gerenciador de botões
         GerenciadorBotoes btManager = new GerenciadorBotoes();
         cadastro.addActionListener(btManager);
         editar.addActionListener(btManager);
@@ -146,24 +152,26 @@ public class TelaSwingPessoa extends JFrame{
         
         
         
-        GridBagConstraints tableConstraints = new GridBagConstraints();
         
+// CONFIGURACOES TABELA
         table = new JTable();
         JScrollPane scroll= new JScrollPane(table);
         scroll.setPreferredSize(new Dimension(650,200));
        
            
-        tableConstraints.fill = GridBagConstraints.CENTER;
-        tableConstraints.gridx =0;
-        tableConstraints.gridy = 0;
-        tableConstraints.gridheight = 4;
-        tableConstraints.gridwidth = 2;
+        
+        gbc.gridx =0;
+        gbc.gridy = 0;
+        gbc.gridheight =2;
+        gbc.gridwidth = 8;
+        gbc.fill = GridBagConstraints.CENTER;
+        
         table.setFillsViewportHeight(true);
         table.setPreferredScrollableViewportSize(new Dimension (650,200));
         
         
        
-        panelPessoa.add(scroll, tableConstraints);
+        panelPessoa.add(scroll, gbc);
         
         updateTable();
     }
@@ -228,7 +236,7 @@ public class TelaSwingPessoa extends JFrame{
                     
                 }
             }catch (Exception ex){
-               JOptionPane.showMessageDialog(null, "Opcao Invalida! Escolha uma opcao dentre das opcoes na lista .");
+               JOptionPane.showMessageDialog(null, "Opcao Invalida! Escolha uma opcao dentre das opcoes na lista.");
                 TelaSwingPessoa.getInstancia().setVisible(true);
             }
             
@@ -302,13 +310,14 @@ public class TelaSwingPessoa extends JFrame{
     }
 
     private void opcoesPermissao() {
-            int linhaSelecionada = table.getSelectedRow();
+            Integer linhaSelecionada = table.getSelectedRow();
             if(linhaSelecionada>=0){
                 int matricula = (int) table.getValueAt(linhaSelecionada, 0);
                 getCtrlPrincipal().getCtrlPessoa().abreTelaGestaoPermissaoPessoa(matricula);
             }else{
             JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
-            }    
+            } 
+            
         }    
     
 
