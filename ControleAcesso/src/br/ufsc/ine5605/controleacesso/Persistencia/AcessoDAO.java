@@ -25,10 +25,11 @@ import java.util.HashMap;
 public class AcessoDAO {
     private static AcessoDAO instancia;
     private HashMap <Integer, Acesso> cacheAcessos;
-    private final String fileName = "acessos.dat";
+    private final String fileName;
 
     private AcessoDAO(){
         cacheAcessos = new HashMap<>();
+        fileName  = "acessos.dat";
         this.load();
     }
     
@@ -44,7 +45,13 @@ public class AcessoDAO {
     }
       
     public Acesso getAcesso (String codigoSala){
-        return cacheAcessos.get(codigoSala);
+        
+        for(Acesso acesso: AcessoDAO.getInstancia().getList()){
+            if(acesso.getSala().getCodigoSala().equals(codigoSala)){
+                return acesso;
+            }
+        }
+        return null;
     }
     
     public void put(Acesso acesso){

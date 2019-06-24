@@ -44,9 +44,7 @@ public class CtrlAcesso implements ICtrlAcesso {
         return instancia;
     }
     
-    /**
-     * @return the telaAcesso
-     */
+    
    
 
     
@@ -62,9 +60,9 @@ public class CtrlAcesso implements ICtrlAcesso {
         if(salaParaTestarAcesso == null){
             throw new IllegalArgumentException("Sala não encontrada");
         }
-        ArrayList<Pessoa> pessoasCadastradasNaSala = salaParaTestarAcesso.getPessoasCadastradas();
-        for (Pessoa pessoaCadastrada : pessoasCadastradasNaSala) {
-            if (pessoaCadastrada.equals(pessoaParaTestarAcesso)) {
+        ArrayList<Sala> salaCadastradasNaPessoa = pessoaParaTestarAcesso.getSalasCadastradas();
+        for (Sala salaCadastrada : salaCadastradasNaPessoa) {
+            if (salaCadastrada.equals(salaParaTestarAcesso)) {
                 AcessoDAO.getInstancia().put(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, Permitido.getDescricao()));
                 return true;   
             }
@@ -76,6 +74,9 @@ public class CtrlAcesso implements ICtrlAcesso {
     
     @Override
     public ArrayList <Acesso> geraListaByMatricula(int matricula)throws IllegalArgumentException {
+        
+        
+        
         Pessoa pessoa = CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoabyMatricula(matricula);
         if(pessoa == null){
             throw new IllegalArgumentException("Matricula invalida");

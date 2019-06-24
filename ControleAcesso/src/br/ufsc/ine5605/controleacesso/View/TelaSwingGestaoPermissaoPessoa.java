@@ -65,46 +65,42 @@ public TelaSwingGestaoPermissaoPessoa(int matricula){
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5,5,5,5);
         
-        //COMPONENTES TELASWINGPESSOA
-        // Label
+//COMPONENTES TELASWINGPESSOA
+// Label
         label = new JLabel();
         label.setText("Selecione uma das opções");
         
         
-        //Permitir Acesso a Sala
+//Permitir Acesso a Sala
         permitirAcesso = new JButton("Permitir Acesso");
         permitirAcesso.setActionCommand("permitirAcesso");
         gbc.gridx = 1;
         gbc.gridy = 3;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        //constraintsBTN.ipadx = 20;
-        //constraintsBTN.ipady = 20;
+        
         panelPermissaoPessoa.add(permitirAcesso,gbc );
         
         
-        //Botao Remover
+//Botao Remover
         removerAcesso = new JButton("Remover Acesso");
         removerAcesso.setActionCommand("removerAcesso");
         gbc.gridx = 2;
         gbc.gridy = 3;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        //constraintsBTN.ipadx = 20;
-        //constraintsBTN.ipady = 20;
         
         panelPermissaoPessoa.add(removerAcesso,gbc);
         
 
-        //Botao voltar
+//Botao voltar
         voltar = new JButton("Voltar");
         voltar.setActionCommand("voltar");
         gbc.gridx = 3;
         gbc.gridy = 3;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        //constraintsBTN.ipadx = 0;
-        //constraintsBTN.ipady = 0;
+        
         
         panelPermissaoPessoa.add(voltar,gbc);
        
@@ -121,7 +117,7 @@ public TelaSwingGestaoPermissaoPessoa(int matricula){
         
         
        
-        
+//CONFIGURACOES TABELA       
         table = new JTable();
         JScrollPane scroll= new JScrollPane(table);
         scroll.setPreferredSize(new Dimension(650,200));
@@ -152,7 +148,7 @@ public TelaSwingGestaoPermissaoPessoa(int matricula){
         modelo.addColumn("Campus");
         
         ArrayList <Sala> listaSalasCadastradas = PessoaDAO.getInstancia().getPessoa(matriculaPessoa).getSalasCadastradas();
-        if(listaSalasCadastradas.equals(null)){
+        if(listaSalasCadastradas == null){
             modelo.addRow(new Object [] {"Sem sala cadastrada", "N/A", "N/A", "N/A","N/A"});
         }else{
             for(Sala sala: listaSalasCadastradas){
