@@ -234,8 +234,8 @@ public class TelaSwingLogAcessos extends JFrame {
         }
      private void procuraPorCodigoSala() {
            String codigoSala = validador.recebeValorString("Digite o codigo de sala: ");
-           //updateTable(codigoSala);
-           JOptionPane.showMessageDialog(null, codigoSala);
+           updateTable(codigoSala);
+           
         }
     
      public static TelaSwingLogAcessos getInstancia() {
