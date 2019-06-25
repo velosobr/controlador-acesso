@@ -113,8 +113,8 @@ public class CtrlPessoa implements ICtrlPessoa {
 
     @Override
     public boolean cadastraSalaNaPessoa(int matricula, String codigoSala) throws IllegalArgumentException {
-        Sala salaParaCadastrar = CtrlSala.getInstancia().findSalaByCodigoSala(codigoSala);
-        Pessoa pessoaCadastro = findPessoabyMatricula(matricula);
+        Sala salaParaCadastrar = SalaDAO.getInstancia().getSala(codigoSala);
+        Pessoa pessoaCadastro = PessoaDAO.getInstancia().getPessoa(matricula);
         if (pessoaCadastro == null) {
             throw new IllegalArgumentException("Matricula invalida");
         }

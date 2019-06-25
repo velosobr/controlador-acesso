@@ -47,6 +47,12 @@ public class SalaDAO {
         persist();
     }
 
+    public void setSala(String codigoSala, Sala sala) {
+        cacheSala.replace(codigoSala, sala);
+        persist();
+
+    }
+
     public void load() {
         try {
             FileInputStream fis = new FileInputStream(fileName);

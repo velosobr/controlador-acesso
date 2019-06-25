@@ -226,24 +226,18 @@ public class TelaSwingSala extends JFrame {
         return CtrlPrincipal.getInstancia();
     }
 
-    private void removeSala() {
-        System.out.println("---");
-        System.out.println("Informacoes para exclusao de Sala");
-        System.out.println("---");
-        String codigoSala = validador.recebeValorString("Digite o codigo da sala");
-        if (CtrlSala.getInstancia().delSala(codigoSala)) {
-            System.out.println("Sala deletada!");
+    private boolean removeSala() {
+        int linhaSelecionada = table.getSelectedRow();
+        if (linhaSelecionada >= 0) {
+            String codigoSala = (String) table.getValueAt(linhaSelecionada, 0);
+            return CtrlSala.getInstancia().delSala(codigoSala);
         } else {
-            System.out.println("Nao foi realizado a exclusao, codigo de sala invalido!");
+            JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
         }
+        return false;
     }
 
     private void cadastraSala() {
-        System.out.println("---");
-
-        System.out.println("Informacoes de cadastro da sala");
-        System.out.println("---");
-
         String codigoSala = validador.recebeValorString("Digite o codigo da sala");
         int numero = validador.recebeValorInteiro("Digite o numero da sala");
         char bloco = validador.recebeValorChar("Digite bloco da sala");
@@ -258,21 +252,13 @@ public class TelaSwingSala extends JFrame {
     }
 
     private void editaSala() {
-        System.out.println("---");
-        System.out.println("Informacoes de cadastro da sala");
-        System.out.println("---");
-        String codigoSala
-                = validador.recebeValorString("Digite o codigo da sala");
-        int numero
-                = validador.recebeValorInteiro("Digite o numero da sala");
-        char bloco
-                = validador.recebeValorChar("Digite bloco da sala");
-        String centro
-                = validador.recebeValorString("Digite o centro da sala");
-        String campus
-                = validador.recebeValorString("Digite o campus que a sala fica localizada");
-        CtrlSala.getInstancia().alteradorDeCadastroSala(codigoSala, numero, bloco,
-                centro, campus);
+
+        String codigoSala = validador.recebeValorString("Digite o codigo da sala");
+        int numero = validador.recebeValorInteiro("Digite o numero da sala");
+        char bloco = validador.recebeValorChar("Digite bloco da sala");
+        String centro = validador.recebeValorString("Digite o centro da sala");
+        String campus = validador.recebeValorString("Digite o campus que a sala fica localizada");
+        CtrlSala.getInstancia().alteradorDeCadastroSala(codigoSala, numero, bloco, centro, campus);
         System.out.println("Cadastro de sala alterado!");
     }
 
@@ -290,10 +276,8 @@ public class TelaSwingSala extends JFrame {
         System.out.println("---");
         System.out.println("Informacoes para exclusao de acesso da pessoa na sala");
         System.out.println("---");
-        int matricula
-                = validador.recebeValorInteiro("Digite a matricula");
-        String codigoSala
-                = validador.recebeValorString("Digite o codigo da sala");
+        int matricula = validador.recebeValorInteiro("Digite a matricula");
+        String codigoSala = validador.recebeValorString("Digite o codigo da sala");
         CtrlSala.getInstancia().deletaPessoaNaSala(matricula, codigoSala);
         System.out.println("Exclusao feita com sucesso");
     }

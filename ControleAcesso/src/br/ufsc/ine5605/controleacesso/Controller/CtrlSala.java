@@ -35,6 +35,7 @@ public class CtrlSala implements ICtrlSala {
     public TelaSwingSala getTelaSwingSala() {
         return TelaSwingSala.GetInstancia();
     }
+
     public void abreTelaSwingSala() {
         TelaSwingSala.GetInstancia().setVisible(true);
     }
@@ -46,7 +47,7 @@ public class CtrlSala implements ICtrlSala {
 
     @Override
     public boolean addSala(String codigoSala, int numero, char bloco, String centro, String campus) throws IllegalArgumentException {
-        Sala salaParaVerificar = findSalaByCodigoSala(codigoSala);
+        Sala salaParaVerificar =  SalaDAO.getInstancia().getSala(codigoSala);
         Sala salaParaIncluir = null;
         if (codigoSala.equals("")) {
             throw new IllegalArgumentException("Codigo de sala invalido, cadastro nao realizado!");
@@ -72,7 +73,7 @@ public class CtrlSala implements ICtrlSala {
 
     @Override
     public boolean alteradorDeCadastroSala(String codigoSala, int numero, char bloco, String centro, String campus) throws IllegalArgumentException {
-        Sala salaParaAlterar = findSalaByCodigoSala(codigoSala);
+        Sala salaParaAlterar = SalaDAO.getInstancia().getSala(codigoSala);
         if (salaParaAlterar == null) {
             throw new IllegalArgumentException("Codigo de sala invalido, alteracao cadastral nao realizada!");
         }
@@ -80,13 +81,16 @@ public class CtrlSala implements ICtrlSala {
         salaParaAlterar.setBloco(bloco);
         salaParaAlterar.setCentro(centro);
         salaParaAlterar.setCampus(campus);
+        
+        SalaDAO.getInstancia().setSala(codigoSala, salaParaAlterar);
+        
         return true;
     }
 
     @Override
     public boolean cadastraPessoaNaSala(int matricula, String codigoSala) throws IllegalArgumentException {
         Pessoa pessoaParaCadastrar = PessoaDAO.getInstancia().getPessoa(matricula);
-        Sala salaParaCadastrar = findSalaByCodigoSala(codigoSala);
+        Sala salaParaCadastrar = SalaDAO.getInstancia().getSala(codigoSala);
         if (pessoaParaCadastrar == null) {
             throw new IllegalArgumentException("Matricula invalida");
         }
@@ -97,6 +101,8 @@ public class CtrlSala implements ICtrlSala {
         if (!salaParaCadastrar.getPessoasCadastradas().contains(pessoaParaCadastrar)) {
             pessoaParaCadastrar.addSala(salaParaCadastrar);
             salaParaCadastrar.addPessoa(pessoaParaCadastrar);
+            SalaDAO.getInstancia().persist();
+            PessoaDAO.getInstancia().persist();
             return true;
         } else {
             throw new IllegalArgumentException("A pessoa ja esta adicionada na sala. Tente novamente.");
@@ -107,7 +113,7 @@ public class CtrlSala implements ICtrlSala {
     @Override
     public boolean deletaPessoaNaSala(int matricula, String codigoSala) throws IllegalArgumentException {
         Pessoa pessoaParaDeletar = PessoaDAO.getInstancia().getPessoa(matricula);
-        Sala salaParaDeletar = findSalaByCodigoSala(codigoSala);
+        Sala salaParaDeletar = SalaDAO.getInstancia().getSala(codigoSala);
         if (pessoaParaDeletar == null) {
             throw new IllegalArgumentException("Matricula invalida");
         }

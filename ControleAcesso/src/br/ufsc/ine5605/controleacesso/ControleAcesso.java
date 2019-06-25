@@ -32,11 +32,11 @@ public class ControleAcesso {
         controle.getCtrlPessoa().incluiServidor(4, "duda", 84841111, "duda@gmail.com", "aux de limpeza", false);
         
         //SALAS
-        controle.getCtrlSala().addSala("1", 101, 'a', "ine", "fln");
-        controle.getCtrlSala().addSala("2", 102, 'a', "ine", "fln");
-        controle.getCtrlSala().addSala("3", 103, 'a', "ine", "fln");
-        controle.getCtrlSala().addSala("4", 101, 'b', "ine", "fln");
-        
+//        controle.getCtrlSala().addSala("1", 101, 'a', "ine", "fln");
+//        controle.getCtrlSala().addSala("2", 102, 'a', "ine", "fln");
+//        controle.getCtrlSala().addSala("3", 103, 'a', "ine", "fln");
+//        controle.getCtrlSala().addSala("4", 101, 'b', "ine", "fln");
+//        
         controle.abreTelaInicial();
     }
 

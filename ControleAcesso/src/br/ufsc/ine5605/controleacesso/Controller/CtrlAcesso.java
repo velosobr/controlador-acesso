@@ -12,6 +12,7 @@ import static br.ufsc.ine5605.controleacesso.Model.SituacaoAcesso.NaoPermitido;
 import static br.ufsc.ine5605.controleacesso.Model.SituacaoAcesso.Permitido;
 import br.ufsc.ine5605.controleacesso.Persistencia.AcessoDAO;
 import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
+import br.ufsc.ine5605.controleacesso.Persistencia.SalaDAO;
 import br.ufsc.ine5605.controleacesso.View.TelaSwingLogAcessos;
 
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlAcesso;
@@ -50,8 +51,8 @@ public class CtrlAcesso implements ICtrlAcesso {
     
     @Override
     public boolean ehLiberadoAcesso(int matricula, String codigoSala) throws IllegalArgumentException{
-        Pessoa pessoaParaTestarAcesso = CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoabyMatricula(matricula);
-        Sala salaParaTestarAcesso = CtrlPrincipal.getInstancia().getCtrlSala().findSalaByCodigoSala(codigoSala);
+        Pessoa pessoaParaTestarAcesso = PessoaDAO.getInstancia().getPessoa(matricula);
+        Sala salaParaTestarAcesso = SalaDAO.getInstancia().getSala(codigoSala);
         
        
         if (pessoaParaTestarAcesso == null){
@@ -61,15 +62,16 @@ public class CtrlAcesso implements ICtrlAcesso {
             throw new IllegalArgumentException("Sala não encontrada");
         }
         ArrayList<Sala> salaCadastradasNaPessoa = pessoaParaTestarAcesso.getSalasCadastradas();
+        System.out.println(salaCadastradasNaPessoa);
         for (Sala salaCadastrada : salaCadastradasNaPessoa) {
             if (salaCadastrada.equals(salaParaTestarAcesso)) {
+                System.out.println("Entrou no if do eh liberado");
                 AcessoDAO.getInstancia().put(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, Permitido.getDescricao()));
-                AcessoDAO.getInstancia().persist();
                 return true;   
             }
         }
+        System.out.println("passando aqui para negar acesso");
         AcessoDAO.getInstancia().put(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, NaoPermitido.getDescricao()));
-        AcessoDAO.getInstancia().persist();
         return false;
     }
 
