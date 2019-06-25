@@ -64,10 +64,12 @@ public class CtrlAcesso implements ICtrlAcesso {
         for (Sala salaCadastrada : salaCadastradasNaPessoa) {
             if (salaCadastrada.equals(salaParaTestarAcesso)) {
                 AcessoDAO.getInstancia().put(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, Permitido.getDescricao()));
+                AcessoDAO.getInstancia().persist();
                 return true;   
             }
         }
         AcessoDAO.getInstancia().put(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, NaoPermitido.getDescricao()));
+        AcessoDAO.getInstancia().persist();
         return false;
     }
 

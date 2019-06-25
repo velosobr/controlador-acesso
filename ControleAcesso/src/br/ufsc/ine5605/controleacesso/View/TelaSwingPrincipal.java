@@ -6,6 +6,7 @@
 package br.ufsc.ine5605.controleacesso.View;
 
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
+import br.ufsc.ine5605.controleacesso.Exceptions.CodigoSalaInexistenteException;
 import br.ufsc.ine5605.controleacesso.Model.Servidor;
 import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
 import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
@@ -117,7 +118,7 @@ public class TelaSwingPrincipal extends JFrame {
                             JOptionPane.showMessageDialog(null, "Você não possui acesso");
                         }
                     }
-                } catch (IllegalArgumentException e) {
+                } catch (CodigoSalaInexistenteException e) {
                     System.out.println("Foi enviardo para o gerenciador de botoes um valor null para o codigo sala"); // just for log on console
                 }
 

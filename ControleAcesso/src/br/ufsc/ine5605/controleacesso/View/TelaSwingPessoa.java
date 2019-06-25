@@ -225,23 +225,27 @@ public class TelaSwingPessoa extends JFrame {
 
     private void cadastraPessoa() {
 
-        String[] opcoes = {"Aluno", "Servidor"};
-        int teste = JOptionPane.showOptionDialog(null, "Escolha um tipo de pessoa", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
-        if (teste == 0) {
-            int matricula = validador.recebeValorInteiro("Digite a matricula: ");
-            String nome = validador.recebeValorString("Digite o nome: ");
-            long telefone = validador.recebeValorLong("Digite o telefone: ");
-            String email = validador.recebeValorString("Digite o email: ");
-            String curso = validador.recebeValorString("Digite o curso: ");
-            getCtrlPrincipal().getCtrlPessoa().incluiAluno(matricula, nome, telefone, email, curso);
-        } else {
-            int matricula = validador.recebeValorInteiro("Digite a matricula: ");
-            String nome = validador.recebeValorString("Digite o nome: ");
-            long telefone = validador.recebeValorLong("Digite o telefone: ");
-            String email = validador.recebeValorString("Digite o email: ");
-            String cargo = validador.recebeValorString("Digite o cargo: ");
-            boolean administrador = validador.recebeValorBoolean();
-            getCtrlPrincipal().getCtrlPessoa().incluiServidor(matricula, nome, telefone, email, cargo, administrador);
+            
+            String[] opcoes = {"Aluno", "Servidor"};
+            int teste = JOptionPane.showOptionDialog(null, "Escolha um tipo de pessoa", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+            if(teste == 0){
+                int matricula = validador.recebeValorInteiro("Digite a matricula: ");
+                String nome = validador.recebeValorString("Digite o nome: ");
+                long telefone = validador.recebeValorLong("Digite o telefone: ");
+                String email = validador.recebeValorString("Digite o email: ");
+                String curso = validador.recebeValorString("Digite o curso: ");
+                getCtrlPrincipal().getCtrlPessoa().incluiAluno(matricula, nome, telefone, email, curso);
+            }else{
+                int matricula = validador.recebeValorInteiro("Digite a matricula: ");
+                String nome = validador.recebeValorString("Digite o nome: ");
+                long telefone = validador.recebeValorLong("Digite o telefone: ");
+                String email = validador.recebeValorString("Digite o email: ");
+                //String cargo = JOptionPane.showInputDialog(rootPane, teste, nome, teste, icon, opcoes, telefone)
+                String cargo = validador.recebeValorString("Digite o cargo: ");
+                boolean administrador = validador.recebeValorBoolean();
+                getCtrlPrincipal().getCtrlPessoa().incluiServidor(matricula, nome, telefone, email, cargo, administrador);
+
+
         }
     }
 
