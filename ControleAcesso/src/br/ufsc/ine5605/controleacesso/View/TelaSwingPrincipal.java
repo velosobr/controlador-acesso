@@ -10,7 +10,6 @@ import br.ufsc.ine5605.controleacesso.Exceptions.CodigoSalaInexistenteException;
 import br.ufsc.ine5605.controleacesso.Model.Servidor;
 import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
 import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
-import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

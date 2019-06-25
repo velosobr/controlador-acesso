@@ -21,17 +21,23 @@ public class ValidaERetorna {
         while (valor == "vazio") {
             try {
                 String v = JOptionPane.showInputDialog(null, mensagem);
-                if (v.length() == 0) {
-                    //   JOptionPane.showMessageDialog(null, "Você precisa informar um valor inteiro");
-                    JOptionPane.showMessageDialog(null, "STRING: Você precisa digitar um valor válido, tente novamente");
-                    System.out.println("Entrou no IF");
-
+                if (v == null) {
+                    System.out.println("Erro");
+                    break;
                 } else {
-                    System.out.println("entrou no else");
-                    valor = v;
+
+                    if (v.length() == 0) {
+                        //   JOptionPane.showMessageDialog(null, "Você precisa informar um valor inteiro");
+                        JOptionPane.showMessageDialog(null, "STRING: Você precisa digitar um valor válido, tente novamente");
+                        System.out.println("Entrou no IF");
+
+                    } else {
+                        System.out.println("entrou no else");
+                        valor = v;
+                    }
                 }
 
-            } catch (NullPointerException npe) {
+            } catch (Exception npe) {
                 System.err.println("Causa npe: " + npe.getCause());
                 System.err.println("mensagem npe: " + npe.getMessage());
                 break;
