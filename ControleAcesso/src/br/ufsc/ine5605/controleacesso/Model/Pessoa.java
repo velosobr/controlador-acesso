@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Caio Noguerol
  */
-public abstract class Pessoa implements Serializable{
+public abstract class Pessoa implements Serializable {
 
     private ArrayList<Sala> salasCadastradas;
     private int matricula;
@@ -39,7 +39,7 @@ public abstract class Pessoa implements Serializable{
      * @param matricula the matricula to set
      */
     public void setMatricula(int matricula) {
-        this.matricula = matricula;               
+        this.matricula = matricula;
     }
 
     /**
@@ -53,7 +53,7 @@ public abstract class Pessoa implements Serializable{
      * @param nome the nome to set
      */
     public void setNome(String nome) {
-        if(nome!=null){
+        if (nome != null) {
             this.nome = nome;
         }
     }
@@ -83,25 +83,29 @@ public abstract class Pessoa implements Serializable{
      * @param email the email to set
      */
     public void setEmail(String email) {
-        if(email!=null){
+        if (email != null) {
             this.email = email;
         }
     }
 
     public void addSala(Sala sala) {
-        if(sala!=null){
+        if (sala != null) {
             salasCadastradas.add(sala);
         }
     }
 
     public void delSala(Sala sala) {
-        if(sala!=null){
+        if (sala != null) {
             salasCadastradas.remove(sala);
         }
     }
 
     public ArrayList<Sala> getSalasCadastradas() {
         return salasCadastradas;
+    }
+
+    public void setSalasCadastradas(ArrayList<Sala> salasCadastradas) {
+        this.salasCadastradas = salasCadastradas;
     }
 
 }

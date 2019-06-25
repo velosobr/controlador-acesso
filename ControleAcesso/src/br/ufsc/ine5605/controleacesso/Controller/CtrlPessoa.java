@@ -125,6 +125,8 @@ public class CtrlPessoa implements ICtrlPessoa {
         if (!pessoaCadastro.getSalasCadastradas().contains(salaParaCadastrar)) {
             pessoaCadastro.addSala(salaParaCadastrar);
             salaParaCadastrar.addPessoa(pessoaCadastro);
+            PessoaDAO.getInstancia().persist();
+            SalaDAO.getInstancia().persist();
             return true;
         } else {
             throw new IllegalArgumentException("A Sala ja esta adicionada na pessoa");
@@ -133,7 +135,7 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
 
     @Override
-    public boolean delSalaNaPessoa(int matricula, String codigoSala) throws IllegalArgumentException {
+    public void delSalaNaPessoa(int matricula, String codigoSala) throws IllegalArgumentException {
         Sala salaParaDeletar = CtrlPrincipal.getInstancia().getCtrlSala().findSalaByCodigoSala(codigoSala);
         Pessoa pessoaCadastro = findPessoabyMatricula(matricula);
         if (pessoaCadastro == null) {
@@ -147,7 +149,9 @@ public class CtrlPessoa implements ICtrlPessoa {
 
             pessoaCadastro.delSala(salaParaDeletar);
             salaParaDeletar.delPessoa(pessoaCadastro);
-            return true;
+            PessoaDAO.getInstancia().persist();
+            SalaDAO.getInstancia().persist();
+            
         } else {
             throw new IllegalArgumentException("A sala nao consta na lista de salas da pessoa. Tente novamente.");
         }

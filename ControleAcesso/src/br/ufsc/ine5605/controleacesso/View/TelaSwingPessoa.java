@@ -266,6 +266,7 @@ public class TelaSwingPessoa extends JFrame{
                 String nome = validador.recebeValorString("Digite o nome: ");
                 long telefone = validador.recebeValorLong("Digite o telefone: ");
                 String email = validador.recebeValorString("Digite o email: ");
+                //String cargo = JOptionPane.showInputDialog(rootPane, teste, nome, teste, icon, opcoes, telefone)
                 String cargo = validador.recebeValorString("Digite o cargo: ");
                 boolean administrador = validador.recebeValorBoolean();
                 getCtrlPrincipal().getCtrlPessoa().incluiServidor(matricula, nome, telefone, email, cargo, administrador);

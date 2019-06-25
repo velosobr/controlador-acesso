@@ -74,7 +74,7 @@ public interface ICtrlPessoa {
      * do aluno e deleta a sala da lista.
      * @return
      */
-    public boolean delSalaNaPessoa(int matricula, String codigoSala);
+    public void delSalaNaPessoa(int matricula, String codigoSala);
 
     
 

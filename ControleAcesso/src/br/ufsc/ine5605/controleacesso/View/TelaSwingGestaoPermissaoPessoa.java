@@ -200,9 +200,15 @@ public TelaSwingGestaoPermissaoPessoa(int matricula){
         }
     
      private void removerAcesso() {
-            int linhaSelecionada = table.getSelectedRow();
-             String codigoSala = (String) table.getValueAt(linhaSelecionada, 0);
-             CtrlPessoa.getInstancia().delSalaNaPessoa(matriculaPessoa, codigoSala);
+            Integer linhaSelecionada = table.getSelectedRow();
+            if(linhaSelecionada>=0){
+                String codigoSala = (String) table.getValueAt(linhaSelecionada, 0);
+                CtrlPessoa.getInstancia().delSalaNaPessoa(matriculaPessoa, codigoSala);
+                
+            }else{
+                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+            } 
+            
         }
 }
 

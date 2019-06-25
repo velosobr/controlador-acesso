@@ -86,7 +86,7 @@ public class AcessoDAO {
         }
     }
 
-    private void persist() {
+    public void persist() {
         try{
             FileOutputStream fos = new FileOutputStream(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(fos);

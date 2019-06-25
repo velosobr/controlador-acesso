@@ -7,6 +7,7 @@ package br.ufsc.ine5605.controleacesso.Model;
 
 
 import br.ufsc.ine5605.controleacesso.Persistencia.AcessoDAO;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -15,7 +16,7 @@ import java.util.Random;
  *
  * @author Linnety3
  */
-public class Acesso {
+public class Acesso implements Serializable {
     private Integer id;
     private Pessoa pessoa;
     private Sala sala;
