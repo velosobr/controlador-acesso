@@ -115,46 +115,68 @@ public class CtrlPessoa implements ICtrlPessoa {
     public boolean cadastraSalaNaPessoa(int matricula, String codigoSala) throws IllegalArgumentException {
         Sala salaParaCadastrar = SalaDAO.getInstancia().getSala(codigoSala);
         Pessoa pessoaCadastro = PessoaDAO.getInstancia().getPessoa(matricula);
+        ArrayList <Sala> salasCadastradas = pessoaCadastro.getSalasCadastradas();
         if (pessoaCadastro == null) {
             throw new IllegalArgumentException("Matricula invalida");
         }
         if (salaParaCadastrar == null) {
             throw new IllegalArgumentException("Codigo de sala invalido");
         }
-
-        if (!pessoaCadastro.getSalasCadastradas().contains(salaParaCadastrar)) {
+        
+        Sala salaJahCadastrada = null;
+        for(Sala sala: salasCadastradas){
+            if(sala.getCodigoSala().equals(salaParaCadastrar.getCodigoSala())){
+                salaJahCadastrada = sala;
+            }
+        }        
+        
+        if (salaJahCadastrada != null){
+            throw new IllegalArgumentException("A Sala ja esta adicionada na pessoa");
+       
+        }else{
+                
             pessoaCadastro.addSala(salaParaCadastrar);
             salaParaCadastrar.addPessoa(pessoaCadastro);
             PessoaDAO.getInstancia().persist();
             SalaDAO.getInstancia().persist();
-            return true;
-        } else {
-            throw new IllegalArgumentException("A Sala ja esta adicionada na pessoa");
+            return true;         
         }
 
     }
 
     @Override
     public void delSalaNaPessoa(int matricula, String codigoSala) throws IllegalArgumentException {
+        
         Sala salaParaDeletar = CtrlPrincipal.getInstancia().getCtrlSala().findSalaByCodigoSala(codigoSala);
-        Pessoa pessoaCadastro = findPessoabyMatricula(matricula);
+        Pessoa pessoaCadastro = findPessoabyMatricula(matricula);      
+        ArrayList <Sala> salasCadastradas = pessoaCadastro.getSalasCadastradas();
+        
         if (pessoaCadastro == null) {
             throw new IllegalArgumentException("Matricula invalida");
         }
         if (salaParaDeletar == null) {
             throw new IllegalArgumentException("Codigo de sala invalido");
         }
-
-        if (pessoaCadastro.getSalasCadastradas().contains(salaParaDeletar)) {
-
-            pessoaCadastro.delSala(salaParaDeletar);
+        
+        Sala salaJahCadastrada = null;
+        
+        for(Sala sala: salasCadastradas){
+            ;
+            if(sala.getCodigoSala().equals(salaParaDeletar.getCodigoSala()))
+                salaJahCadastrada = sala;
+            
+        }
+        
+            pessoaCadastro.delSala(salaJahCadastrada);
             salaParaDeletar.delPessoa(pessoaCadastro);
             PessoaDAO.getInstancia().persist();
             SalaDAO.getInstancia().persist();
             
-        } else {
+        if (salaJahCadastrada == null) {
             throw new IllegalArgumentException("A sala nao consta na lista de salas da pessoa. Tente novamente.");
-        }
+            
+            
+        } 
 
     }
 

@@ -184,7 +184,9 @@ public class TelaSwingGestaoPermissaoPessoa extends JFrame {
     private void removerAcesso() {
         Integer linhaSelecionada = table.getSelectedRow();
         if (linhaSelecionada >= 0) {
+            
             String codigoSala = (String) table.getValueAt(linhaSelecionada, 0);
+            
             CtrlPessoa.getInstancia().delSalaNaPessoa(matriculaPessoa, codigoSala);
 
         } else {

@@ -110,6 +110,7 @@ public class CtrlAcesso implements ICtrlAcesso {
             throw new IllegalArgumentException("Codigo de sala invalido");
         }
         ArrayList <Acesso> listaAcessos = new ArrayList();
+        listaAcessos = AcessoDAO.getInstancia().getList();
         for (Acesso acesso : listaAcessos) {
             if (acesso.getSala().getCodigoSala().equals(sala.getCodigoSala())) {
                 listaAcessos.add(acesso);
