@@ -54,7 +54,7 @@ public class CtrlPessoa implements ICtrlPessoa {
         Pessoa alunoParaVerificar = findPessoabyMatricula(matricula);
         if (alunoParaVerificar == null) {
             Aluno alunoParaIncluir = new Aluno(matricula, nome, telefone, email, curso);
-            PessoaDAO.getInstancia().put(alunoParaIncluir);
+            PessoaDAO.getInstancia().putAluno(alunoParaIncluir);
             return true;
         }
         return false;
@@ -65,7 +65,7 @@ public class CtrlPessoa implements ICtrlPessoa {
         Pessoa servidorParaVerificar = findPessoabyMatricula(matricula);
         if (servidorParaVerificar == null) {
             Servidor servidorParaIncluir = new Servidor(matricula, nome, telefone, email, cargo, administrador);
-            PessoaDAO.getInstancia().put(servidorParaIncluir);
+            PessoaDAO.getInstancia().putServidor(servidorParaIncluir);
             return true;
         }
         return false;

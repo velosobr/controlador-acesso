@@ -27,32 +27,43 @@ import java.util.logging.Logger;
 public class PessoaDAO  {
     private static PessoaDAO instancia;
     private HashMap <Integer, Pessoa> cachePessoas;
-    private final String fileName = "pessoas.dat";
-   
-    private  PessoaDAO() {
-        cachePessoas = new HashMap<>();
-        this.load();
-    }
-   
+    private final String fileName;
+    
+    
     public static PessoaDAO getInstancia(){
         if(instancia == null){
             instancia = new PessoaDAO();
         }
         return instancia;
     }
+    
+    
+    private  PessoaDAO() {
+        this.fileName = "pessoas.dat";
+        cachePessoas = new HashMap<>();
+        this.load();
+    }
+   
+    
    
     public Pessoa getPessoa(Integer matricula){
         return cachePessoas.get(matricula);
     }
    
-    public void put(Servidor pessoa){
+    public void putServidor(Servidor pessoa){
         cachePessoas.put(pessoa.getMatricula(), pessoa);
         persist();
     }
     
-    public void put(Aluno pessoa){
+    public void putAluno(Aluno pessoa){
         cachePessoas.put(pessoa.getMatricula(), pessoa);
         persist();
+    }
+    
+    public void setAluno(int matricula, Aluno aluno) {
+        cachePessoas.replace(matricula, aluno);
+        persist();
+
     }
    
     public  void remove(Pessoa pessoa){
