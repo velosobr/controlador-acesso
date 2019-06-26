@@ -53,7 +53,7 @@ public class TelaSwingLogAcessos extends JFrame {
         constraintsPanel.anchor = GridBagConstraints.WEST;
         constraintsPanel.insets = new Insets(5, 5, 5, 5);
         panelAcesso.setBackground(Color.WHITE);
-        setSize(680, 300);
+        setSize(800, 300);
 
         panelAcesso.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Gerenciamento acesso"));

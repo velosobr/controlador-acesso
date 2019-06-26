@@ -42,7 +42,7 @@ public interface ICtrlAcesso {
     
     public Acesso findAcessoByMatricula(int matricula);
     
-    public Acesso findAcessoByCodigoSala(String codigoSala);
+
     
     
 }

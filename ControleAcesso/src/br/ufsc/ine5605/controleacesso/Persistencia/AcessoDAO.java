@@ -44,15 +44,7 @@ public class AcessoDAO {
         return cacheAcessos.get(matricula);
     }
       
-    public Acesso getAcesso (String codigoSala){
-        
-        for(Acesso acesso: AcessoDAO.getInstancia().getList()){
-            if(acesso.getSala().getCodigoSala().equals(codigoSala)){
-                return acesso;
-            }
-        }
-        return null;
-    }
+    
     
     public void put(Acesso acesso){
         cacheAcessos.put(acesso.getId(), acesso);

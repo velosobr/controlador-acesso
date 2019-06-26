@@ -67,11 +67,13 @@ public class CtrlAcesso implements ICtrlAcesso {
             if (salaCadastrada.getCodigoSala().equals(salaParaTestarAcesso.getCodigoSala())) {
                 System.out.println("Entrou no if do eh liberado");
                 AcessoDAO.getInstancia().put(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, Permitido.getDescricao()));
+                AcessoDAO.getInstancia().persist();
                 return true;   
             }
         }
         System.out.println("passando aqui para negar acesso");
         AcessoDAO.getInstancia().put(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, NaoPermitido.getDescricao()));
+        AcessoDAO.getInstancia().persist();
         return false;
     }
 
@@ -109,7 +111,7 @@ public class CtrlAcesso implements ICtrlAcesso {
         }
         ArrayList <Acesso> listaAcessos = new ArrayList();
         for (Acesso acesso : listaAcessos) {
-            if (acesso.getSala().equals(sala)) {
+            if (acesso.getSala().getCodigoSala().equals(sala.getCodigoSala())) {
                 listaAcessos.add(acesso);
             }
         }
@@ -129,11 +131,7 @@ public class CtrlAcesso implements ICtrlAcesso {
         return acesso;
     }
 
-    @Override
-    public Acesso findAcessoByCodigoSala(String codigoSala) {
-        Acesso acesso = AcessoDAO.getInstancia().getAcesso(codigoSala);
-        return acesso;
-    }
+    
 
     public void abreTelaSwingLogAcessos() {
         telaAcesso.setVisible(true);
