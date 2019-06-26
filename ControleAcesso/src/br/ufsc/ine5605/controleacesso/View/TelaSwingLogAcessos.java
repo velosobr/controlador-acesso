@@ -113,19 +113,20 @@ public class TelaSwingLogAcessos extends JFrame {
 //CONFIGURACOES TABELA  
         System.out.println("entra na CONFIGURACOES TABELA");
         table = new JTable();
+        GridBagConstraints gbcTable = new GridBagConstraints();
         JScrollPane scroll = new JScrollPane(table);
         scroll.setPreferredSize(new Dimension(650, 200));
 
-        gbc.fill = GridBagConstraints.CENTER;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridheight = 2;
-        gbc.gridwidth = 8;
+        gbcTable.fill = GridBagConstraints.CENTER;
+        gbcTable.gridx = 0;
+        gbcTable.gridy = 0;
+        gbcTable.gridheight = 2;
+        gbcTable.gridwidth = 8;
 
         table.setFillsViewportHeight(true);
         table.setPreferredScrollableViewportSize(new Dimension(650, 200));
 
-        panelAcesso.add(scroll, gbc);
+        panelAcesso.add(scroll, gbcTable);
 
       
 
