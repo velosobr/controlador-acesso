@@ -64,7 +64,7 @@ public class CtrlAcesso implements ICtrlAcesso {
         ArrayList<Sala> salaCadastradasNaPessoa = pessoaParaTestarAcesso.getSalasCadastradas();
         System.out.println(salaCadastradasNaPessoa);
         for (Sala salaCadastrada : salaCadastradasNaPessoa) {
-            if (salaCadastrada.equals(salaParaTestarAcesso)) {
+            if (salaCadastrada.getCodigoSala().equals(salaParaTestarAcesso.getCodigoSala())) {
                 System.out.println("Entrou no if do eh liberado");
                 AcessoDAO.getInstancia().put(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, Permitido.getDescricao()));
                 return true;   

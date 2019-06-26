@@ -33,6 +33,7 @@ import javax.swing.table.DefaultTableModel;
  * @author caiocaio
  */
 public class TelaSwingLogAcessos extends JFrame {
+
     private static TelaSwingLogAcessos instancia;
     private JLabel label;
     private JButton verTodaLista;
@@ -41,102 +42,97 @@ public class TelaSwingLogAcessos extends JFrame {
     private JButton voltar;
     private JTable table;
     private ValidaERetorna validador = new ValidaERetorna();
-    
-    
-    private TelaSwingLogAcessos(){
+
+    private TelaSwingLogAcessos() {
         super("Opcoes de log de acesso");
-        JPanel panelAcesso = new JPanel (new GridBagLayout());
-        
+        System.out.println("entra no construtor TelaSwingLogAcessos");
+
+        JPanel panelAcesso = new JPanel(new GridBagLayout());
         GridBagConstraints constraintsPanel = new GridBagConstraints();
+
         constraintsPanel.anchor = GridBagConstraints.WEST;
-        constraintsPanel.insets = new Insets(10, 10, 10, 10);
+        constraintsPanel.insets = new Insets(5, 5, 5, 5);
         panelAcesso.setBackground(Color.WHITE);
-        setSize(750, 300);
-        
+        setSize(680, 300);
+
         panelAcesso.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Gerenciamento acesso"));
-        
+
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().add(panelAcesso);
-        
+
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5,5,5,5);
+        gbc.insets = new Insets(5, 5, 5, 5);
 // Label
         label = new JLabel();
         label.setText("Selecione uma das opções");
-        
+
 // Botao Ver toda a lista
         verTodaLista = new JButton("Ver todos os acessos");
         verTodaLista.setActionCommand("verTodaLista");
-                
+
         gbc.gridx = 1;
         gbc.gridy = 3;
-        
-        
-        panelAcesso.add(verTodaLista,gbc);
-        
+
+        panelAcesso.add(verTodaLista, gbc);
+
 // Botao Procurar por matricula
         procurarPorMatricula = new JButton("Procurar por matricula");
         procurarPorMatricula.setActionCommand("procuraMatricula");
-        
+
         gbc.gridx = 2;
         gbc.gridy = 3;
-        
-        
-        panelAcesso.add(procurarPorMatricula,gbc);
-        
+
+        panelAcesso.add(procurarPorMatricula, gbc);
+
 //Botao Procurar por codigo de sala
         procurarPorCodigoSala = new JButton("Procurar por codigo de sala");
         procurarPorCodigoSala.setActionCommand("procuraCodigoSala");
-       
+
         gbc.gridx = 3;
         gbc.gridy = 3;
-        
-        
-        panelAcesso.add(procurarPorCodigoSala,gbc);
-        
 
-        
+        panelAcesso.add(procurarPorCodigoSala, gbc);
+
 //Botao voltar
         voltar = new JButton("Voltar");
         voltar.setActionCommand("voltar");
-        
+
         gbc.gridx = 4;
         gbc.gridy = 3;
-        
-        panelAcesso.add(voltar,gbc);
-        
+
+        panelAcesso.add(voltar, gbc);
+
         GerenciadorBotoes btManager = new GerenciadorBotoes();
         verTodaLista.addActionListener(btManager);
         procurarPorMatricula.addActionListener(btManager);
         procurarPorCodigoSala.addActionListener(btManager);
         voltar.addActionListener(btManager);
-        
-        
-        
-//CONFIGURACOES TABELA        
+
+//CONFIGURACOES TABELA  
+        System.out.println("entra na CONFIGURACOES TABELA");
         table = new JTable();
-        JScrollPane scroll= new JScrollPane(table);
-        scroll.setPreferredSize(new Dimension(650,200));
-       
-           
-        gbc.gridx =0;
-        gbc.gridy = 0;
-        gbc.gridheight =2;
-        gbc.gridwidth = 8;
+        JScrollPane scroll = new JScrollPane(table);
+        scroll.setPreferredSize(new Dimension(650, 200));
+
         gbc.fill = GridBagConstraints.CENTER;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridheight = 2;
+        gbc.gridwidth = 8;
+
         table.setFillsViewportHeight(true);
-        table.setPreferredScrollableViewportSize(new Dimension (650,200));
-        
-        
-       
+        table.setPreferredScrollableViewportSize(new Dimension(650, 200));
+
         panelAcesso.add(scroll, gbc);
-        
+
       
+
     }
+
     private void updateTable(int matricula) {
-        DefaultTableModel modelo = new DefaultTableModel(); 
+        DefaultTableModel modelo = new DefaultTableModel();
         modelo.setNumRows(0);
         modelo.addColumn("ID");
         modelo.addColumn("Matricula");
@@ -144,17 +140,17 @@ public class TelaSwingLogAcessos extends JFrame {
         modelo.addColumn("Sala");
         modelo.addColumn("Data");
         modelo.addColumn("Situação");
-        
-        ArrayList <Acesso> listaAcessos = CtrlAcesso.getInstancia().geraListaByMatricula(matricula);
-        for(Acesso acesso:listaAcessos){
+
+        ArrayList<Acesso> listaAcessos = CtrlAcesso.getInstancia().geraListaByMatricula(matricula);
+        for (Acesso acesso : listaAcessos) {
             modelo.addRow(new Object[]{acesso.getId(), acesso.getPessoa().getMatricula(), acesso.getPessoa().getNome(), acesso.getSala().getCodigoSala(), acesso.getData(), acesso.getSituacao()});
         }
         table.setModel(modelo);
         this.repaint();
     }
-     
+
     private void updateTable(String codigoSala) {
-        DefaultTableModel modelo = new DefaultTableModel(); 
+        DefaultTableModel modelo = new DefaultTableModel();
         modelo.setNumRows(0);
         modelo.addColumn("ID");
         modelo.addColumn("Matricula");
@@ -162,17 +158,17 @@ public class TelaSwingLogAcessos extends JFrame {
         modelo.addColumn("Sala");
         modelo.addColumn("Data");
         modelo.addColumn("Situação");
-        
-        ArrayList <Acesso> listaAcessos = CtrlAcesso.getInstancia().geraListaByCodigoSala(codigoSala);
-        for(Acesso acesso:listaAcessos){
+
+        ArrayList<Acesso> listaAcessos = CtrlAcesso.getInstancia().geraListaByCodigoSala(codigoSala);
+        for (Acesso acesso : listaAcessos) {
             modelo.addRow(new Object[]{acesso.getId(), acesso.getPessoa().getMatricula(), acesso.getPessoa().getNome(), acesso.getSala().getCodigoSala(), acesso.getData(), acesso.getSituacao()});
         }
         table.setModel(modelo);
         this.repaint();
     }
-    
+
     private void updateTable() {
-        DefaultTableModel modelo = new DefaultTableModel(); 
+        DefaultTableModel modelo = new DefaultTableModel();
         modelo.setNumRows(0);
         modelo.addColumn("ID");
         modelo.addColumn("Matricula");
@@ -180,75 +176,69 @@ public class TelaSwingLogAcessos extends JFrame {
         modelo.addColumn("Sala");
         modelo.addColumn("Data");
         modelo.addColumn("Situação");
-        
-        ArrayList <Acesso> listaAcessos = CtrlAcesso.getInstancia().geraListaTodosAcessos();
-        for(Acesso acesso:listaAcessos){
+
+        ArrayList<Acesso> listaAcessos = CtrlAcesso.getInstancia().geraListaTodosAcessos();
+        for (Acesso acesso : listaAcessos) {
             modelo.addRow(new Object[]{acesso.getId(), acesso.getPessoa().getMatricula(), acesso.getPessoa().getNome(), acesso.getSala().getCodigoSala(), acesso.getData(), acesso.getSituacao()});
         }
         table.setModel(modelo);
         this.repaint();
     }
-    
-    private class GerenciadorBotoes implements ActionListener{
+
+    private class GerenciadorBotoes implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            try{
-                switch(e.getActionCommand()){
+            try {
+                switch (e.getActionCommand()) {
                     case ("verTodaLista"):
-                        
+
                         updateTable();
                         break;
                     case ("procuraMatricula"):
                         procuraPorMatricula();
-                        
+
                         break;
                     case ("procuraCodigoSala"):
                         procuraPorCodigoSala();
-                        
+
                         break;
-                    
+
                     case ("voltar"):
                         setVisible(false);
                         CtrlPrincipal.getInstancia().abreTelaAdm();
                         break;
-                    
+
                 }
-            }catch (Exception ex){
-               JOptionPane.showMessageDialog(null, "Opcao Invalida! Escolha uma opcao dentre das opcoes na lista .");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Opcao Invalida! Escolha uma opcao dentre das opcoes na lista .");
                 TelaSwingLogAcessos.getInstancia().setVisible(true);
             }
-            
-            
+
         }
 
-        
-
-       
-        
     }
-    
-     private void procuraPorMatricula() {
-            int matricula = validador.recebeValorInteiro("Digite a matricula: ");
-            updateTable(matricula);
-        }
-     private void procuraPorCodigoSala() {
-           String codigoSala = validador.recebeValorString("Digite o codigo de sala: ");
-           updateTable(codigoSala);
-           
-        }
-    
-     public static TelaSwingLogAcessos getInstancia() {
+
+    private void procuraPorMatricula() {
+        int matricula = validador.recebeValorInteiro("Digite a matricula: ");
+        updateTable(matricula);
+    }
+
+    private void procuraPorCodigoSala() {
+        String codigoSala = validador.recebeValorString("Digite o codigo de sala: ");
+        updateTable(codigoSala);
+
+    }
+
+    public static TelaSwingLogAcessos getInstancia() {
         if (instancia == null) {
             instancia = new TelaSwingLogAcessos();
         }
         return instancia;
     }
-    
+
     public CtrlPrincipal getCtrlPrincipal() {
         return CtrlPrincipal.getInstancia();
     }
 
-   
-    
 }
