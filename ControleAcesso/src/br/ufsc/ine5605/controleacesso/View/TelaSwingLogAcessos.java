@@ -132,6 +132,7 @@ public class TelaSwingLogAcessos extends JFrame {
     }
 
     private void updateTable(int matricula) {
+        
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.setNumRows(0);
         modelo.addColumn("ID");
@@ -142,7 +143,9 @@ public class TelaSwingLogAcessos extends JFrame {
         modelo.addColumn("Situação");
 
         ArrayList<Acesso> listaAcessos = CtrlAcesso.getInstancia().geraListaByMatricula(matricula);
+        
         for (Acesso acesso : listaAcessos) {
+            
             modelo.addRow(new Object[]{acesso.getId(), acesso.getPessoa().getMatricula(), acesso.getPessoa().getNome(), acesso.getSala().getCodigoSala(), acesso.getData(), acesso.getSituacao()});
         }
         table.setModel(modelo);
@@ -150,6 +153,7 @@ public class TelaSwingLogAcessos extends JFrame {
     }
 
     private void updateTable(String codigoSala) {
+        
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.setNumRows(0);
         modelo.addColumn("ID");
@@ -161,6 +165,7 @@ public class TelaSwingLogAcessos extends JFrame {
 
         ArrayList<Acesso> listaAcessos = CtrlAcesso.getInstancia().geraListaByCodigoSala(codigoSala);
         for (Acesso acesso : listaAcessos) {
+            
             modelo.addRow(new Object[]{acesso.getId(), acesso.getPessoa().getMatricula(), acesso.getPessoa().getNome(), acesso.getSala().getCodigoSala(), acesso.getData(), acesso.getSituacao()});
         }
         table.setModel(modelo);
@@ -220,11 +225,13 @@ public class TelaSwingLogAcessos extends JFrame {
     }
 
     private void procuraPorMatricula() {
+        
         int matricula = validador.recebeValorInteiro("Digite a matricula: ");
         updateTable(matricula);
     }
 
     private void procuraPorCodigoSala() {
+        
         String codigoSala = validador.recebeValorString("Digite o codigo de sala: ");
         updateTable(codigoSala);
 

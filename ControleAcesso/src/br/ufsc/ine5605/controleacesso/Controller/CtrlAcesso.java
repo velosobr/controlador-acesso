@@ -80,16 +80,15 @@ public class CtrlAcesso implements ICtrlAcesso {
     
     @Override
     public ArrayList <Acesso> geraListaByMatricula(int matricula)throws IllegalArgumentException {
-        
-        
-        
         Pessoa pessoa = CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoabyMatricula(matricula);
+   
         if(pessoa == null){
             throw new IllegalArgumentException("Matricula invalida");
         }
         ArrayList <Acesso> listaAcessos = new ArrayList();
         for(Acesso acesso:AcessoDAO.getInstancia().getList()){
-            if(acesso.getPessoa().equals(pessoa)){
+            
+            if(acesso.getPessoa().getMatricula() == (pessoa.getMatricula())){ 
                 listaAcessos.add(acesso);
             }
             
@@ -109,17 +108,22 @@ public class CtrlAcesso implements ICtrlAcesso {
         if(sala == null){
             throw new IllegalArgumentException("Codigo de sala invalido");
         }
-        ArrayList <Acesso> listaAcessos = new ArrayList();
-        listaAcessos = AcessoDAO.getInstancia().getList();
-        for (Acesso acesso : listaAcessos) {
+        ArrayList <Acesso> listaTodosAcessos = new ArrayList();
+        listaTodosAcessos = AcessoDAO.getInstancia().getList();
+        
+        ArrayList <Acesso> listaAcessosCodigoSala = new ArrayList();
+        for (Acesso acesso : listaTodosAcessos) {
+            
             if (acesso.getSala().getCodigoSala().equals(sala.getCodigoSala())) {
-                listaAcessos.add(acesso);
+                
+                listaAcessosCodigoSala.add(acesso);
             }
+           
         }
-        if (listaAcessos.isEmpty()){
+        if (listaAcessosCodigoSala.isEmpty()){
             throw new IllegalArgumentException("Sem registro de acesso");
         }
-        return listaAcessos;
+        return listaAcessosCodigoSala;
     }
     
     public ArrayList <Acesso> geraListaTodosAcessos(){
