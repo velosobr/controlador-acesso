@@ -9,7 +9,7 @@ package br.ufsc.ine5605.controleacesso.Exceptions;
  *
  * @author caiocaio
  */
-public class MatriculaJahExisteException extends RuntimeException{
+public class MatriculaJahExisteException extends Exception{
     public MatriculaJahExisteException(){
         this("Matricula ja cadastrada!");
     }

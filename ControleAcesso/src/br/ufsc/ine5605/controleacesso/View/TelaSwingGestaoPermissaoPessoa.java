@@ -178,21 +178,30 @@ public class TelaSwingGestaoPermissaoPessoa extends JFrame {
 
     private void permitirAcesso() {
         String sala = validador.recebeValorString("Digite o codigo de sala: ");
-        CtrlPessoa.getInstancia().cadastraSalaNaPessoa(matriculaPessoa, sala);
+        try{
+            CtrlPessoa.getInstancia().cadastraSalaNaPessoa(matriculaPessoa, sala);
+        }catch (Exception exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage());
+        }
+        
     }
 
     private void removerAcesso() {
         Integer linhaSelecionada = table.getSelectedRow();
-        if (linhaSelecionada >= 0) {
+        try{
+            if (linhaSelecionada >= 0) {
             
             String codigoSala = (String) table.getValueAt(linhaSelecionada, 0);
             
             CtrlPessoa.getInstancia().delSalaNaPessoa(matriculaPessoa, codigoSala);
 
-        } else {
-            JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+            } else {
+                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+            }
+        }catch (Exception exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage());
         }
-
+     
     }
 }
 

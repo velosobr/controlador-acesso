@@ -226,25 +226,30 @@ public class TelaSwingPessoa extends JFrame {
     private void cadastraPessoa() {
 
             
-            String[] opcoes = {"Aluno", "Servidor"};
-            int teste = JOptionPane.showOptionDialog(null, "Escolha um tipo de pessoa", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
-            if(teste == 0){
-                int matricula = validador.recebeValorInteiro("Digite a matricula: ");
-                String nome = validador.recebeValorString("Digite o nome: ");
-                long telefone = validador.recebeValorLong("Digite o telefone: ");
-                String email = validador.recebeValorString("Digite o email: ");
-                String curso = validador.recebeValorString("Digite o curso: ");
-                getCtrlPrincipal().getCtrlPessoa().incluiAluno(matricula, nome, telefone, email, curso);
-            }else{
-                int matricula = validador.recebeValorInteiro("Digite a matricula: ");
-                String nome = validador.recebeValorString("Digite o nome: ");
-                long telefone = validador.recebeValorLong("Digite o telefone: ");
-                String email = validador.recebeValorString("Digite o email: ");
-                //String cargo = JOptionPane.showInputDialog(rootPane, teste, nome, teste, icon, opcoes, telefone)
-                String cargo = validador.recebeValorString("Digite o cargo: ");
-                boolean administrador = validador.recebeValorBoolean();
-                getCtrlPrincipal().getCtrlPessoa().incluiServidor(matricula, nome, telefone, email, cargo, administrador);
-
+        String[] opcoes = {"Aluno", "Servidor"};
+        try{
+        int teste = JOptionPane.showOptionDialog(null, "Escolha um tipo de pessoa", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+        if(teste == 0){
+            int matricula = validador.recebeValorInteiro("Digite a matricula: ");
+            String nome = validador.recebeValorString("Digite o nome: ");
+            long telefone = validador.recebeValorLong("Digite o telefone: ");
+            String email = validador.recebeValorString("Digite o email: ");
+            String curso = validador.recebeValorString("Digite o curso: ");
+            getCtrlPrincipal().getCtrlPessoa().incluiAluno(matricula, nome, telefone, email, curso);
+        }else{
+            int matricula = validador.recebeValorInteiro("Digite a matricula: ");
+            String nome = validador.recebeValorString("Digite o nome: ");
+            long telefone = validador.recebeValorLong("Digite o telefone: ");
+            String email = validador.recebeValorString("Digite o email: ");
+            //String cargo = JOptionPane.showInputDialog(rootPane, teste, nome, teste, icon, opcoes, telefone)
+            String cargo = validador.recebeValorString("Digite o cargo: ");
+            boolean administrador = validador.recebeValorBoolean();
+            getCtrlPrincipal().getCtrlPessoa().incluiServidor(matricula, nome, telefone, email, cargo, administrador);
+            }
+            
+                    
+        }catch (Exception exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage());
 
         }
     }
@@ -252,7 +257,8 @@ public class TelaSwingPessoa extends JFrame {
     private void editarPessoa() {
 
         int linhaSelecionada = table.getSelectedRow();
-        if (linhaSelecionada >= 0) {
+        try{
+            if (linhaSelecionada >= 0) {
             String tipoPessoa = table.getValueAt(linhaSelecionada, 7).toString();
             int matricula = (int) table.getValueAt(linhaSelecionada, 0);
             if (tipoPessoa.equals("Aluno")) {
@@ -268,31 +274,46 @@ public class TelaSwingPessoa extends JFrame {
                 String cargo = validador.recebeValorString("Digite o cargo: ");
                 boolean administrador = validador.recebeValorBoolean();
                 getCtrlPrincipal().getCtrlPessoa().alteradorDeCadastroServidor(matricula, nome, telefone, email, cargo, administrador);
+                }
+            }else {
+                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+        }catch (Exception exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage());
         }
+        
     }
 
     private void removerPessoa() {
         int linhaSelecionada = table.getSelectedRow();
-        if (linhaSelecionada >= 0) {
+        try{
+            if (linhaSelecionada >= 0) {
             int matricula = (int) table.getValueAt(linhaSelecionada, 0);
             Pessoa pessoaParaRemover = PessoaDAO.getInstancia().getPessoa(matricula);
             PessoaDAO.getInstancia().remove(pessoaParaRemover);
-        } else {
-            JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
-        }
+            } else {
+                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+            }
+                
+        }catch (Exception exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage());
+    }
+        
     }
 
     private void opcoesPermissao() {
         Integer linhaSelecionada = table.getSelectedRow();
-        if (linhaSelecionada >= 0) {
+        try{
+            if (linhaSelecionada >= 0) {
             int matricula = (int) table.getValueAt(linhaSelecionada, 0);
             getCtrlPrincipal().getCtrlPessoa().abreTelaGestaoPermissaoPessoa(matricula);
-        } else {
+            } else {
             JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+            }
+        }catch (Exception exception){
+             JOptionPane.showMessageDialog(null, exception.getMessage());
         }
+        
 
     }
 

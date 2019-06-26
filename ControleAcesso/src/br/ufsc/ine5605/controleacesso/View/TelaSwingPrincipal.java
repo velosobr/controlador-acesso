@@ -118,8 +118,8 @@ public class TelaSwingPrincipal extends JFrame {
                             JOptionPane.showMessageDialog(null, "Você não possui acesso");
                         }
                     }
-                } catch (CodigoSalaInexistenteException e) {
-                    System.out.println("Foi enviardo para o gerenciador de botoes um valor null para o codigo sala"); // just for log on console
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null, exception.getMessage());
                 }
 
             }
@@ -136,8 +136,8 @@ public class TelaSwingPrincipal extends JFrame {
                         }
                     }
 
-                } catch (IllegalArgumentException e) {
-                    JOptionPane.showMessageDialog(null, "Matricula inexistente. Tente novamente.");
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null, exception.getMessage());
                 }
 
             }
@@ -151,13 +151,17 @@ public class TelaSwingPrincipal extends JFrame {
 
     private boolean validacaoTelaAdm(int matricula) {
         boolean ehAdm = false;
-
-        if (PessoaDAO.getInstancia().getPessoa(matricula) instanceof Servidor) {
+        try{
+            if (PessoaDAO.getInstancia().getPessoa(matricula) instanceof Servidor) {
             Servidor servidor = (Servidor) PessoaDAO.getInstancia().getPessoa(matricula);
             ehAdm = servidor.isAdministrador();
-        } else {
-            throw new IllegalArgumentException("A matriculada digitada nao pertence a um servidor, somente servidores podem acessar a tela gerencial");
+            } else {
+            JOptionPane.showMessageDialog(null, "Somente servidores tem permissao de acesso");
+            }
+        }catch (Exception exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage());
         }
+        
         return ehAdm;
     }
 }

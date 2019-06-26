@@ -9,7 +9,7 @@ package br.ufsc.ine5605.controleacesso.Exceptions;
  *
  * @author caiocaio
  */
-public class CodigoSalaInexistenteException extends RuntimeException{
+public class CodigoSalaInexistenteException extends Exception{
     public CodigoSalaInexistenteException(){
         this("Codigo de sala nao cadastrado!");
     }

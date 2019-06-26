@@ -9,14 +9,14 @@ package br.ufsc.ine5605.controleacesso.Exceptions;
  *
  * @author caiocaio
  */
-public class MatriculaInexisteException extends Exception{
+public class PermissaoJahRealizadaException extends Exception{
     
-    public MatriculaInexisteException(){
-        this("Matricula nao cadastrada!");
-        
+    public PermissaoJahRealizadaException(){
+        this("Ja foi permitido acesso a esta sala");
     }
     
-    public MatriculaInexisteException(String message){
+    public PermissaoJahRealizadaException(String message){
         super(message);
     }
 }
+
