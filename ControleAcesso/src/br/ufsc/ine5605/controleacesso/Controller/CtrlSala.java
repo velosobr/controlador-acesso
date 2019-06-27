@@ -5,6 +5,7 @@
  */
 package br.ufsc.ine5605.controleacesso.Controller;
 
+import br.ufsc.ine5605.controleacesso.View.TelaSwingGestaoPermissaoSala;
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
 import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
@@ -36,10 +37,6 @@ public class CtrlSala implements ICtrlSala {
         return TelaSwingSala.GetInstancia();
     }
 
-    public void abreTelaSwingSala() {
-        TelaSwingSala.GetInstancia().setVisible(true);
-    }
-
     public CtrlPrincipal getCtrlPrincipal() {
         return CtrlPrincipal.getInstancia();
 
@@ -47,7 +44,7 @@ public class CtrlSala implements ICtrlSala {
 
     @Override
     public boolean addSala(String codigoSala, int numero, char bloco, String centro, String campus) throws IllegalArgumentException {
-        Sala salaParaVerificar =  SalaDAO.getInstancia().getSala(codigoSala);
+        Sala salaParaVerificar = SalaDAO.getInstancia().getSala(codigoSala);
         Sala salaParaIncluir = null;
         if (codigoSala.equals("")) {
             throw new IllegalArgumentException("Codigo de sala invalido, cadastro nao realizado!");
@@ -81,9 +78,9 @@ public class CtrlSala implements ICtrlSala {
         salaParaAlterar.setBloco(bloco);
         salaParaAlterar.setCentro(centro);
         salaParaAlterar.setCampus(campus);
-        
+
         SalaDAO.getInstancia().setSala(codigoSala, salaParaAlterar);
-        
+
         return true;
     }
 
@@ -171,6 +168,16 @@ public class CtrlSala implements ICtrlSala {
         }
 
         return null;
+    }
+
+    public void abreTelaSwingSala() {
+        TelaSwingSala.GetInstancia().setVisible(true);
+    }
+
+    public void abreTelaGestaoPermissaoSala(String codSala) {
+        TelaSwingGestaoPermissaoSala telaGestaoPermissaoSala = new TelaSwingGestaoPermissaoSala(codSala);
+        telaGestaoPermissaoSala.setVisible(true);
+
     }
 
 }

@@ -265,8 +265,8 @@ public class TelaSwingSala extends JFrame {
     private void opcoesPermissao() {
         int linhaSelecionada = table.getSelectedRow();
         if (linhaSelecionada >= 0) {
-            int matricula = (int) table.getValueAt(linhaSelecionada, 0);
-            getCtrlPrincipal().getCtrlPessoa().abreTelaGestaoPermissaoPessoa(matricula);
+            String codSala = (String) table.getValueAt(linhaSelecionada, 0);
+            getCtrlPrincipal().getCtrlSala().abreTelaGestaoPermissaoSala(codSala);
         } else {
             JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
         }
@@ -332,39 +332,3 @@ public class TelaSwingSala extends JFrame {
     }
 
 }
-
-// public void inicio() { System.out.println("---TELA DE GERENCIAMENTO DE SALAS---");
-//System.out.println(" ");
-//}
-//try { System.out.println("1 - Cadastrar sala no sistema");
-//
-//}
-// System.out.println("2 - Deletar sala do sistema");
-// 
-//System.out.println("3 - Alterar cadastro sala"); 
-//System.out.println("4 - Encontrar sala pelo codigo");
-//System.out.println("5 - Gerenciamento de acesso - Incluir pessoa na sala");
-//System.out.println("6 - Gerenciamento de acesso - Deletar pessoa na sala");
-//System.out.println("7 - Listar pessoas cadastradas na sala");
-//System.out.println("8 - Listar todas as salas cadastradas");
-// System.out.println("9 - Voltar para o menu anterior");
-// 
-// System.out.println("99 - Sair");
-// 
-// int opcao = validador.recebeValorInteiro("--- Escolha uma das opcoes acima e tecle enter. ---"); 
-//switch (opcao) { 
-//case (1): 
-//incluirSala();
-//} inicio(); 
-//case
-// (2): deletaSala(); inicio(); case (3): alteraCadastroSala(); inicio(); case
-// (4): encontraSalaPorCodigo(); teclado.nextLine(); inicio(); case (5):
-// cadastraPessoaNaSala(); inicio(); case (6): deletaPessoaNaSala(); inicio();
-// case (7): listaPessoasCadastradasNaSala(); inicio(); case (8):
-// listAllSalasCadastradas(); inicio(); case (9):
-// ctrlSala.getCtrlPrincipal().abreTelaAdm(); case (99): System.exit(0); } }
-// catch (IllegalArgumentException e) { System.out.println(e.getMessage());
-// String[] args = null; teclado.nextLine(); this.inicio();
-// 
-// } finally { teclado.nextLine(); } }
-

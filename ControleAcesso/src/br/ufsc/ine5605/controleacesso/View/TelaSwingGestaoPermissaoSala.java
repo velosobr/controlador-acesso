@@ -6,13 +6,13 @@
 package br.ufsc.ine5605.controleacesso.View;
 
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPessoa;
-import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
-import br.ufsc.ine5605.controleacesso.Model.Aluno;
+import br.ufsc.ine5605.controleacesso.Controller.CtrlSala;
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
-import br.ufsc.ine5605.controleacesso.Model.Servidor;
 import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
+import br.ufsc.ine5605.controleacesso.Persistencia.SalaDAO;
 import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
+import com.sun.corba.se.impl.naming.namingutil.INSURL;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -29,50 +29,53 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SpringLayout;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author caiocaio
+ * @author Linnety3
  */
-public class TelaSwingGestaoPermissaoPessoa extends JFrame {
+public class TelaSwingGestaoPermissaoSala extends JFrame {
 
     private JLabel label;
     private JButton permitirAcesso;
     private JButton removerAcesso;
     private JButton voltar;
     private JTable table;
-    private int matriculaPessoa;
+    private String codSala;
     private ValidaERetorna validador = new ValidaERetorna();
 
-    public TelaSwingGestaoPermissaoPessoa(int matricula) {
-        super("Gerenciamento das permissões de acesso");
-        matriculaPessoa = matricula;
-        JPanel panelPermissaoPessoa = new JPanel(new GridBagLayout());
+    public TelaSwingGestaoPermissaoSala(String codigo) {
+        super("Gerenciamento das liberações de salas");
 
-        GridBagConstraints constraintsPanel = new GridBagConstraints();
-        constraintsPanel.anchor = GridBagConstraints.WEST;
-        constraintsPanel.insets = new Insets(5, 5, 5, 5);
-        panelPermissaoPessoa.setBackground(Color.WHITE);
+        codSala = codigo;
+
+        //criação do painel
+        JPanel panelPermissaoSala = new JPanel(new GridBagLayout());
+        GridBagConstraints gbcPanel = new GridBagConstraints();
+
+        gbcPanel.anchor = GridBagConstraints.WEST;
+        gbcPanel.insets = new Insets(5, 5, 5, 5);
+        panelPermissaoSala.setBackground(Color.WHITE);
         setSize(680, 300);
 
-        panelPermissaoPessoa.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
-                "Gerenciamento das permissões de acesso | Usuário selecionado: "
-                + CtrlPessoa.getInstancia().findPessoabyMatricula(matricula).getNome()));
-
+        panelPermissaoSala.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
+                "Gerenciamento das liberações de acesso | Número da sala selecionada: "
+                + CtrlSala.getInstancia().findSalaByCodigoSala(codigo).getNumero()));
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        getContentPane().add(panelPermissaoPessoa);
+        getContentPane().add(panelPermissaoSala);
 
+        //COMPONENTES TELASWINGPERMISSAOSALA
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 
-//COMPONENTES TELASWINGPESSOA
-// Label
+        // Label
         label = new JLabel();
         label.setText("Selecione uma das opções");
 
-//Permitir Acesso a Sala
+        //adicionar Sala a pessoa
         permitirAcesso = new JButton("Permitir Acesso");
         permitirAcesso.setActionCommand("permitirAcesso");
         gbc.gridx = 1;
@@ -80,9 +83,10 @@ public class TelaSwingGestaoPermissaoPessoa extends JFrame {
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        panelPermissaoPessoa.add(permitirAcesso, gbc);
+        panelPermissaoSala.add(permitirAcesso, gbc);
 
-//Botao Remover
+//Botao Remover acesso
+//tira sala da pessoa
         removerAcesso = new JButton("Remover Acesso");
         removerAcesso.setActionCommand("removerAcesso");
         gbc.gridx = 2;
@@ -90,9 +94,9 @@ public class TelaSwingGestaoPermissaoPessoa extends JFrame {
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        panelPermissaoPessoa.add(removerAcesso, gbc);
+        panelPermissaoSala.add(removerAcesso, gbc);
 
-//Botao voltar
+        //Botao voltar
         voltar = new JButton("Voltar");
         voltar.setActionCommand("voltar");
         gbc.gridx = 3;
@@ -100,9 +104,9 @@ public class TelaSwingGestaoPermissaoPessoa extends JFrame {
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        panelPermissaoPessoa.add(voltar, gbc);
+        panelPermissaoSala.add(voltar, gbc);
 
-        TelaSwingGestaoPermissaoPessoa.GerenciadorBotoes btManager = new TelaSwingGestaoPermissaoPessoa.GerenciadorBotoes();
+        TelaSwingGestaoPermissaoSala.GerenciadorBotoes btManager = new TelaSwingGestaoPermissaoSala.GerenciadorBotoes();
         permitirAcesso.addActionListener(btManager);
         removerAcesso.addActionListener(btManager);
 
@@ -122,32 +126,9 @@ public class TelaSwingGestaoPermissaoPessoa extends JFrame {
         table.setFillsViewportHeight(true);
         table.setPreferredScrollableViewportSize(new Dimension(650, 200));
 
-        panelPermissaoPessoa.add(scroll, gbcTable);
+        panelPermissaoSala.add(scroll, gbcTable);
 
-        updateTable(matricula);
-    }
-
-    private void updateTable(int matriculaPessoa) {
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.setNumRows(0);
-        modelo.addColumn("Codigo Sala");
-        modelo.addColumn("Numero");
-        modelo.addColumn("Bloco");
-        modelo.addColumn("Centro");
-        modelo.addColumn("Campus");
-
-        ArrayList<Sala> listaSalasCadastradas = PessoaDAO.getInstancia().getPessoa(matriculaPessoa).getSalasCadastradas();
-        if (listaSalasCadastradas == null) {
-            modelo.addRow(new Object[]{"Sem sala cadastrada", "N/A", "N/A", "N/A", "N/A"});
-        } else {
-            for (Sala sala : listaSalasCadastradas) {
-                modelo.addRow(new Object[]{sala.getCodigoSala(), sala.getNumero(), sala.getBloco(), sala.getCentro(), sala.getCampus()});
-
-            }
-
-        }
-        table.setModel(modelo);
-        this.repaint();
+        updateTable(codSala);
     }
 
     private class GerenciadorBotoes implements ActionListener {
@@ -158,15 +139,15 @@ public class TelaSwingGestaoPermissaoPessoa extends JFrame {
                 switch (e.getActionCommand()) {
                     case ("permitirAcesso"):
                         permitirAcesso();
-                        updateTable(matriculaPessoa);
+                        updateTable(codSala);
                         break;
                     case ("removerAcesso"):
                         removerAcesso();
-                        updateTable(matriculaPessoa);
+                        updateTable(codSala);
                         break;
                     case ("voltar"):
                         setVisible(false);
-                        CtrlPessoa.getInstancia().abreTelaSwingPessoa();
+                        CtrlSala.getInstancia().abreTelaSwingSala();
                         break;
 
                 }
@@ -176,43 +157,61 @@ public class TelaSwingGestaoPermissaoPessoa extends JFrame {
             }
 
         }
+    }
 
+    private void updateTable(String codSala) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.setNumRows(0);
+        modelo.addColumn("matricula");
+        modelo.addColumn("nome");
+        modelo.addColumn("telefone");
+        modelo.addColumn("email");
+
+        ArrayList<Pessoa> listaPessoasCadastradas = SalaDAO.getInstancia().getSala(codSala).getPessoasCadastradas();
+        if (listaPessoasCadastradas == null) {
+            modelo.addRow(new Object[]{"Sem Pessoa cadastrada", "N/A", "N/A", "N/A", "N/A"});
+        } else {
+            for (Pessoa pessoa : listaPessoasCadastradas) {
+                modelo.addRow(new Object[]{pessoa.getMatricula(), pessoa.getNome(), pessoa.getTelefone(), pessoa.getEmail()});
+
+            }
+
+        }
+        table.setModel(modelo);
+        this.repaint();
     }
 
     private void permitirAcesso() {
-        String sala = validador.recebeValorString("Digite o codigo de sala: ");
+        int matricula = validador.recebeValorInteiro("Digite a matricula: ");
         try {
-            CtrlPessoa.getInstancia().cadastraSalaNaPessoa(matriculaPessoa, sala);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, exception.getMessage());
+            CtrlSala.getInstancia().cadastraPessoaNaSala(matricula, codSala);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
     }
 
     private void removerAcesso() {
-        Integer linhaSelecionada = table.getSelectedRow();
+        System.out.println("entra no remove acesso da tela seing getstao de permissao sala");
+        int linhaSelecionada = table.getSelectedRow();
+
+        System.out.println(linhaSelecionada);
         try {
             if (linhaSelecionada >= 0) {
 
-                String codigoSala = (String) table.getValueAt(linhaSelecionada, 0);
+                int matricula = (int) table.getValueAt(linhaSelecionada, 0);
+                System.out.println("A matricula capturada é: " + matricula);
 
-                CtrlPessoa.getInstancia().delSalaNaPessoa(matriculaPessoa, codigoSala);
+                CtrlSala.getInstancia().deletaPessoaNaSala(matricula, codSala);
 
             } else {
                 JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
             }
         } catch (Exception exception) {
+            System.out.println("entrou no catch. a mensagem da exception é: " + exception.getMessage());
             JOptionPane.showMessageDialog(null, exception.getMessage());
         }
 
     }
-}
 
-/*public static TelaSwingGestaoPermissaoPessoa GetInstancia() {
-if (instancia == null) {
-instancia = new TelaSwingGestaoPermissaoPessoa();
 }
-return instancia;
-}
-
-}*/

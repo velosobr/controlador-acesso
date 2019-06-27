@@ -65,16 +65,13 @@ public class CtrlAcesso implements ICtrlAcesso {
             throw new CodigoSalaInexistenteException();
         }
         ArrayList<Sala> salaCadastradasNaPessoa = pessoaParaTestarAcesso.getSalasCadastradas();
-        System.out.println(salaCadastradasNaPessoa);
         for (Sala salaCadastrada : salaCadastradasNaPessoa) {
             if (salaCadastrada.getCodigoSala().equals(salaParaTestarAcesso.getCodigoSala())) {
-                System.out.println("Entrou no if do eh liberado");
                 AcessoDAO.getInstancia().put(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, Permitido.getDescricao()));
                 AcessoDAO.getInstancia().persist();
                 return true;   
             }
         }
-        System.out.println("passando aqui para negar acesso");
         AcessoDAO.getInstancia().put(new Acesso(pessoaParaTestarAcesso, salaParaTestarAcesso, NaoPermitido.getDescricao()));
         AcessoDAO.getInstancia().persist();
         return false;
@@ -83,7 +80,6 @@ public class CtrlAcesso implements ICtrlAcesso {
     
     @Override
     public ArrayList <Acesso> geraListaByMatricula(int matricula)throws Exception{
-        //Pessoa pessoa = CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoabyMatricula(matricula);
         Integer matriculaLista = matricula;
         if(matriculaLista == null){
             throw new MatriculaInexisteException();

@@ -27,19 +27,14 @@ public class ValidaERetorna {
                 } else {
 
                     if (v.length() == 0) {
-                        //   JOptionPane.showMessageDialog(null, "Você precisa informar um valor inteiro");
                         JOptionPane.showMessageDialog(null, "STRING: Você precisa digitar um valor válido, tente novamente");
-                        System.out.println("Entrou no IF");
 
                     } else {
-                        System.out.println("entrou no else");
                         valor = v;
                     }
                 }
 
             } catch (Exception npe) {
-                System.err.println("Causa npe: " + npe.getCause());
-                System.err.println("mensagem npe: " + npe.getMessage());
                 break;
 
             }
@@ -55,19 +50,14 @@ public class ValidaERetorna {
             try {
                 String o = JOptionPane.showInputDialog(null, mensagem);
                 if (o == null) {
-                    //   JOptionPane.showMessageDialog(null, "Você precisa informar um valor inteiro");
                     break;
                 } else {
                     valor = Integer.parseInt(o);
                     break;
                 }
             } catch (NumberFormatException nfe) {
-                System.err.println("Causa nfe: " + nfe.getCause());
-                System.err.println("mensagem nfe: " + nfe.getMessage());
                 JOptionPane.showMessageDialog(null, "INT: Você precisa digitar um valor válido, tente novamente");
             } catch (NullPointerException npe) {
-                System.err.println("Causa npe: " + npe.getCause());
-                System.err.println("mensagem npe: " + npe.getMessage());
                 JOptionPane.showMessageDialog(null, "Valor vazio");
 
             }
@@ -76,15 +66,6 @@ public class ValidaERetorna {
 
     }
 
-//    public int recebeValorInteiro(String mensagem) {
-//        int valor = -1;
-//
-//        do {
-//            valor = validaValorInteiro(mensagem);
-//        } while (valor == -1);
-//
-//        return valor;
-//    }
 // Arrumar o método recebevalorBoolean
     public Boolean recebeValorBoolean() {
         int valor = -1;
@@ -105,7 +86,7 @@ public class ValidaERetorna {
                     throw new IllegalArgumentException("Voce deve digitar opcoes validas. Selecione um tipo dentre os tipos listados.");
             }
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            System.out.println("recebeValorBoolean: "+e.getMessage());
             //this.recebeValorBoolean("Tente novamente");
         }
 

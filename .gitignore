@@ -1,1 +1,12 @@
-*.class
+/ControleAcesso/build/
+/ControleAcessonbproject/private/
+/ControleAcesso/dist/
+/ControleAcesso/build/classes/
+/ControleAcesso/acessos.dat
+/ControleAcesso/build/built-jar.properties
+/ControleAcesso/build/classes/.netbeans_automatic_build
+/ControleAcesso/build/classes/.netbeans_update_resources  /ControleAcesso/build/classes/br/ufsc/ine5605/controleacesso/newfile.md
+/ControleAcesso/dist/ControleAcesso.jar
+/ControleAcesso/dist/README.TXT
+/ControleAcesso/pessoas.dat
+/ControleAcesso/salas.dat
