@@ -5,6 +5,7 @@
  */
 package br.ufsc.ine5605.controleacesso.View;
 
+import br.ufsc.ine5605.controleacesso.Controller.CtrlPessoa;
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
 import br.ufsc.ine5605.controleacesso.Model.Aluno;
 import br.ufsc.ine5605.controleacesso.Model.EhAdm;
@@ -46,22 +47,7 @@ public class TelaSwingPessoa extends JFrame {
 
     private static TelaSwingPessoa instancia;
     private JLabel label;
-    private JLabel opcaoCadastro;
-    private JLabel matricula;
-    private JLabel nome;
-    private JLabel telefone;
-    private JLabel email;
-    private JLabel curso;
-    private JLabel cargo;
-    private JLabel ehAdm;
     
-    private JTextField matriculaTextField;
-    private JTextField nomeTextField;
-    private JTextField telefoneTextField;
-    private JTextField emailTextField;
-    private JTextField cursoTextField;
-    private JComboBox cargoField;
-    private JComboBox ehAdmField;
     
     private JButton cadastro;
     private JButton editar;
@@ -69,13 +55,19 @@ public class TelaSwingPessoa extends JFrame {
     private JButton opcoesPermissao;
     private JButton voltar;
     private JTable table;
-    private JButton aluno;
-    private JButton servidor;
+   
     private ValidaERetorna validador = new ValidaERetorna();
 
     public TelaSwingPessoa() {
         super("Opcoes de gerenciamento de pessoa");
-
+    getContentPane().add( panelPrincipal());
+       
+        
+    }
+    
+ 
+//COMPONENTES PANELCADASTRO
+    private JPanel panelPrincipal(){
         JPanel panelPessoa = new JPanel(new GridBagLayout());
 
         GridBagConstraints constraintsPanel = new GridBagConstraints();
@@ -83,14 +75,14 @@ public class TelaSwingPessoa extends JFrame {
         constraintsPanel.anchor = GridBagConstraints.WEST;
         constraintsPanel.insets = new Insets(0, 0, 0, 0);
         panelPessoa.setBackground(Color.WHITE);
-        setSize(900, 300);
+        setSize(700, 300);
 
         panelPessoa.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Opcoes Pessoa"));
 
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        getContentPane().add(panelPessoa);
+        
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -178,130 +170,15 @@ public class TelaSwingPessoa extends JFrame {
 
         updateTable();
         
-        JPanel panelCadastroAluno = this.panelCadastroAluno();
         
-        gbc.gridx = 9;
-        gbc.gridy = 0;
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        gbc.anchor = GridBagConstraints.NORTH;
-        gbc.insets = new Insets(0,0,0,0);
-        panelPessoa.add(panelCadastroAluno, gbc);
         
-    }   
-//COMPONENTES PANELCADASTRO
-    private JPanel panelCadastroAluno(){
-        JPanel panelCadastro = new JPanel();
         
-        opcaoCadastro = new JLabel("Opcoes de Cadastro");
-        matricula = new JLabel("Matricula");
-        nome = new JLabel ("Nome");
-        telefone = new JLabel ("Telefone");
-        email = new JLabel ("Email");
-        curso = new JLabel ("Curso");
-        cargo = new JLabel ("Cargo");
-        ehAdm= new JLabel ("Eh administrador?");
         
-        matriculaTextField = new JTextField("");
-        nomeTextField = new JTextField("");
-        telefoneTextField = new JTextField("");
-        emailTextField = new JTextField("");
-        cursoTextField = new JTextField("");
-        cargoField = new JComboBox(TipoCargo.values());
-        ehAdmField = new JComboBox(EhAdm.values());
-        
-        panelCadastro.setLayout(new GridBagLayout());
-        panelCadastro.setBackground(Color.WHITE);
-        
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(2, 2, 2, 2);
-        gbc.anchor = GridBagConstraints.NORTHEAST;
-                
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth =4;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        
-        panelCadastro.add(opcaoCadastro, gbc);
-        
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth = 1;
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        
-        panelCadastro.add(matricula,gbc);
-        
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth = 3;
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        
-        panelCadastro.add(matriculaTextField, gbc);
-        
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth = 1;
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        
-        panelCadastro.add(nome, gbc);
-        
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth = 3;
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        
-        panelCadastro.add(nomeTextField, gbc);
-        
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth = 1;
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        
-        panelCadastro.add(telefone, gbc);
-        
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth = 3;
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        
-        panelCadastro.add(telefoneTextField, gbc);
-        
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth = 1;
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        
-        panelCadastro.add(email, gbc);
-        
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth = 3;
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        
-        panelCadastro.add(emailTextField, gbc);
-        
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth = 1;
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        
-        panelCadastro.add(curso, gbc);
-        
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth = 3;
-        gbc.gridx = 1;
-        gbc.gridy = 5;
-        
-        panelCadastro.add(cursoTextField, gbc);
-
-      
-    return panelCadastro;
-    }   
-    /* 
-    }*/
-      
+        return panelPessoa;
+    }
     
-    private void updateTable() {
+    
+    public void updateTable() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.setNumRows(0);
         modelo.addColumn("Matricula");
@@ -331,7 +208,7 @@ public class TelaSwingPessoa extends JFrame {
     }
 
     private class GerenciadorBotoes implements ActionListener {
-
+        TelaSwingPessoa telaPessoa;
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
@@ -353,6 +230,7 @@ public class TelaSwingPessoa extends JFrame {
                         opcoesPermissao();
 
                         break;
+                        
                     case ("voltar"):
                         setVisible(false);
                         CtrlPrincipal.getInstancia().abreTelaAdm();
@@ -374,7 +252,8 @@ public class TelaSwingPessoa extends JFrame {
         String[] opcoes = {"Aluno", "Servidor"};
         try{
         int teste = JOptionPane.showOptionDialog(null, "Escolha um tipo de pessoa", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
-        if(teste == 0){
+        getCtrlPessoa().abreTelaCadastroPessoa(teste);
+        /*if(teste == 0){
             int matricula = validador.recebeValorInteiro("Digite a matricula: ");
             String nome = validador.recebeValorString("Digite o nome: ");
             long telefone = validador.recebeValorLong("Digite o telefone: ");
@@ -390,7 +269,7 @@ public class TelaSwingPessoa extends JFrame {
             String cargo = validador.recebeValorString("Digite o cargo: ");
             boolean administrador = validador.recebeValorBoolean();
             getCtrlPrincipal().getCtrlPessoa().incluiServidor(matricula, nome, telefone, email, cargo, administrador);
-            }
+            }*/
             
                     
         }catch (Exception exception){
@@ -411,14 +290,14 @@ public class TelaSwingPessoa extends JFrame {
                 long telefone = validador.recebeValorLong("Digite o telefone: ");
                 String email = validador.recebeValorString("Digite o email: ");
                 String curso = validador.recebeValorString("Digite o curso: ");
-                getCtrlPrincipal().getCtrlPessoa().alteradorDeCadastroAluno(matricula, nome, telefone, email, curso);
+                getCtrlPessoa().alteradorDeCadastroAluno(matricula, nome, telefone, email, curso);
             } else {
                 String nome = validador.recebeValorString("Digite o nome: ");
                 long telefone = validador.recebeValorLong("Digite o telefone: ");
                 String email = validador.recebeValorString("Digite o email: ");
                 String cargo = validador.recebeValorString("Digite o cargo: ");
                 boolean administrador = validador.recebeValorBoolean();
-                getCtrlPrincipal().getCtrlPessoa().alteradorDeCadastroServidor(matricula, nome, telefone, email, cargo, administrador);
+                getCtrlPessoa().alteradorDeCadastroServidor(matricula, nome, telefone, email, cargo, administrador);
                 }
             }else {
                 JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
@@ -451,7 +330,7 @@ public class TelaSwingPessoa extends JFrame {
         try{
             if (linhaSelecionada >= 0) {
             int matricula = (int) table.getValueAt(linhaSelecionada, 0);
-            getCtrlPrincipal().getCtrlPessoa().abreTelaGestaoPermissaoPessoa(matricula);
+            getCtrlPessoa().abreTelaGestaoPermissaoPessoa(matricula);
             } else {
             JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
             }
@@ -459,8 +338,10 @@ public class TelaSwingPessoa extends JFrame {
              JOptionPane.showMessageDialog(null, exception.getMessage());
         }
         
-
+       
     }
+    
+    
 
     /**
      * @return the instancia
@@ -472,8 +353,8 @@ public class TelaSwingPessoa extends JFrame {
         return instancia;
     }
 
-    public CtrlPrincipal getCtrlPrincipal() {
-        return CtrlPrincipal.getInstancia();
+    public CtrlPessoa getCtrlPessoa() {
+        return CtrlPessoa.getInstancia();
     }
 
 }
