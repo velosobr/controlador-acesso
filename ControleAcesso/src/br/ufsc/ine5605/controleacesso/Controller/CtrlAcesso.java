@@ -53,16 +53,16 @@ public class CtrlAcesso implements ICtrlAcesso {
 
     
     @Override
-    public boolean ehLiberadoAcesso(int matricula, String codigoSala) throws IllegalArgumentException{
+    public boolean ehLiberadoAcesso(int matricula, String codigoSala) throws Exception{
         Pessoa pessoaParaTestarAcesso = PessoaDAO.getInstancia().getPessoa(matricula);
-        Sala salaParaTestarAcesso = SalaDAO.getInstancia().getSala(codigoSala);
         
-       
         if (pessoaParaTestarAcesso == null){
-            throw new IllegalArgumentException("Matricula não encontrada");
+            throw new MatriculaInexisteException();
         }
+        
+        Sala salaParaTestarAcesso = SalaDAO.getInstancia().getSala(codigoSala);
         if(salaParaTestarAcesso == null){
-            throw new IllegalArgumentException("Sala não encontrada");
+            throw new CodigoSalaInexistenteException();
         }
         ArrayList<Sala> salaCadastradasNaPessoa = pessoaParaTestarAcesso.getSalasCadastradas();
         System.out.println(salaCadastradasNaPessoa);

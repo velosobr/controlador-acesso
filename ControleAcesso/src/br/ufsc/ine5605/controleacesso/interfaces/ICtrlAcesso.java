@@ -24,7 +24,7 @@ public interface ICtrlAcesso {
      * @param codigoSala - codigo da sala que vai verificar o acesso do aluno.
      * @return deve retornar um boolean.
      */
-    public boolean ehLiberadoAcesso(int matricula, String codigoSala);
+    public boolean ehLiberadoAcesso(int matricula, String codigoSala)  throws Exception;
     
     
     
