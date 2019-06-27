@@ -132,7 +132,7 @@ public class TelaSwingLogAcessos extends JFrame {
 
     }
 
-    private void updateTable(int matricula) {
+    private void updateTable(int matricula) throws Exception{
         
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.setNumRows(0);
@@ -142,13 +142,17 @@ public class TelaSwingLogAcessos extends JFrame {
         modelo.addColumn("Sala");
         modelo.addColumn("Data");
         modelo.addColumn("Situação");
-
-        ArrayList<Acesso> listaAcessos = CtrlAcesso.getInstancia().geraListaByMatricula(matricula);
+        try{
+            ArrayList<Acesso> listaAcessos = CtrlAcesso.getInstancia().geraListaByMatricula(matricula);
         
-        for (Acesso acesso : listaAcessos) {
+            for (Acesso acesso : listaAcessos) {
             
-            modelo.addRow(new Object[]{acesso.getId(), acesso.getPessoa().getMatricula(), acesso.getPessoa().getNome(), acesso.getSala().getCodigoSala(), acesso.getData(), acesso.getSituacao()});
+                modelo.addRow(new Object[]{acesso.getId(), acesso.getPessoa().getMatricula(), acesso.getPessoa().getNome(), acesso.getSala().getCodigoSala(), acesso.getData(), acesso.getSituacao()});
+            }
+        }catch (Exception exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage());
         }
+        
         table.setModel(modelo);
         this.repaint();
     }
@@ -163,12 +167,16 @@ public class TelaSwingLogAcessos extends JFrame {
         modelo.addColumn("Sala");
         modelo.addColumn("Data");
         modelo.addColumn("Situação");
-
-        ArrayList<Acesso> listaAcessos = CtrlAcesso.getInstancia().geraListaByCodigoSala(codigoSala);
+        try{
+            ArrayList<Acesso> listaAcessos = CtrlAcesso.getInstancia().geraListaByCodigoSala(codigoSala);
         for (Acesso acesso : listaAcessos) {
             
             modelo.addRow(new Object[]{acesso.getId(), acesso.getPessoa().getMatricula(), acesso.getPessoa().getNome(), acesso.getSala().getCodigoSala(), acesso.getData(), acesso.getSituacao()});
+            }
+        }catch (Exception exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage());
         }
+        
         table.setModel(modelo);
         this.repaint();
     }
@@ -225,7 +233,7 @@ public class TelaSwingLogAcessos extends JFrame {
 
     }
 
-    private void procuraPorMatricula() {
+    private void procuraPorMatricula() throws Exception {
         
         int matricula = validador.recebeValorInteiro("Digite a matricula: ");
         updateTable(matricula);

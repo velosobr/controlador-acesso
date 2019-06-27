@@ -9,14 +9,12 @@ package br.ufsc.ine5605.controleacesso.Exceptions;
  *
  * @author caiocaio
  */
-public class MatriculaInexisteException extends Exception{
-    
-    public MatriculaInexisteException(){
-        this("Matricula invalida!");
-        
+public class SemRegistroException extends Exception {
+    public SemRegistroException(){
+        this("Sem registro de acesso");
     }
     
-    public MatriculaInexisteException(String message){
+    public SemRegistroException(String message){
         super(message);
     }
 }

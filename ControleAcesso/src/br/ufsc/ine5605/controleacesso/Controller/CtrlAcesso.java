@@ -5,6 +5,9 @@
  */
 package br.ufsc.ine5605.controleacesso.Controller;
 
+import br.ufsc.ine5605.controleacesso.Exceptions.CodigoSalaInexistenteException;
+import br.ufsc.ine5605.controleacesso.Exceptions.MatriculaInexisteException;
+import br.ufsc.ine5605.controleacesso.Exceptions.SemRegistroException;
 import br.ufsc.ine5605.controleacesso.Model.Acesso;
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
@@ -79,22 +82,22 @@ public class CtrlAcesso implements ICtrlAcesso {
 
     
     @Override
-    public ArrayList <Acesso> geraListaByMatricula(int matricula)throws IllegalArgumentException {
-        Pessoa pessoa = CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoabyMatricula(matricula);
-   
-        if(pessoa == null){
-            throw new IllegalArgumentException("Matricula invalida");
+    public ArrayList <Acesso> geraListaByMatricula(int matricula)throws Exception{
+        //Pessoa pessoa = CtrlPrincipal.getInstancia().getCtrlPessoa().findPessoabyMatricula(matricula);
+        Integer matriculaLista = matricula;
+        if(matriculaLista == null){
+            throw new MatriculaInexisteException();
         }
         ArrayList <Acesso> listaAcessos = new ArrayList();
         for(Acesso acesso:AcessoDAO.getInstancia().getList()){
             
-            if(acesso.getPessoa().getMatricula() == (pessoa.getMatricula())){ 
+            if(acesso.getPessoa().getMatricula() == (matricula)){ 
                 listaAcessos.add(acesso);
             }
             
         }
         if(listaAcessos.isEmpty()){
-            throw new IllegalArgumentException("Sem registro de acesso");
+            throw new SemRegistroException();
         }
     
     return listaAcessos;       
@@ -102,11 +105,11 @@ public class CtrlAcesso implements ICtrlAcesso {
     }
 
     @Override
-    public ArrayList <Acesso> geraListaByCodigoSala(String codigoSala)throws IllegalArgumentException {
+    public ArrayList <Acesso> geraListaByCodigoSala(String codigoSala)throws Exception {
         
         Sala sala = CtrlPrincipal.getInstancia().getCtrlSala().findSalaByCodigoSala(codigoSala);
         if(sala == null){
-            throw new IllegalArgumentException("Codigo de sala invalido");
+            throw new  CodigoSalaInexistenteException();
         }
         ArrayList <Acesso> listaTodosAcessos = new ArrayList();
         listaTodosAcessos = AcessoDAO.getInstancia().getList();
@@ -121,7 +124,7 @@ public class CtrlAcesso implements ICtrlAcesso {
            
         }
         if (listaAcessosCodigoSala.isEmpty()){
-            throw new IllegalArgumentException("Sem registro de acesso");
+            throw new SemRegistroException();
         }
         return listaAcessosCodigoSala;
     }

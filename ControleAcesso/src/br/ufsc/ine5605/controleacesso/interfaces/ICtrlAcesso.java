@@ -5,6 +5,8 @@
  */
 package br.ufsc.ine5605.controleacesso.interfaces;
 
+import br.ufsc.ine5605.controleacesso.Exceptions.CodigoSalaInexistenteException;
+import br.ufsc.ine5605.controleacesso.Exceptions.MatriculaInexisteException;
 import br.ufsc.ine5605.controleacesso.Model.Acesso;
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
@@ -36,9 +38,9 @@ public interface ICtrlAcesso {
      * @param matricula
      * @return 
      */
-    public ArrayList <Acesso> geraListaByMatricula(int matricula);
+    public ArrayList <Acesso> geraListaByMatricula(int matricula) throws Exception;
 
-    public ArrayList <Acesso> geraListaByCodigoSala(String codigoSala);
+    public ArrayList <Acesso> geraListaByCodigoSala(String codigoSala)throws Exception;
     
     public Acesso findAcessoByMatricula(int matricula);
     
