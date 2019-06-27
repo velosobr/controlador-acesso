@@ -389,18 +389,15 @@ public class TelaSwingPessoaCadastro extends JFrame {
 
         }
 
-        
-            
-            
-        }
-
-        private void cadastroServidor() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        public CtrlPessoa getCtrlPessoa() {
+         public CtrlPessoa getCtrlPessoa() {
         return CtrlPessoa.getInstancia();
+           }       
+            
+            
     }
+
+        
+    
         
     private void cadastroAluno() throws Exception {
             
@@ -411,7 +408,7 @@ public class TelaSwingPessoaCadastro extends JFrame {
                 long telefoneParaCadastrar = Integer.valueOf(telefoneTextField.getText());
                 String emailParaCadastrar = emailTextField.getText();
                 String cursoParaCadastrar = cursoTextField.getText();
-                getCtrlPessoa().incluiAluno(matriculaParaCadastrar, nomeParaCadastrar, telefoneParaCadastrar, emailParaCadastrar, cursoParaCadastrar);
+                CtrlPessoa.getInstancia().incluiAluno(matriculaParaCadastrar, nomeParaCadastrar, telefoneParaCadastrar, emailParaCadastrar, cursoParaCadastrar);
                 CtrlPessoa.getInstancia().abreTelaSwingPessoa();
                 TelaSwingPessoa.getInstancia().updateTable();
                 setVisible(false);
@@ -426,6 +423,37 @@ public class TelaSwingPessoaCadastro extends JFrame {
      
 
    }
-}
-    
+
+    private void cadastroServidor() throws Exception{
+            try{    
+                Integer matriculaParaCadastrar = Integer.valueOf(matriculaTextField.getText());
+                String nomeParaCadastrar = nomeTextField.getText();
+                long telefoneParaCadastrar = Integer.valueOf(telefoneTextField.getText());
+                String emailParaCadastrar = emailTextField.getText();
+                
+                String cargoParaCadastrar = cargoField.getName();
+                System.out.println("cargoParaCadastrar" + cargoParaCadastrar);
+                String ehAdmString = ehAdmField.getName();
+                boolean ehAdmBool;
+                if(ehAdmString.equals("Sim")){
+                    ehAdmBool = true;
+                }else{
+                    ehAdmBool = false;
+                }
+                
+                CtrlPessoa.getInstancia().incluiServidor(matriculaParaCadastrar, nomeParaCadastrar, telefoneParaCadastrar, emailParaCadastrar, cargoParaCadastrar, ehAdmBool);
+                CtrlPessoa.getInstancia().abreTelaSwingPessoa();
+                TelaSwingPessoa.getInstancia().updateTable();
+                setVisible(false);
+            }catch(NumberFormatException nfe){
+                JOptionPane.showMessageDialog(null,"Digite um numero inteiro para matricula e telefone");
+            
+                
+            }catch (MatriculaJahExisteException e){
+                JOptionPane.showMessageDialog(null,e.getMessage());
+            }
+        }
+
+       
+}   
 
