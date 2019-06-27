@@ -70,20 +70,12 @@ public class TelaSwingPessoa extends JFrame {
     private JPanel panelPrincipal(){
         JPanel panelPessoa = new JPanel(new GridBagLayout());
 
-        GridBagConstraints constraintsPanel = new GridBagConstraints();
-
-        constraintsPanel.anchor = GridBagConstraints.WEST;
-        constraintsPanel.insets = new Insets(0, 0, 0, 0);
         panelPessoa.setBackground(Color.WHITE);
         setSize(700, 300);
-
-        panelPessoa.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Opcoes Pessoa"));
-
+        panelPessoa.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Opcoes Pessoa"));
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 

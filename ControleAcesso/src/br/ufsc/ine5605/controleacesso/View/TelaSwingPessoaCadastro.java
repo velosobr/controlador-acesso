@@ -66,28 +66,12 @@ public class TelaSwingPessoaCadastro extends JFrame {
 
     private JPanel telaAluno() {
         JPanel panelAluno = new JPanel();
-        GridBagConstraints constraintsPanel = new GridBagConstraints();
-
-        constraintsPanel.anchor = GridBagConstraints.WEST;
-        constraintsPanel.insets = new Insets(0, 0, 0, 0);
         panelAluno.setBackground(Color.WHITE);
         setSize(400, 300);
-
-        panelAluno.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Opcoes Pessoa"));
-
+        panelAluno.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Opcoes Pessoa"));
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        
-        
-        GridBagConstraints gbcPanel = new GridBagConstraints();
-        gbcPanel.gridx = 9;
-        gbcPanel.gridy = 1;
-        gbcPanel.gridwidth = 3;
-        gbcPanel.gridheight = 1;
-        gbcPanel.anchor = GridBagConstraints.NORTH;
-        gbcPanel.insets = new Insets(0,0,0,0);
         
         matricula = new JLabel("Matricula");
         nome = new JLabel ("Nome");
@@ -205,26 +189,13 @@ public class TelaSwingPessoaCadastro extends JFrame {
 
     private JPanel telaServidor() {
         JPanel panelCadastro = new JPanel();
-        GridBagConstraints constraintsPanel = new GridBagConstraints();
-
-        constraintsPanel.anchor = GridBagConstraints.WEST;
-        constraintsPanel.insets = new Insets(0, 0, 0, 0);
+        
         panelCadastro.setBackground(Color.WHITE);
         setSize(400, 300);
-
-        panelCadastro.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Opcoes Pessoa"));
-
+        panelCadastro.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Opcoes Pessoa"));
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        GridBagConstraints gbcPanel = new GridBagConstraints();
-        gbcPanel.gridx = 9;
-        gbcPanel.gridy = 1;
-        gbcPanel.gridwidth = 3;
-        gbcPanel.gridheight = 1;
-        gbcPanel.anchor = GridBagConstraints.NORTH;
-        gbcPanel.insets = new Insets(0,0,0,0);
         
         matricula = new JLabel("Matricula");
         nome = new JLabel ("Nome");
@@ -380,7 +351,7 @@ public class TelaSwingPessoaCadastro extends JFrame {
 
                 }
             } catch (Exception ex) {
-                //JOptionPane.showMessageDialog(null, "Opcao Invalida! Escolha uma opcao dentre das opcoes na lista.");
+                
                 TelaSwingPessoa.getInstancia().setVisible(true);
             }
 

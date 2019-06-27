@@ -50,16 +50,10 @@ public class TelaSwingGestaoPermissaoPessoa extends JFrame {
         matriculaPessoa = matricula;
         JPanel panelPermissaoPessoa = new JPanel(new GridBagLayout());
 
-        GridBagConstraints constraintsPanel = new GridBagConstraints();
-        constraintsPanel.anchor = GridBagConstraints.WEST;
-        constraintsPanel.insets = new Insets(5, 5, 5, 5);
+        
         panelPermissaoPessoa.setBackground(Color.WHITE);
         setSize(680, 300);
-
-        panelPermissaoPessoa.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
-                "Gerenciamento das permissões de acesso | Usuário selecionado: "
-                + CtrlPessoa.getInstancia().findPessoabyMatricula(matricula).getNome()));
-
+        panelPermissaoPessoa.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"Gerenciamento das permissões de acesso | Usuário selecionado: "+ CtrlPessoa.getInstancia().findPessoabyMatricula(matricula).getNome()));
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().add(panelPermissaoPessoa);
