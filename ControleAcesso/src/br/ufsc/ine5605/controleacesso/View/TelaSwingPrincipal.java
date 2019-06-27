@@ -145,7 +145,7 @@ public class TelaSwingPrincipal extends JFrame {
 
     }
 
-    private boolean validacaoPorta(int matricula, String codSala) {
+    private boolean validacaoPorta(int matricula, String codSala) throws Exception {
         return CtrlPrincipal.getInstancia().getCtrlAcesso().ehLiberadoAcesso(matricula, codSala);
     }
 
