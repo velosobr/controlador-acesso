@@ -113,25 +113,26 @@ public class TelaSwingLogAcessos extends JFrame {
 //CONFIGURACOES TABELA  
         System.out.println("entra na CONFIGURACOES TABELA");
         table = new JTable();
+        GridBagConstraints gbcTable = new GridBagConstraints();
         JScrollPane scroll = new JScrollPane(table);
         scroll.setPreferredSize(new Dimension(650, 200));
 
-        gbc.fill = GridBagConstraints.CENTER;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridheight = 2;
-        gbc.gridwidth = 8;
+        gbcTable.fill = GridBagConstraints.CENTER;
+        gbcTable.gridx = 0;
+        gbcTable.gridy = 0;
+        gbcTable.gridheight = 2;
+        gbcTable.gridwidth = 8;
 
         table.setFillsViewportHeight(true);
         table.setPreferredScrollableViewportSize(new Dimension(650, 200));
 
-        panelAcesso.add(scroll, gbc);
+        panelAcesso.add(scroll, gbcTable);
 
       
 
     }
 
-    private void updateTable(int matricula) {
+    private void updateTable(int matricula) throws Exception{
         
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.setNumRows(0);
@@ -141,13 +142,17 @@ public class TelaSwingLogAcessos extends JFrame {
         modelo.addColumn("Sala");
         modelo.addColumn("Data");
         modelo.addColumn("Situação");
-
-        ArrayList<Acesso> listaAcessos = CtrlAcesso.getInstancia().geraListaByMatricula(matricula);
+        try{
+            ArrayList<Acesso> listaAcessos = CtrlAcesso.getInstancia().geraListaByMatricula(matricula);
         
-        for (Acesso acesso : listaAcessos) {
+            for (Acesso acesso : listaAcessos) {
             
-            modelo.addRow(new Object[]{acesso.getId(), acesso.getPessoa().getMatricula(), acesso.getPessoa().getNome(), acesso.getSala().getCodigoSala(), acesso.getData(), acesso.getSituacao()});
+                modelo.addRow(new Object[]{acesso.getId(), acesso.getPessoa().getMatricula(), acesso.getPessoa().getNome(), acesso.getSala().getCodigoSala(), acesso.getData(), acesso.getSituacao()});
+            }
+        }catch (Exception exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage());
         }
+        
         table.setModel(modelo);
         this.repaint();
     }
@@ -162,12 +167,16 @@ public class TelaSwingLogAcessos extends JFrame {
         modelo.addColumn("Sala");
         modelo.addColumn("Data");
         modelo.addColumn("Situação");
-
-        ArrayList<Acesso> listaAcessos = CtrlAcesso.getInstancia().geraListaByCodigoSala(codigoSala);
+        try{
+            ArrayList<Acesso> listaAcessos = CtrlAcesso.getInstancia().geraListaByCodigoSala(codigoSala);
         for (Acesso acesso : listaAcessos) {
             
             modelo.addRow(new Object[]{acesso.getId(), acesso.getPessoa().getMatricula(), acesso.getPessoa().getNome(), acesso.getSala().getCodigoSala(), acesso.getData(), acesso.getSituacao()});
+            }
+        }catch (Exception exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage());
         }
+        
         table.setModel(modelo);
         this.repaint();
     }
@@ -224,7 +233,7 @@ public class TelaSwingLogAcessos extends JFrame {
 
     }
 
-    private void procuraPorMatricula() {
+    private void procuraPorMatricula() throws Exception {
         
         int matricula = validador.recebeValorInteiro("Digite a matricula: ");
         updateTable(matricula);

@@ -5,6 +5,10 @@
  */
 package br.ufsc.ine5605.controleacesso.Controller;
 
+import br.ufsc.ine5605.controleacesso.Exceptions.CodigoSalaInexistenteException;
+import br.ufsc.ine5605.controleacesso.Exceptions.MatriculaInexisteException;
+import br.ufsc.ine5605.controleacesso.Exceptions.MatriculaJahExisteException;
+import br.ufsc.ine5605.controleacesso.Exceptions.PermissaoJahRealizadaException;
 import br.ufsc.ine5605.controleacesso.Model.Aluno;
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
@@ -50,33 +54,36 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
    
     @Override
-    public boolean incluiAluno(int matricula, String nome, long telefone, String email, String curso) {
+    public boolean incluiAluno(int matricula, String nome, long telefone, String email, String curso) throws MatriculaJahExisteException {
         Pessoa alunoParaVerificar = findPessoabyMatricula(matricula);
         if (alunoParaVerificar == null) {
             Aluno alunoParaIncluir = new Aluno(matricula, nome, telefone, email, curso);
             PessoaDAO.getInstancia().putAluno(alunoParaIncluir);
             return true;
+        }else{
+            throw new MatriculaJahExisteException();
         }
-        return false;
     }
 
     @Override
-    public boolean incluiServidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador) {
+    public boolean incluiServidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador) throws MatriculaJahExisteException {
         Pessoa servidorParaVerificar = findPessoabyMatricula(matricula);
         if (servidorParaVerificar == null) {
             Servidor servidorParaIncluir = new Servidor(matricula, nome, telefone, email, cargo, administrador);
             PessoaDAO.getInstancia().putServidor(servidorParaIncluir);
             return true;
+        }else{
+            throw new MatriculaJahExisteException();
         }
-        return false;
+        
     }
     
     
     @Override
-    public boolean alteradorDeCadastroAluno(int matricula, String nome, long telefone, String email, String curso)throws IllegalArgumentException {
+    public boolean alteradorDeCadastroAluno(int matricula, String nome, long telefone, String email, String curso)throws Exception{
         Aluno alunoParaAlterar = (Aluno)findPessoabyMatricula(matricula);
         if(alunoParaAlterar==null){
-           throw new IllegalArgumentException("Matricula invalida, alteracao nao foi realizada"); 
+           throw new MatriculaInexisteException(); 
         }
         alunoParaAlterar.setNome(nome);
         alunoParaAlterar.setTelefone(telefone);
@@ -87,10 +94,10 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
     
     @Override
-    public boolean alteradorDeCadastroServidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador)throws IllegalArgumentException{
+    public boolean alteradorDeCadastroServidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador)throws Exception{
         Servidor servidorParaAlterar = (Servidor)  findPessoabyMatricula(matricula);
         if(servidorParaAlterar==null){
-           throw new IllegalArgumentException("Matricula invalida, alteracao nao foi realizada");
+           throw new MatriculaInexisteException();
         }
         servidorParaAlterar.setNome(nome);
         servidorParaAlterar.getTelefone();
@@ -101,26 +108,31 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
     
     @Override
-    public boolean delPessoa(int matricula) throws IllegalArgumentException {
+    public boolean delPessoa(int matricula) throws MatriculaInexisteException{
         Pessoa pessoaParaDeletar = findPessoabyMatricula(matricula);
+        
         if (pessoaParaDeletar != null) {
             PessoaDAO.getInstancia().remove(pessoaParaDeletar);
             return true;
+        }
+        
+        if(pessoaParaDeletar == null){
+            throw new MatriculaInexisteException();
         }
         return false;
     }
     
 
     @Override
-    public boolean cadastraSalaNaPessoa(int matricula, String codigoSala) throws IllegalArgumentException {
+    public boolean cadastraSalaNaPessoa(int matricula, String codigoSala) throws Exception {
         Sala salaParaCadastrar = SalaDAO.getInstancia().getSala(codigoSala);
         Pessoa pessoaCadastro = PessoaDAO.getInstancia().getPessoa(matricula);
         ArrayList <Sala> salasCadastradas = pessoaCadastro.getSalasCadastradas();
         if (pessoaCadastro == null) {
-            throw new IllegalArgumentException("Matricula invalida");
+            throw new MatriculaInexisteException();
         }
         if (salaParaCadastrar == null) {
-            throw new IllegalArgumentException("Codigo de sala invalido");
+            throw new CodigoSalaInexistenteException();
         }
         
         Sala salaJahCadastrada = null;
@@ -131,7 +143,7 @@ public class CtrlPessoa implements ICtrlPessoa {
         }        
         
         if (salaJahCadastrada != null){
-            throw new IllegalArgumentException("A Sala ja esta adicionada na pessoa");
+            throw new PermissaoJahRealizadaException();
        
         }else{
                 
@@ -145,17 +157,17 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
 
     @Override
-    public void delSalaNaPessoa(int matricula, String codigoSala) throws IllegalArgumentException {
+    public void delSalaNaPessoa(int matricula, String codigoSala) throws Exception {
         
         Sala salaParaDeletar = CtrlPrincipal.getInstancia().getCtrlSala().findSalaByCodigoSala(codigoSala);
         Pessoa pessoaCadastro = findPessoabyMatricula(matricula);      
         ArrayList <Sala> salasCadastradas = pessoaCadastro.getSalasCadastradas();
         
         if (pessoaCadastro == null) {
-            throw new IllegalArgumentException("Matricula invalida");
+            throw new MatriculaInexisteException();
         }
         if (salaParaDeletar == null) {
-            throw new IllegalArgumentException("Codigo de sala invalido");
+            throw new CodigoSalaInexistenteException();
         }
         
         Sala salaJahCadastrada = null;
@@ -173,7 +185,7 @@ public class CtrlPessoa implements ICtrlPessoa {
             SalaDAO.getInstancia().persist();
             
         if (salaJahCadastrada == null) {
-            throw new IllegalArgumentException("A sala nao consta na lista de salas da pessoa. Tente novamente.");
+            throw new CodigoSalaInexistenteException();
             
             
         } 

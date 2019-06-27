@@ -9,11 +9,14 @@ package br.ufsc.ine5605.controleacesso.Exceptions;
  *
  * @author caiocaio
  */
-public class CodigoSalaJahExisteException extends Exception{
-    public CodigoSalaJahExisteException (){
-        this("Codigo de sala ja existe!");
+public class PermissaoJahRealizadaException extends Exception{
+    
+    public PermissaoJahRealizadaException(){
+        this("Ja foi permitido acesso a esta sala");
     }
-    public CodigoSalaJahExisteException (String message){
+    
+    public PermissaoJahRealizadaException(String message){
         super(message);
     }
 }
+
