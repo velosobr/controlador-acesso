@@ -7,8 +7,10 @@ package br.ufsc.ine5605.controleacesso.View;
 
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
 import br.ufsc.ine5605.controleacesso.Model.Aluno;
+import br.ufsc.ine5605.controleacesso.Model.EhAdm;
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Servidor;
+import br.ufsc.ine5605.controleacesso.Model.TipoCargo;
 import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
 import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
 import java.awt.Color;
@@ -24,12 +26,14 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -42,12 +46,31 @@ public class TelaSwingPessoa extends JFrame {
 
     private static TelaSwingPessoa instancia;
     private JLabel label;
+    private JLabel opcaoCadastro;
+    private JLabel matricula;
+    private JLabel nome;
+    private JLabel telefone;
+    private JLabel email;
+    private JLabel curso;
+    private JLabel cargo;
+    private JLabel ehAdm;
+    
+    private JTextField matriculaTextField;
+    private JTextField nomeTextField;
+    private JTextField telefoneTextField;
+    private JTextField emailTextField;
+    private JTextField cursoTextField;
+    private JComboBox cargoField;
+    private JComboBox ehAdmField;
+    
     private JButton cadastro;
     private JButton editar;
     private JButton remover;
     private JButton opcoesPermissao;
     private JButton voltar;
     private JTable table;
+    private JButton aluno;
+    private JButton servidor;
     private ValidaERetorna validador = new ValidaERetorna();
 
     public TelaSwingPessoa() {
@@ -58,9 +81,9 @@ public class TelaSwingPessoa extends JFrame {
         GridBagConstraints constraintsPanel = new GridBagConstraints();
 
         constraintsPanel.anchor = GridBagConstraints.WEST;
-        constraintsPanel.insets = new Insets(5, 5, 5, 5);
+        constraintsPanel.insets = new Insets(0, 0, 0, 0);
         panelPessoa.setBackground(Color.WHITE);
-        setSize(680, 300);
+        setSize(900, 300);
 
         panelPessoa.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Opcoes Pessoa"));
@@ -72,7 +95,7 @@ public class TelaSwingPessoa extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 
-//COMPONENTES TELASWINGPESSOA
+//COMPONENTES PANELPESSOA
 // Label
         label = new JLabel();
         label.setText("Selecione uma das opções");
@@ -154,8 +177,130 @@ public class TelaSwingPessoa extends JFrame {
         panelPessoa.add(scroll, gbcTable);
 
         updateTable();
-    }
+        
+        JPanel panelCadastroAluno = this.panelCadastroAluno();
+        
+        gbc.gridx = 9;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.insets = new Insets(0,0,0,0);
+        panelPessoa.add(panelCadastroAluno, gbc);
+        
+    }   
+//COMPONENTES PANELCADASTRO
+    private JPanel panelCadastroAluno(){
+        JPanel panelCadastro = new JPanel();
+        
+        opcaoCadastro = new JLabel("Opcoes de Cadastro");
+        matricula = new JLabel("Matricula");
+        nome = new JLabel ("Nome");
+        telefone = new JLabel ("Telefone");
+        email = new JLabel ("Email");
+        curso = new JLabel ("Curso");
+        cargo = new JLabel ("Cargo");
+        ehAdm= new JLabel ("Eh administrador?");
+        
+        matriculaTextField = new JTextField("");
+        nomeTextField = new JTextField("");
+        telefoneTextField = new JTextField("");
+        emailTextField = new JTextField("");
+        cursoTextField = new JTextField("");
+        cargoField = new JComboBox(TipoCargo.values());
+        ehAdmField = new JComboBox(EhAdm.values());
+        
+        panelCadastro.setLayout(new GridBagLayout());
+        panelCadastro.setBackground(Color.WHITE);
+        
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(2, 2, 2, 2);
+        gbc.anchor = GridBagConstraints.NORTHEAST;
+                
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth =4;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        
+        panelCadastro.add(opcaoCadastro, gbc);
+        
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        
+        panelCadastro.add(matricula,gbc);
+        
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 3;
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        
+        panelCadastro.add(matriculaTextField, gbc);
+        
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        
+        panelCadastro.add(nome, gbc);
+        
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 3;
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        
+        panelCadastro.add(nomeTextField, gbc);
+        
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        
+        panelCadastro.add(telefone, gbc);
+        
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 3;
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        
+        panelCadastro.add(telefoneTextField, gbc);
+        
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        
+        panelCadastro.add(email, gbc);
+        
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 3;
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        
+        panelCadastro.add(emailTextField, gbc);
+        
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        
+        panelCadastro.add(curso, gbc);
+        
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 3;
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        
+        panelCadastro.add(cursoTextField, gbc);
 
+      
+    return panelCadastro;
+    }   
+    /* 
+    }*/
+      
+    
     private void updateTable() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.setNumRows(0);
@@ -226,25 +371,30 @@ public class TelaSwingPessoa extends JFrame {
     private void cadastraPessoa() {
 
             
-            String[] opcoes = {"Aluno", "Servidor"};
-            int teste = JOptionPane.showOptionDialog(null, "Escolha um tipo de pessoa", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
-            if(teste == 0){
-                int matricula = validador.recebeValorInteiro("Digite a matricula: ");
-                String nome = validador.recebeValorString("Digite o nome: ");
-                long telefone = validador.recebeValorLong("Digite o telefone: ");
-                String email = validador.recebeValorString("Digite o email: ");
-                String curso = validador.recebeValorString("Digite o curso: ");
-                getCtrlPrincipal().getCtrlPessoa().incluiAluno(matricula, nome, telefone, email, curso);
-            }else{
-                int matricula = validador.recebeValorInteiro("Digite a matricula: ");
-                String nome = validador.recebeValorString("Digite o nome: ");
-                long telefone = validador.recebeValorLong("Digite o telefone: ");
-                String email = validador.recebeValorString("Digite o email: ");
-                //String cargo = JOptionPane.showInputDialog(rootPane, teste, nome, teste, icon, opcoes, telefone)
-                String cargo = validador.recebeValorString("Digite o cargo: ");
-                boolean administrador = validador.recebeValorBoolean();
-                getCtrlPrincipal().getCtrlPessoa().incluiServidor(matricula, nome, telefone, email, cargo, administrador);
-
+        String[] opcoes = {"Aluno", "Servidor"};
+        try{
+        int teste = JOptionPane.showOptionDialog(null, "Escolha um tipo de pessoa", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+        if(teste == 0){
+            int matricula = validador.recebeValorInteiro("Digite a matricula: ");
+            String nome = validador.recebeValorString("Digite o nome: ");
+            long telefone = validador.recebeValorLong("Digite o telefone: ");
+            String email = validador.recebeValorString("Digite o email: ");
+            String curso = validador.recebeValorString("Digite o curso: ");
+            getCtrlPrincipal().getCtrlPessoa().incluiAluno(matricula, nome, telefone, email, curso);
+        }else{
+            int matricula = validador.recebeValorInteiro("Digite a matricula: ");
+            String nome = validador.recebeValorString("Digite o nome: ");
+            long telefone = validador.recebeValorLong("Digite o telefone: ");
+            String email = validador.recebeValorString("Digite o email: ");
+            //String cargo = JOptionPane.showInputDialog(rootPane, teste, nome, teste, icon, opcoes, telefone)
+            String cargo = validador.recebeValorString("Digite o cargo: ");
+            boolean administrador = validador.recebeValorBoolean();
+            getCtrlPrincipal().getCtrlPessoa().incluiServidor(matricula, nome, telefone, email, cargo, administrador);
+            }
+            
+                    
+        }catch (Exception exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage());
 
         }
     }
@@ -252,7 +402,8 @@ public class TelaSwingPessoa extends JFrame {
     private void editarPessoa() {
 
         int linhaSelecionada = table.getSelectedRow();
-        if (linhaSelecionada >= 0) {
+        try{
+            if (linhaSelecionada >= 0) {
             String tipoPessoa = table.getValueAt(linhaSelecionada, 7).toString();
             int matricula = (int) table.getValueAt(linhaSelecionada, 0);
             if (tipoPessoa.equals("Aluno")) {
@@ -268,31 +419,46 @@ public class TelaSwingPessoa extends JFrame {
                 String cargo = validador.recebeValorString("Digite o cargo: ");
                 boolean administrador = validador.recebeValorBoolean();
                 getCtrlPrincipal().getCtrlPessoa().alteradorDeCadastroServidor(matricula, nome, telefone, email, cargo, administrador);
+                }
+            }else {
+                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+        }catch (Exception exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage());
         }
+        
     }
 
     private void removerPessoa() {
         int linhaSelecionada = table.getSelectedRow();
-        if (linhaSelecionada >= 0) {
+        try{
+            if (linhaSelecionada >= 0) {
             int matricula = (int) table.getValueAt(linhaSelecionada, 0);
             Pessoa pessoaParaRemover = PessoaDAO.getInstancia().getPessoa(matricula);
             PessoaDAO.getInstancia().remove(pessoaParaRemover);
-        } else {
-            JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
-        }
+            } else {
+                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+            }
+                
+        }catch (Exception exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage());
+    }
+        
     }
 
     private void opcoesPermissao() {
         Integer linhaSelecionada = table.getSelectedRow();
-        if (linhaSelecionada >= 0) {
+        try{
+            if (linhaSelecionada >= 0) {
             int matricula = (int) table.getValueAt(linhaSelecionada, 0);
             getCtrlPrincipal().getCtrlPessoa().abreTelaGestaoPermissaoPessoa(matricula);
-        } else {
+            } else {
             JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+            }
+        }catch (Exception exception){
+             JOptionPane.showMessageDialog(null, exception.getMessage());
         }
+        
 
     }
 

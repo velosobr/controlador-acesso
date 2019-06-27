@@ -9,10 +9,10 @@ package br.ufsc.ine5605.controleacesso.Exceptions;
  *
  * @author caiocaio
  */
-public class MatriculaInexisteException extends RuntimeException{
+public class MatriculaInexisteException extends Exception{
     
     public MatriculaInexisteException(){
-        this("Matricula nao cadastrada!");
+        this("Matricula invalida!");
         
     }
     
