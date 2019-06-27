@@ -45,18 +45,11 @@ public class TelaSwingLogAcessos extends JFrame {
 
     private TelaSwingLogAcessos() {
         super("Opcoes de log de acesso");
-        System.out.println("entra no construtor TelaSwingLogAcessos");
 
         JPanel panelAcesso = new JPanel(new GridBagLayout());
-        GridBagConstraints constraintsPanel = new GridBagConstraints();
-
-        constraintsPanel.anchor = GridBagConstraints.WEST;
-        constraintsPanel.insets = new Insets(5, 5, 5, 5);
         panelAcesso.setBackground(Color.WHITE);
         setSize(800, 300);
-
-        panelAcesso.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Gerenciamento acesso"));
+        panelAcesso.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Gerenciamento acesso"));
 
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
