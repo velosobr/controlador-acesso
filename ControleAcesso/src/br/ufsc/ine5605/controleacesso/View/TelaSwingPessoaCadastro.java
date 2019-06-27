@@ -370,9 +370,6 @@ public class TelaSwingPessoaCadastro extends JFrame {
                     case ("confirmaServidor"):
                         cadastroServidor();
                         
-                        
-                        setVisible(false);
-                        
                         break;
                     case ("cancelar"):
                         setVisible(false);
@@ -416,7 +413,7 @@ public class TelaSwingPessoaCadastro extends JFrame {
                 JOptionPane.showMessageDialog(null,"Digite um numero inteiro para matricula e telefone");
             
                 
-            }catch (MatriculaJahExisteException e){
+            }catch (Exception e){
                 JOptionPane.showMessageDialog(null,e.getMessage());
             }
 
@@ -431,11 +428,11 @@ public class TelaSwingPessoaCadastro extends JFrame {
                 long telefoneParaCadastrar = Integer.valueOf(telefoneTextField.getText());
                 String emailParaCadastrar = emailTextField.getText();
                 
-                String cargoParaCadastrar = cargoField.getName();
+                String cargoParaCadastrar = cargoField.getSelectedItem().toString();
                 System.out.println("cargoParaCadastrar" + cargoParaCadastrar);
-                String ehAdmString = ehAdmField.getName();
+                String ehAdmString = ehAdmField.getSelectedItem().toString();
                 boolean ehAdmBool;
-                if(ehAdmString.equals("Sim")){
+                if(ehAdmString.equals("SIM")){
                     ehAdmBool = true;
                 }else{
                     ehAdmBool = false;
@@ -449,7 +446,7 @@ public class TelaSwingPessoaCadastro extends JFrame {
                 JOptionPane.showMessageDialog(null,"Digite um numero inteiro para matricula e telefone");
             
                 
-            }catch (MatriculaJahExisteException e){
+            }catch (Exception e){
                 JOptionPane.showMessageDialog(null,e.getMessage());
             }
         }

@@ -30,7 +30,7 @@ public interface ICtrlPessoa {
      * @throws br.ufsc.ine5605.controleacesso.Exceptions.MatriculaJahExisteException
      *
      */
-    public boolean incluiAluno(int matricula, String nome, long telefone, String email, String curso) throws MatriculaJahExisteException ;
+    public boolean incluiAluno(int matricula, String nome, long telefone, String email, String curso) throws Exception ;
 
     /**
      * É utilizado pela TelaPessoa para incluir um novo Servidor na lista de
@@ -46,7 +46,7 @@ public interface ICtrlPessoa {
      * @return 
      * @throws br.ufsc.ine5605.controleacesso.Exceptions.MatriculaJahExisteException
      */
-    public boolean incluiServidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador) throws MatriculaJahExisteException ;
+    public boolean incluiServidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador) throws Exception;
 
     /**
      * É utilizado pela TelaPessoa para deletar uma pessoa na lista de pessoas.

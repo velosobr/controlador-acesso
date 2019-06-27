@@ -5,6 +5,7 @@
  */
 package br.ufsc.ine5605.controleacesso.Controller;
 
+import br.ufsc.ine5605.controleacesso.Exceptions.CampoVazioException;
 import br.ufsc.ine5605.controleacesso.Exceptions.CodigoSalaInexistenteException;
 import br.ufsc.ine5605.controleacesso.Exceptions.MatriculaInexisteException;
 import br.ufsc.ine5605.controleacesso.Exceptions.MatriculaJahExisteException;
@@ -55,27 +56,46 @@ public class CtrlPessoa implements ICtrlPessoa {
     }
    
     @Override
-    public boolean incluiAluno(int matricula, String nome, long telefone, String email, String curso) throws MatriculaJahExisteException {
-        Pessoa alunoParaVerificar = findPessoabyMatricula(matricula);
-        if (alunoParaVerificar == null) {
-            Aluno alunoParaIncluir = new Aluno(matricula, nome, telefone, email, curso);
-            PessoaDAO.getInstancia().putAluno(alunoParaIncluir);
-            return true;
-        }else{
-            throw new MatriculaJahExisteException();
+    public boolean incluiAluno(int matricula, String nome, long telefone, String email, String curso) throws Exception {
+        try{
+            Pessoa alunoParaVerificar = findPessoabyMatricula(matricula);
+        
+            if(nome.isEmpty() ||  email.isEmpty() || curso.isEmpty()){
+                throw new CampoVazioException();
+            }
+        
+            if (alunoParaVerificar == null) {
+                Aluno alunoParaIncluir = new Aluno(matricula, nome, telefone, email, curso);
+                PessoaDAO.getInstancia().putAluno(alunoParaIncluir);
+                return true;
+            }else{
+                throw new MatriculaJahExisteException();
+            }
+        }catch(NullPointerException npe){
+            throw new NullPointerException("Preencha corretamente os campos");
         }
+        
     }
 
     @Override
-    public boolean incluiServidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador) throws MatriculaJahExisteException {
-        Pessoa servidorParaVerificar = findPessoabyMatricula(matricula);
-        if (servidorParaVerificar == null) {
-            Servidor servidorParaIncluir = new Servidor(matricula, nome, telefone, email, cargo, administrador);
-            PessoaDAO.getInstancia().putServidor(servidorParaIncluir);
-            return true;
-        }else{
-            throw new MatriculaJahExisteException();
+    public boolean incluiServidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador) throws Exception {
+        try{
+            Pessoa servidorParaVerificar = findPessoabyMatricula(matricula);
+            
+            if(nome.isEmpty() ||  email.isEmpty() || cargo.isEmpty()) {
+                throw new CampoVazioException();
+            }
+            if (servidorParaVerificar == null) {
+                Servidor servidorParaIncluir = new Servidor(matricula, nome, telefone, email, cargo, administrador);
+                PessoaDAO.getInstancia().putServidor(servidorParaIncluir);
+                return true;
+            }else{
+                throw new MatriculaJahExisteException();
+            }
+        }catch (NullPointerException npe){
+            throw new NullPointerException("Preencha corretamente os campos");
         }
+        
         
     }
     
@@ -174,7 +194,7 @@ public class CtrlPessoa implements ICtrlPessoa {
         Sala salaJahCadastrada = null;
         
         for(Sala sala: salasCadastradas){
-            ;
+            
             if(sala.getCodigoSala().equals(salaParaDeletar.getCodigoSala()))
                 salaJahCadastrada = sala;
             
