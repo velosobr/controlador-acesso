@@ -110,6 +110,7 @@ public class CtrlPessoa implements ICtrlPessoa {
         alunoParaAlterar.setTelefone(telefone);
         alunoParaAlterar.setEmail(email);
         alunoParaAlterar.setCurso(email);
+        PessoaDAO.getInstancia().persist();
         return true;
         
     }
@@ -125,6 +126,7 @@ public class CtrlPessoa implements ICtrlPessoa {
         servidorParaAlterar.setEmail(email);
         servidorParaAlterar.setCargo(cargo);
         servidorParaAlterar.setAdministrador(administrador);
+        PessoaDAO.getInstancia().persist();
         return true;
     }
     
