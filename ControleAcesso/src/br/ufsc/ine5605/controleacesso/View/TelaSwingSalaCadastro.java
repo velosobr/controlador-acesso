@@ -168,7 +168,7 @@ public class TelaSwingSalaCadastro extends JFrame {
         public void actionPerformed(ActionEvent e) {
             try {
                 switch (e.getActionCommand()) {
-                    case ("confirmaSala"):
+                    case ("confirmarSala"):
                         cadastroSala();
                         break;
 
