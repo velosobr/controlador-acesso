@@ -86,7 +86,8 @@ public class TelaSwingSalaCadastro extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridwidth = 2;
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 0;
+
         panelSala.add(codigoTextField, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
