@@ -400,8 +400,20 @@ public class TelaSwingPessoaCadastro extends JFrame {
                 String emailParaCadastrar = emailTextField.getText();
                 
                 String cargoParaCadastrar = cargoField.getSelectedItem().toString();
+                switch (cargoParaCadastrar) {
+                    case "PROFESSOR":
+                        cargoParaCadastrar = "Professor";
+                        break;
+                    case "TECNICOADM":
+                        cargoParaCadastrar = "Tecnico administrativo";
+                        break;
+                    case "TECNICOLABORATORIO":
+                        cargoParaCadastrar = "Tecnico laboratorio";
+                        break;
+                }
                 System.out.println("cargoParaCadastrar" + cargoParaCadastrar);
                 String ehAdmString = ehAdmField.getSelectedItem().toString();
+                
                 boolean ehAdmBool;
                 if(ehAdmString.equals("SIM")){
                     ehAdmBool = true;

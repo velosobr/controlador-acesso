@@ -287,7 +287,21 @@ public class TelaSwingPessoa extends JFrame {
                 String nome = validador.recebeValorString("Digite o nome: ");
                 long telefone = validador.recebeValorLong("Digite o telefone: ");
                 String email = validador.recebeValorString("Digite o email: ");
-                String cargo = validador.recebeValorString("Digite o cargo: ");
+                String[] opcoes = {"Professor", "Tecnico Administrativo", "Tecnico Laboratorio"};
+                int cargoTeste = JOptionPane.showOptionDialog(null, "Escolha um tipo de pessoa", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+                String cargo = "";
+                switch (cargoTeste) {
+                    case 0:
+                        cargo = TipoCargo.PROFESSOR.getDescricao();
+                        break;
+                    case 1:
+                        cargo = TipoCargo.TECNICOADM.getDescricao();
+                        break;
+                    case 2:
+                        cargo = TipoCargo.TECNICOLABORATORIO.getDescricao();
+                        break;
+                }
+
                 boolean administrador = validador.recebeValorBoolean();
                 getCtrlPessoa().alteradorDeCadastroServidor(matricula, nome, telefone, email, cargo, administrador);
                 }
