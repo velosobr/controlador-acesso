@@ -131,12 +131,16 @@ public class ValidaERetorna {
 //    }
     public long recebeValorLong(String mensagem) {
         long valor = -1;
+        try{
+            do {
+                valor = Long.parseLong(JOptionPane.showInputDialog(mensagem));
 
-        do {
-            valor = Long.parseLong(JOptionPane.showInputDialog(mensagem));
+            } while (valor == -1);
 
-        } while (valor == -1);
-
-        return valor;
+            
+        }catch (NumberFormatException nfe){
+            JOptionPane.showMessageDialog(null, "Digite um numero inteiro para telefone");
+        }
+       return valor; 
     }
 }
