@@ -60,7 +60,7 @@ public class AcessoDAO {
     }
     
     private void load() {
-        
+            
        try{
         FileInputStream fis = new FileInputStream (fileName);
         ObjectInputStream ois = new ObjectInputStream(fis);
