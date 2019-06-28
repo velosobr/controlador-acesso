@@ -22,6 +22,7 @@ import br.ufsc.ine5605.controleacesso.View.TelaSwingPessoa;
 import br.ufsc.ine5605.controleacesso.View.TelaSwingPessoaCadastro;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlPessoa;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -102,16 +103,24 @@ public class CtrlPessoa implements ICtrlPessoa {
     
     @Override
     public boolean alteradorDeCadastroAluno(int matricula, String nome, long telefone, String email, String curso)throws Exception{
+        
+            
         Aluno alunoParaAlterar = (Aluno)findPessoabyMatricula(matricula);
         if(alunoParaAlterar==null){
-           throw new MatriculaInexisteException(); 
+            throw new MatriculaInexisteException(); 
         }
+            
+        if(nome.isEmpty() || email.isEmpty() ){
+            throw new CampoVazioException(); 
+      
+           }
         alunoParaAlterar.setNome(nome);
         alunoParaAlterar.setTelefone(telefone);
         alunoParaAlterar.setEmail(email);
         alunoParaAlterar.setCurso(email);
         PessoaDAO.getInstancia().persist();
         return true;
+        
         
     }
     
@@ -234,6 +243,11 @@ public class CtrlPessoa implements ICtrlPessoa {
     public Pessoa findPessoabyMatricula(int matricula){
         Pessoa pessoa = PessoaDAO.getInstancia().getPessoa(matricula);
         return pessoa;
+    }
+    
+    public ArrayList<Pessoa> listaPessoas(){
+        ArrayList<Pessoa> listaPessoas = PessoaDAO.getInstancia().getList();
+        return listaPessoas;
     }
 
 }

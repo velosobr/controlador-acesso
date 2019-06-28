@@ -8,7 +8,6 @@ package br.ufsc.ine5605.controleacesso.View;
 import br.ufsc.ine5605.controleacesso.Controller.CtrlAcesso;
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
 import br.ufsc.ine5605.controleacesso.Model.Acesso;
-import br.ufsc.ine5605.controleacesso.Persistencia.AcessoDAO;
 import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
 import java.awt.Color;
 import java.awt.Dimension;

@@ -6,12 +6,7 @@
 package br.ufsc.ine5605.controleacesso.View;
 
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPessoa;
-import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
-import br.ufsc.ine5605.controleacesso.Model.Aluno;
-import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
-import br.ufsc.ine5605.controleacesso.Model.Servidor;
-import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
 import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -130,7 +125,7 @@ public class TelaSwingGestaoPermissaoPessoa extends JFrame {
         modelo.addColumn("Centro");
         modelo.addColumn("Campus");
 
-        ArrayList<Sala> listaSalasCadastradas = PessoaDAO.getInstancia().getPessoa(matriculaPessoa).getSalasCadastradas();
+        ArrayList<Sala> listaSalasCadastradas = CtrlPessoa.getInstancia().findPessoabyMatricula(matriculaPessoa).getSalasCadastradas();
         if (listaSalasCadastradas == null) {
             modelo.addRow(new Object[]{"Sem sala cadastrada", "N/A", "N/A", "N/A", "N/A"});
         } else {
