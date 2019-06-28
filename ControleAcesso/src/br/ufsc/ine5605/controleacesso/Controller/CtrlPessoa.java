@@ -32,103 +32,92 @@ public class CtrlPessoa implements ICtrlPessoa {
 
     private static CtrlPessoa instancia;
 
-    private  TelaSwingPessoa telaPessoa;
-    
-    
-
     public CtrlPessoa() {
-       
-        
-        this.telaPessoa = new TelaSwingPessoa();
     }
-    
-    public static CtrlPessoa getInstancia(){
-        if(instancia == null)
+
+    public static CtrlPessoa getInstancia() {
+        if (instancia == null) {
             instancia = new CtrlPessoa();
+        }
         return instancia;
     }
-    
-    //public TelaPessoa getTelaPessoa() {
-        //return telaPessoa;
-    //}
 
+    //public TelaPessoa getTelaPessoa() {
+    //return telaPessoa;
+    //}
     public CtrlPrincipal getCtrlPrincipal() {
         return CtrlPrincipal.getInstancia();
     }
-   
+
     @Override
     public boolean incluiAluno(int matricula, String nome, long telefone, String email, String curso) throws Exception {
-        try{
+        try {
             Pessoa alunoParaVerificar = findPessoabyMatricula(matricula);
-        
-            if(nome.isEmpty() ||  email.isEmpty() || curso.isEmpty()){
+
+            if (nome.isEmpty() || email.isEmpty() || curso.isEmpty()) {
                 throw new CampoVazioException();
             }
-        
+
             if (alunoParaVerificar == null) {
                 Aluno alunoParaIncluir = new Aluno(matricula, nome, telefone, email, curso);
                 PessoaDAO.getInstancia().putAluno(alunoParaIncluir);
                 return true;
-            }else{
+            } else {
                 throw new MatriculaJahExisteException();
             }
-        }catch(NullPointerException npe){
+        } catch (NullPointerException npe) {
             throw new NullPointerException("Preencha corretamente os campos");
         }
-        
+
     }
 
     @Override
     public boolean incluiServidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador) throws Exception {
-        try{
+        try {
             Pessoa servidorParaVerificar = findPessoabyMatricula(matricula);
-            
-            if(nome.isEmpty() ||  email.isEmpty() || cargo.isEmpty()) {
+
+            if (nome.isEmpty() || email.isEmpty() || cargo.isEmpty()) {
                 throw new CampoVazioException();
             }
             if (servidorParaVerificar == null) {
                 Servidor servidorParaIncluir = new Servidor(matricula, nome, telefone, email, cargo, administrador);
                 PessoaDAO.getInstancia().putServidor(servidorParaIncluir);
                 return true;
-            }else{
+            } else {
                 throw new MatriculaJahExisteException();
             }
-        }catch (NullPointerException npe){
+        } catch (NullPointerException npe) {
             throw new NullPointerException("Preencha corretamente os campos");
         }
-        
-        
+
     }
-    
-    
+
     @Override
-    public boolean alteradorDeCadastroAluno(int matricula, String nome, long telefone, String email, String curso)throws Exception{
-        
-            
-        Aluno alunoParaAlterar = (Aluno)findPessoabyMatricula(matricula);
-        if(alunoParaAlterar==null){
-            throw new MatriculaInexisteException(); 
+    public boolean alteradorDeCadastroAluno(int matricula, String nome, long telefone, String email, String curso) throws Exception {
+
+        Aluno alunoParaAlterar = (Aluno) findPessoabyMatricula(matricula);
+        if (alunoParaAlterar == null) {
+            throw new MatriculaInexisteException();
         }
-            
-        if(nome.isEmpty() || email.isEmpty() ){
-            throw new CampoVazioException(); 
-      
-           }
+
+        if (nome.isEmpty() || email.isEmpty()) {
+            throw new CampoVazioException();
+
+        }
         alunoParaAlterar.setNome(nome);
         alunoParaAlterar.setTelefone(telefone);
         alunoParaAlterar.setEmail(email);
         alunoParaAlterar.setCurso(email);
         PessoaDAO.getInstancia().persist();
         return true;
-        
-        
+
     }
-    
+
     @Override
-    public boolean alteradorDeCadastroServidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador)throws Exception{
-        Servidor servidorParaAlterar = (Servidor)  findPessoabyMatricula(matricula);
-        if(servidorParaAlterar==null){
-           throw new MatriculaInexisteException();
+    public boolean alteradorDeCadastroServidor(int matricula, String nome, long telefone, String email, String cargo, boolean administrador) throws Exception {
+        Servidor servidorParaAlterar = (Servidor) findPessoabyMatricula(matricula);
+        if (servidorParaAlterar == null) {
+            throw new MatriculaInexisteException();
         }
         servidorParaAlterar.setNome(nome);
         servidorParaAlterar.getTelefone();
@@ -138,114 +127,111 @@ public class CtrlPessoa implements ICtrlPessoa {
         PessoaDAO.getInstancia().persist();
         return true;
     }
-    
+
     @Override
-    public boolean delPessoa(int matricula) throws MatriculaInexisteException{
+    public boolean delPessoa(int matricula) throws MatriculaInexisteException {
         Pessoa pessoaParaDeletar = findPessoabyMatricula(matricula);
-        
+
         if (pessoaParaDeletar != null) {
             PessoaDAO.getInstancia().remove(pessoaParaDeletar);
             return true;
         }
-        
-        if(pessoaParaDeletar == null){
+
+        if (pessoaParaDeletar == null) {
             throw new MatriculaInexisteException();
         }
         return false;
     }
-    
 
     @Override
     public boolean cadastraSalaNaPessoa(int matricula, String codigoSala) throws Exception {
         Sala salaParaCadastrar = SalaDAO.getInstancia().getSala(codigoSala);
         Pessoa pessoaCadastro = PessoaDAO.getInstancia().getPessoa(matricula);
-        ArrayList <Sala> salasCadastradas = pessoaCadastro.getSalasCadastradas();
+        ArrayList<Sala> salasCadastradas = pessoaCadastro.getSalasCadastradas();
         if (pessoaCadastro == null) {
             throw new MatriculaInexisteException();
         }
         if (salaParaCadastrar == null) {
             throw new CodigoSalaInexistenteException();
         }
-        
+
         Sala salaJahCadastrada = null;
-        for(Sala sala: salasCadastradas){
-            if(sala.getCodigoSala().equals(salaParaCadastrar.getCodigoSala())){
+        for (Sala sala : salasCadastradas) {
+            if (sala.getCodigoSala().equals(salaParaCadastrar.getCodigoSala())) {
                 salaJahCadastrada = sala;
             }
-        }        
-        
-        if (salaJahCadastrada != null){
+        }
+
+        if (salaJahCadastrada != null) {
             throw new PermissaoJahRealizadaException();
-       
-        }else{
-                
+
+        } else {
+
             pessoaCadastro.addSala(salaParaCadastrar);
             salaParaCadastrar.addPessoa(pessoaCadastro);
             PessoaDAO.getInstancia().persist();
             SalaDAO.getInstancia().persist();
-            return true;         
+            return true;
         }
 
     }
 
     @Override
     public void delSalaNaPessoa(int matricula, String codigoSala) throws Exception {
-        
+
         Sala salaParaDeletar = CtrlPrincipal.getInstancia().getCtrlSala().findSalaByCodigoSala(codigoSala);
-        Pessoa pessoaCadastro = findPessoabyMatricula(matricula);      
-        ArrayList <Sala> salasCadastradas = pessoaCadastro.getSalasCadastradas();
-        
+        Pessoa pessoaCadastro = findPessoabyMatricula(matricula);
+        ArrayList<Sala> salasCadastradas = pessoaCadastro.getSalasCadastradas();
+
         if (pessoaCadastro == null) {
             throw new MatriculaInexisteException();
         }
         if (salaParaDeletar == null) {
             throw new CodigoSalaInexistenteException();
         }
-        
+
         Sala salaJahCadastrada = null;
-        
-        for(Sala sala: salasCadastradas){
-            
-            if(sala.getCodigoSala().equals(salaParaDeletar.getCodigoSala()))
+
+        for (Sala sala : salasCadastradas) {
+
+            if (sala.getCodigoSala().equals(salaParaDeletar.getCodigoSala())) {
                 salaJahCadastrada = sala;
-            
+            }
+
         }
-        
-            pessoaCadastro.delSala(salaJahCadastrada);
-            salaParaDeletar.delPessoa(pessoaCadastro);
-            PessoaDAO.getInstancia().persist();
-            SalaDAO.getInstancia().persist();
-            
+
+        pessoaCadastro.delSala(salaJahCadastrada);
+        salaParaDeletar.delPessoa(pessoaCadastro);
+        PessoaDAO.getInstancia().persist();
+        SalaDAO.getInstancia().persist();
+
         if (salaJahCadastrada == null) {
             throw new CodigoSalaInexistenteException();
-            
-            
-        } 
+
+        }
 
     }
 
-   
     public void abreTelaSwingPessoa() {
         TelaSwingPessoa.getInstancia().setVisible(true);
     }
-    
-    public void abreTelaGestaoPermissaoPessoa(int matricula){
+
+    public void abreTelaGestaoPermissaoPessoa(int matricula) {
         TelaSwingGestaoPermissaoPessoa telaGestaoPermissaoPessoa = new TelaSwingGestaoPermissaoPessoa(matricula);
         telaGestaoPermissaoPessoa.setVisible(true);
     }
-    
-    public void abreTelaCadastroPessoa(int teste){
+
+    public void abreTelaCadastroPessoa(int teste) {
         TelaSwingPessoaCadastro telaCadastroPessoa = new TelaSwingPessoaCadastro(teste);
         telaCadastroPessoa.setVisible(true);
     }
-            
-            
-    public Pessoa findPessoabyMatricula(int matricula){
+
+    public Pessoa findPessoabyMatricula(int matricula) {
         Pessoa pessoa = PessoaDAO.getInstancia().getPessoa(matricula);
         return pessoa;
     }
-    
-    public ArrayList<Pessoa> listaPessoas(){
+
+    public ArrayList<Pessoa> listaPessoas() {
         ArrayList<Pessoa> listaPessoas = PessoaDAO.getInstancia().getList();
         return listaPessoas;
     }

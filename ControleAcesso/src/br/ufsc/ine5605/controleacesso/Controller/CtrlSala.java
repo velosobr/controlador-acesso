@@ -5,6 +5,11 @@
  */
 package br.ufsc.ine5605.controleacesso.Controller;
 
+import br.ufsc.ine5605.controleacesso.Exceptions.CampoVazioException;
+import br.ufsc.ine5605.controleacesso.Exceptions.CodigoSalaInexistenteException;
+import br.ufsc.ine5605.controleacesso.Exceptions.CodigoSalaJahExisteException;
+import br.ufsc.ine5605.controleacesso.Exceptions.MatriculaInexisteException;
+import br.ufsc.ine5605.controleacesso.Exceptions.PermissaoJahRealizadaException;
 import br.ufsc.ine5605.controleacesso.View.TelaSwingSalaCadastro;
 import br.ufsc.ine5605.controleacesso.View.TelaSwingGestaoPermissaoSala;
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
@@ -45,18 +50,27 @@ public class CtrlSala implements ICtrlSala {
     }
 
     @Override
-    public boolean addSala(String codigoSala, int numero, char bloco, String centro, String campus) throws IllegalArgumentException {
-        Sala salaParaVerificar = SalaDAO.getInstancia().getSala(codigoSala);
-        Sala salaParaIncluir = null;
-        if (codigoSala.equals("")) {
-            throw new IllegalArgumentException("Codigo de sala invalido, cadastro nao realizado!");
+    public boolean addSala(String codigoSala, int numero, char bloco, String centro, String campus) throws Exception {
+        try {
+
+            Sala salaParaVerificar = SalaDAO.getInstancia().getSala(codigoSala);
+
+            if (codigoSala.isEmpty() || centro.isEmpty() || campus.isEmpty()) {
+                throw new CampoVazioException();
+            }
+
+            if (salaParaVerificar == null) {
+                Sala salaParaIncluir = new Sala(codigoSala, numero, bloco, centro, campus);
+                SalaDAO.getInstancia().put(salaParaIncluir);
+                return true;
+            } else {
+                throw new CodigoSalaJahExisteException();
+            }
+
+        } catch (NullPointerException e) {
+            throw new NullPointerException("Preencha corretamente os campos");
         }
-        if (salaParaVerificar == null) {
-            salaParaIncluir = new Sala(codigoSala, numero, bloco, centro, campus);
-            SalaDAO.getInstancia().put(salaParaIncluir);
-            return true;
-        }
-        return false;
+
     }
 
     @Override
@@ -87,45 +101,64 @@ public class CtrlSala implements ICtrlSala {
     }
 
     @Override
-    public boolean cadastraPessoaNaSala(int matricula, String codigoSala) throws IllegalArgumentException {
+    public boolean cadastraPessoaNaSala(int matricula, String codigoSala) throws Exception {
+        Pessoa pessoaJahCadastrada = null;
         Pessoa pessoaParaCadastrar = PessoaDAO.getInstancia().getPessoa(matricula);
         Sala salaParaCadastrar = SalaDAO.getInstancia().getSala(codigoSala);
+
+        ArrayList<Pessoa> pessoasCadastradas = salaParaCadastrar.getPessoasCadastradas();
         if (pessoaParaCadastrar == null) {
-            throw new IllegalArgumentException("Matricula invalida");
+            throw new MatriculaInexisteException();
         }
         if (salaParaCadastrar == null) {
-            throw new IllegalArgumentException("Codigo de sala invalido");
+            throw new CodigoSalaInexistenteException();
         }
 
-        if (!salaParaCadastrar.getPessoasCadastradas().contains(pessoaParaCadastrar)) {
+        for (Pessoa pessoa : pessoasCadastradas) {
+            if (pessoa.getMatricula() == pessoaParaCadastrar.getMatricula()) {
+                pessoaJahCadastrada = pessoa;
+            }
+        }
+
+        if (pessoaJahCadastrada != null) {
+            throw new PermissaoJahRealizadaException();
+        } else {
             pessoaParaCadastrar.addSala(salaParaCadastrar);
             salaParaCadastrar.addPessoa(pessoaParaCadastrar);
             SalaDAO.getInstancia().persist();
             PessoaDAO.getInstancia().persist();
             return true;
-        } else {
-            throw new IllegalArgumentException("A pessoa ja esta adicionada na sala. Tente novamente.");
-        }
 
+        }
     }
 
     @Override
-    public boolean deletaPessoaNaSala(int matricula, String codigoSala) throws IllegalArgumentException {
+    public void deletaPessoaNaSala(int matricula, String codigoSala) throws Exception {
+        Pessoa pessoaJahCadastrada = null;
         Pessoa pessoaParaDeletar = PessoaDAO.getInstancia().getPessoa(matricula);
         Sala salaParaDeletar = SalaDAO.getInstancia().getSala(codigoSala);
+        ArrayList<Pessoa> pessoasCadastradas = salaParaDeletar.getPessoasCadastradas();
+
         if (pessoaParaDeletar == null) {
-            throw new IllegalArgumentException("Matricula invalida");
+            throw new MatriculaInexisteException();
         }
         if (salaParaDeletar == null) {
-            throw new IllegalArgumentException("Codigo de sala invalido");
+            throw new CodigoSalaInexistenteException();
         }
-        if (salaParaDeletar.getPessoasCadastradas().contains(pessoaParaDeletar)) {
-            pessoaParaDeletar.delSala(salaParaDeletar);
-            salaParaDeletar.delPessoa(pessoaParaDeletar);
-            return true;
-        } else {
-            throw new IllegalArgumentException("A pessoa nao consta na lista de pessoas da sala.");
+        for (Pessoa pessoa : pessoasCadastradas) {
+
+            if (pessoa.getMatricula() == pessoaParaDeletar.getMatricula()) {
+                pessoaJahCadastrada = pessoa;
+            }
+
         }
+        if (pessoaJahCadastrada == null) {
+            throw new MatriculaInexisteException();
+        }
+        salaParaDeletar.delPessoa(PessoaDAO.getInstancia().getPessoa(matricula));
+        pessoaParaDeletar.delSala(SalaDAO.getInstancia().getSala(codigoSala));
+        SalaDAO.getInstancia().persist();
+        PessoaDAO.getInstancia().persist();
 
     }
 
@@ -183,7 +216,7 @@ public class CtrlSala implements ICtrlSala {
     }
 
     public void abreTelaCadastroSala() {
-         TelaSwingSalaCadastro telaCadastroSala = new TelaSwingSalaCadastro();
+        TelaSwingSalaCadastro telaCadastroSala = new TelaSwingSalaCadastro();
         telaCadastroSala.setVisible(true);
     }
 

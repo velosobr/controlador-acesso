@@ -5,14 +5,10 @@
  */
 package br.ufsc.ine5605.controleacesso.View;
 
-import br.ufsc.ine5605.controleacesso.Controller.CtrlPessoa;
 import br.ufsc.ine5605.controleacesso.Controller.CtrlSala;
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
-import br.ufsc.ine5605.controleacesso.Model.Sala;
-import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
 import br.ufsc.ine5605.controleacesso.Persistencia.SalaDAO;
 import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
-import com.sun.corba.se.impl.naming.namingutil.INSURL;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -29,7 +25,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SpringLayout;
 import javax.swing.table.DefaultTableModel;
 
 /**

@@ -294,63 +294,63 @@ public class TelaSwingSala extends JFrame {
         }
     }
 
-    private void deletaPessoaNaSala() {
-        System.out.println("---");
-        System.out.println("Informacoes para exclusao de acesso da pessoa na sala");
-        System.out.println("---");
-        int matricula = validador.recebeValorInteiro("Digite a matricula");
-        String codigoSala = validador.recebeValorString("Digite o codigo da sala");
-        CtrlSala.getInstancia().deletaPessoaNaSala(matricula, codigoSala);
-        System.out.println("Exclusao feita com sucesso");
-    }
-
-    private void listaPessoasCadastradasNaSala() {
-        System.out.println("---");
-        System.out.println("Informacoes para listar pessoas cadastradas na sala");
-        System.out.println("---");
-        String codigoSala = validador.recebeValorString("Digite o codigo da sala");
-        String listaDePessoas = CtrlSala.getInstancia().listaPessoasCadastradas(codigoSala);
-        System.out.println("Estas sao as pessoas cadastradas na sala: ");
-        System.out.println(listaDePessoas);
-    }
-
-    private void listAllSalasCadastradas() {
-        System.out.println("---");
-        System.out.println("Lista todas as salas cadastradas no sistema");
-        System.out.println("---");
-        System.out.println(CtrlSala.getInstancia().listAllSalasCadastradas());
-    }
-
-    private void cadastraPessoaNaSala() {
-        System.out.println("---");
-        System.out.println("Informacoes para inclusao de acesso da pessoa na sala");
-        System.out.println("---");
-        int matricula = validador.recebeValorInteiro("Digite a matricula");
-        String codigoSala = validador.recebeValorString("Digite o codigo da sala");
-        CtrlSala.getInstancia().cadastraPessoaNaSala(matricula, codigoSala);
-
-        System.out.println("Inclusao feita com sucesso");
-
-    }
-
-    private void encontraSalaPorCodigo() {
-        System.out.println("---");
-        System.out.println("Informacao para encontrar sala e mostrar suas informacoes na tela");
-        System.out.println("---");
-        String codigoSala = validador.recebeValorString("Digite o codigo da sala");
-
-        Sala sala = null;
-
-        if (CtrlSala.getInstancia().findSalaByCodigoSala(codigoSala) != null) {
-            sala = CtrlSala.getInstancia().findSalaByCodigoSala(codigoSala);
-        } else {
-            System.out.println("Nao foi encontrado uma sala com o codigo digitado. Tente novamente com um codigo valido");
-        }
-
-        System.out.println("Numero da sala: " + sala.getNumero());
-        System.out.println("Bloco da sala: " + sala.getBloco());
-        System.out.println("Centro : " + sala.getCentro());
-        System.out.println("Campus: " + sala.getCampus());
-    }
+//    private void deletaPessoaNaSala() {
+//        System.out.println("---");
+//        System.out.println("Informacoes para exclusao de acesso da pessoa na sala");
+//        System.out.println("---");
+//        int matricula = validador.recebeValorInteiro("Digite a matricula");
+//        String codigoSala = validador.recebeValorString("Digite o codigo da sala");
+//        CtrlSala.getInstancia().deletaPessoaNaSala(matricula, codigoSala);
+//        System.out.println("Exclusao feita com sucesso");
+//    }
+//
+//    private void listaPessoasCadastradasNaSala() {
+//        System.out.println("---");
+//        System.out.println("Informacoes para listar pessoas cadastradas na sala");
+//        System.out.println("---");
+//        String codigoSala = validador.recebeValorString("Digite o codigo da sala");
+//        String listaDePessoas = CtrlSala.getInstancia().listaPessoasCadastradas(codigoSala);
+//        System.out.println("Estas sao as pessoas cadastradas na sala: ");
+//        System.out.println(listaDePessoas);
+//    }
+//
+//    private void listAllSalasCadastradas() {
+//        System.out.println("---");
+//        System.out.println("Lista todas as salas cadastradas no sistema");
+//        System.out.println("---");
+//        System.out.println(CtrlSala.getInstancia().listAllSalasCadastradas());
+//    }
+//
+//    private void cadastraPessoaNaSala() {
+//        System.out.println("---");
+//        System.out.println("Informacoes para inclusao de acesso da pessoa na sala");
+//        System.out.println("---");
+//        int matricula = validador.recebeValorInteiro("Digite a matricula");
+//        String codigoSala = validador.recebeValorString("Digite o codigo da sala");
+//        CtrlSala.getInstancia().cadastraPessoaNaSala(matricula, codigoSala);
+//
+//        System.out.println("Inclusao feita com sucesso");
+//
+//    }
+//
+//    private void encontraSalaPorCodigo() {
+//        System.out.println("---");
+//        System.out.println("Informacao para encontrar sala e mostrar suas informacoes na tela");
+//        System.out.println("---");
+//        String codigoSala = validador.recebeValorString("Digite o codigo da sala");
+//
+//        Sala sala = null;
+//
+//        if (CtrlSala.getInstancia().findSalaByCodigoSala(codigoSala) != null) {
+//            sala = CtrlSala.getInstancia().findSalaByCodigoSala(codigoSala);
+//        } else {
+//            System.out.println("Nao foi encontrado uma sala com o codigo digitado. Tente novamente com um codigo valido");
+//        }
+//
+//        System.out.println("Numero da sala: " + sala.getNumero());
+//        System.out.println("Bloco da sala: " + sala.getBloco());
+//        System.out.println("Centro : " + sala.getCentro());
+//        System.out.println("Campus: " + sala.getCampus());
+//    }
 
 }

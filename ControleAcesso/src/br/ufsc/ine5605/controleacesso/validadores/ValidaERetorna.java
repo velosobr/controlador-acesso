@@ -22,25 +22,19 @@ public class ValidaERetorna {
             try {
                 String v = JOptionPane.showInputDialog(null, mensagem);
                 if (v == null) {
-                    System.out.println("Erro");
                     break;
                 } else {
-
                     if (v.length() == 0) {
                         JOptionPane.showMessageDialog(null, "STRING: Você precisa digitar um valor válido, tente novamente");
-
                     } else {
                         valor = v;
                     }
                 }
-
             } catch (Exception npe) {
                 break;
-
             }
         }
         return valor;
-
     }
 
     public int recebeValorInteiro(String mensagem) {
@@ -86,7 +80,7 @@ public class ValidaERetorna {
                     throw new IllegalArgumentException("Voce deve digitar opcoes validas. Selecione um tipo dentre os tipos listados.");
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("recebeValorBoolean: "+e.getMessage());
+            System.out.println("recebeValorBoolean: " + e.getMessage());
             //this.recebeValorBoolean("Tente novamente");
         }
 
@@ -131,16 +125,15 @@ public class ValidaERetorna {
 //    }
     public long recebeValorLong(String mensagem) {
         long valor = -1;
-        try{
+        try {
             do {
                 valor = Long.parseLong(JOptionPane.showInputDialog(mensagem));
 
             } while (valor == -1);
 
-            
-        }catch (NumberFormatException nfe){
+        } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(null, "Digite um numero inteiro para telefone");
         }
-       return valor; 
+        return valor;
     }
 }
