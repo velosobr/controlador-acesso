@@ -5,11 +5,13 @@
  */
 package br.ufsc.ine5605.controleacesso.Controller;
 
+import br.ufsc.ine5605.controleacesso.View.TelaSwingSalaCadastro;
 import br.ufsc.ine5605.controleacesso.View.TelaSwingGestaoPermissaoSala;
 import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
 import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
 import br.ufsc.ine5605.controleacesso.Persistencia.SalaDAO;
+import br.ufsc.ine5605.controleacesso.View.TelaSwingPessoaCadastro;
 import br.ufsc.ine5605.controleacesso.View.TelaSwingPrincipal;
 import br.ufsc.ine5605.controleacesso.View.TelaSwingSala;
 import br.ufsc.ine5605.controleacesso.interfaces.ICtrlSala;
@@ -34,7 +36,7 @@ public class CtrlSala implements ICtrlSala {
     }
 
     public TelaSwingSala getTelaSwingSala() {
-        return TelaSwingSala.GetInstancia();
+        return TelaSwingSala.getInstancia();
     }
 
     public CtrlPrincipal getCtrlPrincipal() {
@@ -171,13 +173,18 @@ public class CtrlSala implements ICtrlSala {
     }
 
     public void abreTelaSwingSala() {
-        TelaSwingSala.GetInstancia().setVisible(true);
+        TelaSwingSala.getInstancia().setVisible(true);
     }
 
     public void abreTelaGestaoPermissaoSala(String codSala) {
         TelaSwingGestaoPermissaoSala telaGestaoPermissaoSala = new TelaSwingGestaoPermissaoSala(codSala);
         telaGestaoPermissaoSala.setVisible(true);
 
+    }
+
+    public void abreTelaCadastroSala() {
+         TelaSwingSalaCadastro telaCadastroSala = new TelaSwingSalaCadastro();
+        telaCadastroSala.setVisible(true);
     }
 
 }

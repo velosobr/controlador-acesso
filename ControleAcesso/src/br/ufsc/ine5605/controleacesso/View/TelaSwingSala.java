@@ -4,14 +4,11 @@
  * and open the template in the editor.
  */
 package br.ufsc.ine5605.controleacesso.View;
+//IMPORTS
 
 import br.ufsc.ine5605.controleacesso.Controller.CtrlPrincipal;
 import br.ufsc.ine5605.controleacesso.Controller.CtrlSala;
-import br.ufsc.ine5605.controleacesso.Model.Aluno;
-import br.ufsc.ine5605.controleacesso.Model.Pessoa;
 import br.ufsc.ine5605.controleacesso.Model.Sala;
-import br.ufsc.ine5605.controleacesso.Model.Servidor;
-import br.ufsc.ine5605.controleacesso.Persistencia.PessoaDAO;
 import br.ufsc.ine5605.controleacesso.Persistencia.SalaDAO;
 import br.ufsc.ine5605.controleacesso.validadores.ValidaERetorna;
 import java.awt.Color;
@@ -48,17 +45,16 @@ public class TelaSwingSala extends JFrame {
     private ValidaERetorna validador = new ValidaERetorna();
 
     private static TelaSwingSala instancia;
-
-    public static TelaSwingSala GetInstancia() {
-        if (instancia == null) {
-            instancia = new TelaSwingSala();
-        }
-        return instancia;
-    }
+//CONSTRUTOR
 
     public TelaSwingSala() {
         super("Gerenciamento de salas");
+        getContentPane().add(panelPrincipal());
 
+    }
+
+    //CRIAÇÃO DO PAINEL
+    private JPanel panelPrincipal() {
         JPanel panelSala = new JPanel(new GridBagLayout());
 
         GridBagConstraints constraintsPanel = new GridBagConstraints();
@@ -72,16 +68,11 @@ public class TelaSwingSala extends JFrame {
 
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        getContentPane().add(panelSala);
 
         GridBagConstraints gbcBTN = new GridBagConstraints();
         gbcBTN.insets = new Insets(5, 5, 5, 5);
 
 //COMPONENTES TELASWINGSALA
-// Label
-        label = new JLabel();
-        label.setText("Selecione uma das opções");
-
 //Botao Cadastro
         cadastro = new JButton("Cadastro");
         cadastro.setActionCommand("cadastro");
@@ -153,9 +144,11 @@ public class TelaSwingSala extends JFrame {
         panelSala.add(scroll, gbcTable);
 
         updateTable();
+
+        return panelSala;
     }
 
-    private void updateTable() {
+    public void updateTable() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.setNumRows(0);
         modelo.addColumn("Codigo");
@@ -222,8 +215,8 @@ public class TelaSwingSala extends JFrame {
         return instancia;
     }
 
-    public CtrlPrincipal getCtrlPrincipal() {
-        return CtrlPrincipal.getInstancia();
+    public CtrlSala getCtrlSala() {
+        return CtrlSala.getInstancia();
     }
 
     private boolean removeSala() {
@@ -238,35 +231,57 @@ public class TelaSwingSala extends JFrame {
     }
 
     private void cadastraSala() {
-        String codigoSala = validador.recebeValorString("Digite o codigo da sala");
-        int numero = validador.recebeValorInteiro("Digite o numero da sala");
-        char bloco = validador.recebeValorChar("Digite bloco da sala");
-        String centro = validador.recebeValorString("Digite o centro da sala");
-        String campus = validador.recebeValorString("Digite o campus que a sala fica localizada");
 
-        if (CtrlSala.getInstancia().addSala(codigoSala, numero, bloco, centro, campus)) {
-            System.out.println("Sala cadastrada!");
-        } else {
-            System.out.println("Nao foi realizado o cadastro, codigo de sala ja cadastrado!");
+        try {
+
+            getCtrlSala().abreTelaCadastroSala();
+
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, exception.getMessage());
+
         }
+//        String codigoSala = validador.recebeValorString("Digite o codigo da sala");
+//        int numero = validador.recebeValorInteiro("Digite o numero da sala");
+//        char bloco = validador.recebeValorChar("Digite bloco da sala");
+//        String centro = validador.recebeValorString("Digite o centro da sala");
+//        String campus = validador.recebeValorString("Digite o campus que a sala fica localizada");
+//
+//        if (CtrlSala.getInstancia().addSala(codigoSala, numero, bloco, centro, campus)) {
+//            System.out.println("Sala cadastrada!");
+//        } else {
+//            System.out.println("Nao foi realizado o cadastro, codigo de sala ja cadastrado!");
+//        }
     }
 
     private void editaSala() {
+        int linhaSelecionada = table.getSelectedRow();
+        if (linhaSelecionada >= 0) {
+            String codigoSala = (String) table.getValueAt(linhaSelecionada, 0);
+            try {
 
-        String codigoSala = validador.recebeValorString("Digite o codigo da sala");
-        int numero = validador.recebeValorInteiro("Digite o numero da sala");
-        char bloco = validador.recebeValorChar("Digite bloco da sala");
-        String centro = validador.recebeValorString("Digite o centro da sala");
-        String campus = validador.recebeValorString("Digite o campus que a sala fica localizada");
-        CtrlSala.getInstancia().alteradorDeCadastroSala(codigoSala, numero, bloco, centro, campus);
-        System.out.println("Cadastro de sala alterado!");
+                int numero = validador.recebeValorInteiro("Digite o numero da sala");
+                char bloco = validador.recebeValorChar("Digite bloco da sala");
+                String centro = validador.recebeValorString("Digite o centro da sala");
+                String campus = validador.recebeValorString("Digite o campus que a sala fica localizada");
+                CtrlSala.getInstancia().alteradorDeCadastroSala(codigoSala, numero, bloco, centro, campus);
+                JOptionPane.showMessageDialog(null, "Cadastro de sala alterado!");
+            } catch (Exception e) {
+
+                if (e.getMessage().equals("null")) {
+
+                } else {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                }
+            }
+        }
+
     }
 
     private void opcoesPermissao() {
         int linhaSelecionada = table.getSelectedRow();
         if (linhaSelecionada >= 0) {
             String codSala = (String) table.getValueAt(linhaSelecionada, 0);
-            getCtrlPrincipal().getCtrlSala().abreTelaGestaoPermissaoSala(codSala);
+            getCtrlSala().abreTelaGestaoPermissaoSala(codSala);
         } else {
             JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
         }
