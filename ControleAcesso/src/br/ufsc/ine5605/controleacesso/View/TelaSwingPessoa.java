@@ -287,12 +287,12 @@ public class TelaSwingPessoa extends JFrame {
                 JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
             }
         } catch (Exception exception) {
-            
-            if(exception.getMessage().equals("null")){
-                
-            }else{
-            JOptionPane.showMessageDialog(null, exception.getMessage());
-                }
+
+            if (exception.getMessage().equals("null")) {
+
+            } else {
+                JOptionPane.showMessageDialog(null, exception.getMessage());
+            }
         }
 
     }

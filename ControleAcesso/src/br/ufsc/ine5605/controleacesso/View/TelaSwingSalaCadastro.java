@@ -86,7 +86,7 @@ public class TelaSwingSalaCadastro extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridwidth = 2;
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 0;
         panelSala.add(codigoTextField, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -141,7 +141,7 @@ public class TelaSwingSalaCadastro extends JFrame {
         panelSala.add(campusTextField, gbc);
         //confirmar e cancelar
         confirmar = new JButton("Confirmar");
-        confirmar.setActionCommand("confirmarSala");
+        confirmar.setActionCommand("confirmaSala");
         gbc.gridwidth = 1;
         gbc.gridx = 0;
         gbc.gridy = 5;

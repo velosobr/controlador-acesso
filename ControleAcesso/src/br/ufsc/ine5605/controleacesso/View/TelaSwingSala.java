@@ -254,14 +254,26 @@ public class TelaSwingSala extends JFrame {
     }
 
     private void editaSala() {
+        int linhaSelecionada = table.getSelectedRow();
+        if (linhaSelecionada >= 0) {
+            String codigoSala = (String) table.getValueAt(linhaSelecionada, 0);
+            try {
 
-        String codigoSala = validador.recebeValorString("Digite o codigo da sala");
-        int numero = validador.recebeValorInteiro("Digite o numero da sala");
-        char bloco = validador.recebeValorChar("Digite bloco da sala");
-        String centro = validador.recebeValorString("Digite o centro da sala");
-        String campus = validador.recebeValorString("Digite o campus que a sala fica localizada");
-        CtrlSala.getInstancia().alteradorDeCadastroSala(codigoSala, numero, bloco, centro, campus);
-        System.out.println("Cadastro de sala alterado!");
+                int numero = validador.recebeValorInteiro("Digite o numero da sala");
+                char bloco = validador.recebeValorChar("Digite bloco da sala");
+                String centro = validador.recebeValorString("Digite o centro da sala");
+                String campus = validador.recebeValorString("Digite o campus que a sala fica localizada");
+                CtrlSala.getInstancia().alteradorDeCadastroSala(codigoSala, numero, bloco, centro, campus);
+                JOptionPane.showMessageDialog(null, "Cadastro de sala alterado!");
+            } catch (Exception e) {
+
+                if (e.getMessage().equals("null")) {
+
+                } else {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                }
+            }
+        }
     }
 
     private void opcoesPermissao() {
