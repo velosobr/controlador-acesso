@@ -182,9 +182,16 @@ public class TelaSwingSala extends JFrame {
                         updateTable();
                         break;
                     case ("remover"):
-                        removeSala();
-                        updateTable();
+                        int response = JOptionPane.showConfirmDialog(null, "Você tem certeza que vai excluir???", "Confirmar exclusão", JOptionPane.YES_NO_OPTION, JOptionPane.OK_CANCEL_OPTION);
+                        if (response == JOptionPane.NO_OPTION) {
+                            updateTable();
+
+                        } else if (response == JOptionPane.YES_OPTION) {
+                            removeSala();
+                            updateTable();
+                        }
                         break;
+
                     case ("opcoesPermissao"):
 
                         opcoesPermissao();

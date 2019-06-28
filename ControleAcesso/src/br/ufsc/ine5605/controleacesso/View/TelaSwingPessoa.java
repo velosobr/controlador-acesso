@@ -39,27 +39,24 @@ public class TelaSwingPessoa extends JFrame {
 
     private static TelaSwingPessoa instancia;
     private JLabel label;
-    
-    
+
     private JButton cadastro;
     private JButton editar;
     private JButton remover;
     private JButton opcoesPermissao;
     private JButton voltar;
     private JTable table;
-   
+
     private ValidaERetorna validador = new ValidaERetorna();
 
     public TelaSwingPessoa() {
         super("Opcoes de gerenciamento de pessoa");
-    getContentPane().add( panelPrincipal());
-       
-        
+        getContentPane().add(panelPrincipal());
+
     }
-    
- 
+
 //COMPONENTES PANELCADASTRO
-    private JPanel panelPrincipal(){
+    private JPanel panelPrincipal() {
         JPanel panelPessoa = new JPanel(new GridBagLayout());
 
         panelPessoa.setBackground(Color.WHITE);
@@ -67,7 +64,7 @@ public class TelaSwingPessoa extends JFrame {
         panelPessoa.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Opcoes Pessoa"));
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 
@@ -153,11 +150,10 @@ public class TelaSwingPessoa extends JFrame {
         panelPessoa.add(scroll, gbcTable);
 
         updateTable();
-        
+
         return panelPessoa;
     }
-    
-    
+
     public void updateTable() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.setNumRows(0);
@@ -188,7 +184,9 @@ public class TelaSwingPessoa extends JFrame {
     }
 
     private class GerenciadorBotoes implements ActionListener {
+
         TelaSwingPessoa telaPessoa;
+
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
@@ -202,15 +200,21 @@ public class TelaSwingPessoa extends JFrame {
                         updateTable();
                         break;
                     case ("remover"):
-                        removerPessoa();
-                        updateTable();
+                        int response = JOptionPane.showConfirmDialog(null, "Você tem certeza que vai excluir???", "Confirmar exclusão", JOptionPane.YES_NO_OPTION, JOptionPane.OK_CANCEL_OPTION);
+                        if (response == JOptionPane.NO_OPTION) {
+                            updateTable();
+
+                        } else if (response == JOptionPane.YES_OPTION) {
+                            removerPessoa();
+                            updateTable();
+                        }
                         break;
                     case ("opcoesPermissao"):
 
                         opcoesPermissao();
 
                         break;
-                        
+
                     case ("voltar"):
                         setVisible(false);
                         CtrlPrincipal.getInstancia().abreTelaAdm();
@@ -228,14 +232,12 @@ public class TelaSwingPessoa extends JFrame {
 
     private void cadastraPessoa() {
 
-            
         String[] opcoes = {"Aluno", "Servidor"};
-        try{
-        int teste = JOptionPane.showOptionDialog(null, "Escolha um tipo de pessoa", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
-        getCtrlPessoa().abreTelaCadastroPessoa(teste);
-                  
-                    
-        }catch (Exception exception){
+        try {
+            int teste = JOptionPane.showOptionDialog(null, "Escolha um tipo de pessoa", "Selecione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+            getCtrlPessoa().abreTelaCadastroPessoa(teste);
+
+        } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage());
 
         }
@@ -244,10 +246,10 @@ public class TelaSwingPessoa extends JFrame {
     private void editarPessoa() throws Exception {
 
         int linhaSelecionada = table.getSelectedRow();
-        if (linhaSelecionada < 0){
-            
+        if (linhaSelecionada < 0) {
+
         }
-        try{
+        try {
             if (linhaSelecionada >= 0) {
                 String tipoPessoa = table.getValueAt(linhaSelecionada, 7).toString();
                 int matricula = (int) table.getValueAt(linhaSelecionada, 0);
@@ -256,12 +258,12 @@ public class TelaSwingPessoa extends JFrame {
                     long telefone = validador.recebeValorLong("Digite o telefone: ");
                     String email = validador.recebeValorString("Digite o email: ");
                     String curso = validador.recebeValorString("Digite o curso: ");
-                    if(nome.equals("vazio")|curso.equals("vazio")){//|email.equals("vazio")| curso.equals("vazio")){
+                    if (nome.equals("vazio") | curso.equals("vazio")) {//|email.equals("vazio")| curso.equals("vazio")){
                         JOptionPane.showMessageDialog(null, "Edicao de cadastro nao realizada! Preencha os campos corretamente");
-                    }else{
+                    } else {
                         getCtrlPessoa().alteradorDeCadastroAluno(matricula, nome, telefone, email, curso);
                     }
-                    
+
                 } else {
                     String nome = validador.recebeValorString("Digite o nome: ");
                     long telefone = validador.recebeValorLong("Digite o telefone: ");
@@ -280,62 +282,59 @@ public class TelaSwingPessoa extends JFrame {
                             cargo = TipoCargo.TECNICOLABORATORIO.getDescricao();
                             break;
                     }
-                
+
                     boolean administrador = validador.recebeValorBoolean();
-                
-                    if(nome.equals("vazio")|email.equals("vazio")){
+
+                    if (nome.equals("vazio") | email.equals("vazio")) {
                         JOptionPane.showMessageDialog(null, "Edicao de cadastro nao realizada! Preencha os campos corretamente");
-                        
-                    }else{
+
+                    } else {
                         getCtrlPessoa().alteradorDeCadastroServidor(matricula, nome, telefone, email, cargo, administrador);
                     }
-                    
-                }   
-            }else {
+
+                }
+            } else {
                 JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
-            
+
             }
-            
-        }catch (Exception exception){
-            
+
+        } catch (Exception exception) {
+
             JOptionPane.showMessageDialog(null, exception.getMessage());
         }
-        
+
     }
 
     private void removerPessoa() {
         int linhaSelecionada = table.getSelectedRow();
-        try{
+        try {
             if (linhaSelecionada >= 0) {
                 int matricula = (int) table.getValueAt(linhaSelecionada, 0);
                 CtrlPessoa.getInstancia().delPessoa(matricula);
             } else {
                 JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
             }
-                
-        }catch (Exception exception){
+
+        } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage());
         }
-        
+
     }
 
     private void opcoesPermissao() {
         Integer linhaSelecionada = table.getSelectedRow();
-        try{
+        try {
             if (linhaSelecionada >= 0) {
-            int matricula = (int) table.getValueAt(linhaSelecionada, 0);
-            getCtrlPessoa().abreTelaGestaoPermissaoPessoa(matricula);
+                int matricula = (int) table.getValueAt(linhaSelecionada, 0);
+                getCtrlPessoa().abreTelaGestaoPermissaoPessoa(matricula);
             } else {
-            JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
             }
-        }catch (Exception exception){
-             JOptionPane.showMessageDialog(null, exception.getMessage());
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, exception.getMessage());
         }
-        
-       
+
     }
-    
-    
 
     /**
      * @return the instancia

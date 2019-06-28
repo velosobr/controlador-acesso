@@ -371,9 +371,9 @@ public class TelaSwingPessoaCadastro extends JFrame {
             
             try{
               
-                Integer matriculaParaCadastrar = Integer.valueOf(matriculaTextField.getText());
+                int matriculaParaCadastrar = Integer.valueOf(matriculaTextField.getText());
                 String nomeParaCadastrar = nomeTextField.getText();
-                long telefoneParaCadastrar = Integer.valueOf(telefoneTextField.getText());
+                long telefoneParaCadastrar = Long.parseLong(telefoneTextField.getText());
                 String emailParaCadastrar = emailTextField.getText();
                 String cursoParaCadastrar = cursoTextField.getText();
                 CtrlPessoa.getInstancia().incluiAluno(matriculaParaCadastrar, nomeParaCadastrar, telefoneParaCadastrar, emailParaCadastrar, cursoParaCadastrar);
@@ -394,9 +394,9 @@ public class TelaSwingPessoaCadastro extends JFrame {
 
     private void cadastroServidor() throws Exception{
             try{    
-                Integer matriculaParaCadastrar = Integer.valueOf(matriculaTextField.getText());
+                int matriculaParaCadastrar = Integer.valueOf(matriculaTextField.getText());
                 String nomeParaCadastrar = nomeTextField.getText();
-                long telefoneParaCadastrar = Integer.valueOf(telefoneTextField.getText());
+                long telefoneParaCadastrar = Long.parseLong(telefoneTextField.getText());
                 String emailParaCadastrar = emailTextField.getText();
                 
                 String cargoParaCadastrar = cargoField.getSelectedItem().toString();

@@ -111,11 +111,13 @@ public class TelaSwingPrincipal extends JFrame {
                 int matricula = validador.recebeValorInteiro("Digite a matricula: ");
                 String codSala = validador.recebeValorString("Digite a sala que deseja entrar: ");
                 try {
-                    if (!codSala.equals("")) {
-                        if (validacaoPorta(matricula, codSala)) {
-                            JOptionPane.showMessageDialog(null, "Porta aberta");
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Você não possui acesso");
+                    if (!codSala.equals("vazio")) {
+                        if (!codSala.equals("")) {
+                            if (validacaoPorta(matricula, codSala)) {
+                                JOptionPane.showMessageDialog(null, "Porta aberta");
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Você não possui acesso");
+                            }
                         }
                     }
                 } catch (Exception exception) {
@@ -151,17 +153,17 @@ public class TelaSwingPrincipal extends JFrame {
 
     private boolean validacaoTelaAdm(int matricula) {
         boolean ehAdm = false;
-        try{
+        try {
             if (PessoaDAO.getInstancia().getPessoa(matricula) instanceof Servidor) {
-            Servidor servidor = (Servidor) PessoaDAO.getInstancia().getPessoa(matricula);
-            ehAdm = servidor.isAdministrador();
+                Servidor servidor = (Servidor) PessoaDAO.getInstancia().getPessoa(matricula);
+                ehAdm = servidor.isAdministrador();
             } else {
-            JOptionPane.showMessageDialog(null, "Somente servidores tem permissao de acesso");
+                JOptionPane.showMessageDialog(null, "Somente servidores tem permissao de acesso");
             }
-        }catch (Exception exception){
+        } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage());
         }
-        
+
         return ehAdm;
     }
 }
